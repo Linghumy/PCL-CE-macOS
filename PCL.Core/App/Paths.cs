@@ -18,6 +18,7 @@ public static class Paths
     private static string _sharedData;
     private static string _sharedLocalData;
     private static string _temp;
+    private static string _centralRoot;
 
     static Paths()
     {
@@ -31,6 +32,9 @@ public static class Paths
         PackageKind = _ReadPackageKind();
 
         // fill paths
+        _centralRoot = Path.Combine(
+            Environment.GetFolderPath(Special.UserProfile),
+            "PCL-CE");
         _data = Path.Combine(DefaultDirectory, "PCL");
         _sharedData = GetSpecialPath(Special.ApplicationData, name);
         _sharedLocalData = GetSpecialPath(Special.LocalApplicationData, name);
@@ -38,12 +42,43 @@ public static class Paths
         OldSharedData = GetSpecialPath(Special.ApplicationData, oldName);
 
         var dataOverride = Environment.GetEnvironmentVariable("PCL_DATA_DIR");
-        if (!string.IsNullOrWhiteSpace(dataOverride))
+        var centralRootOverride = Environment.GetEnvironmentVariable("PCL_CE_ROOT");
+        var usesCentralStorage = PackageKind == "macos-app"
+                                 || !string.IsNullOrWhiteSpace(centralRootOverride);
+
+        if (usesCentralStorage)
+        {
+            if (!string.IsNullOrWhiteSpace(centralRootOverride))
+                _centralRoot = Path.GetFullPath(ExpandUserPath(centralRootOverride));
+
+            _data = Path.GetFullPath(
+                string.IsNullOrWhiteSpace(dataOverride)
+                    ? Path.Combine(_centralRoot, "Launcher")
+                    : ExpandUserPath(dataOverride));
+            _sharedData = _data;
+
+            var cacheOverride = Environment.GetEnvironmentVariable("PCL_CACHE_DIR");
+            _sharedLocalData = Path.GetFullPath(
+                string.IsNullOrWhiteSpace(cacheOverride)
+                    ? Path.Combine(_centralRoot, "Cache")
+                    : ExpandUserPath(cacheOverride));
+
+            var tempOverride = Environment.GetEnvironmentVariable("PCL_TEMP_DIR");
+            _temp = Path.GetFullPath(
+                string.IsNullOrWhiteSpace(tempOverride)
+                    ? Path.Combine(_centralRoot, "Temp")
+                    : ExpandUserPath(tempOverride));
+        }
+        else if (!string.IsNullOrWhiteSpace(dataOverride))
+        {
             _data = Path.GetFullPath(ExpandUserPath(dataOverride));
+        }
         else if (!string.IsNullOrWhiteSpace(PackageKind) || !_CanWriteDirectory(DefaultDirectory))
+        {
             _data = Path.Combine(
                 Environment.GetFolderPath(Special.UserProfile),
                 "PCLCE");
+        }
 
 #if DEBUG
         // read environment variables
@@ -64,6 +99,9 @@ public static class Paths
 
     /// <summary>当前安装形态，例如 <c>deb</c>、<c>rpm</c>、<c>appimage</c>、<c>macos-app</c>。 便携构建为空。</summary>
     public static string? PackageKind { get; }
+
+    /// <summary>macOS 发行版的集中数据根目录。</summary>
+    public static string CentralRoot => _centralRoot;
 
     /// <summary>Per-instance data directory.</summary>
     public static string Data

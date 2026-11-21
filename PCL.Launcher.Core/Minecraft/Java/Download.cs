@@ -1,8 +1,10 @@
 using PCL.Core.App.Localization;
+using PCL.Core.App;
 using PCL.Core.IO;
 using PCL.Core.Utils.OS;
 using PCL.Network;
 using PCL.Network.Loaders;
+using System.Runtime.InteropServices;
 
 namespace PCL;
 
@@ -10,6 +12,7 @@ public static partial class JavaRuntime
 {
     // 用于在下载中断或失败时删除未完成下载的 Java 文件夹，防止残留只下了一半但 -version 能跑的 Java
     private static string? _lastJavaBaseDir;
+    private static IReadOnlyList<string> _lastJavaExecutables = [];
 
     private static readonly HashSet<string> IgnoreHash =
     [
@@ -70,11 +73,14 @@ public static partial class JavaRuntime
                         $"[Java] 由于下载未完成，清理未下载完成的 Java 文件：{_lastJavaBaseDir}",
                         LauncherLogLevel.Debug);
                     Directories.DeleteDirectory(_lastJavaBaseDir);
+                    _lastJavaExecutables = [];
                     break;
 
                 case LoadState.Finished:
+                    _MakeJavaExecutables(_lastJavaExecutables);
                     Javas.ScanJavaAsync().GetAwaiter().GetResult();
                     _lastJavaBaseDir = null;
+                    _lastJavaExecutables = [];
                     break;
             }
         };
@@ -99,13 +105,13 @@ public static partial class JavaRuntime
             $"准备下载 Java {targetVersion}（{targetName}）：{address}");
 
         var manifest = FetchJavaRuntimeManifest(address);
-        _lastJavaBaseDir = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            ".minecraft",
-            "runtime",
-            targetName);
+        _lastJavaBaseDir = Path.Combine(GetManagedJavaRoot(), targetName);
 
-        var results = CreateJavaDownloadFiles(manifest, _lastJavaBaseDir);
+        var results = CreateJavaDownloadFiles(
+            manifest,
+            _lastJavaBaseDir,
+            out var executables);
+        _lastJavaExecutables = executables;
         loader.output = results;
 
         LauncherCommon.Log(
@@ -124,8 +130,16 @@ public static partial class JavaRuntime
                 ]),
             isJson: true);
 
-        return ((JsonObject)LauncherCommon.GetJson(indexFile))[
-                $"windows-x{(SystemInfo.Is32BitSystem ? "86" : "64")}"] as JsonObject
+        var architecture = RuntimeInformation.ProcessArchitecture;
+        var platformKey = OperatingSystem.IsMacOS()
+            ? architecture == Architecture.Arm64 ? "mac-os-arm64" : "mac-os"
+            : OperatingSystem.IsWindows()
+                ? architecture == Architecture.Arm64
+                    ? "windows-arm64"
+                    : SystemInfo.Is32BitSystem ? "windows-x86" : "windows-x64"
+                : "linux";
+
+        return ((JsonObject)LauncherCommon.GetJson(indexFile))[platformKey] as JsonObject
             ?? throw new Exception("获取 Java 运行时索引失败");
     }
 
@@ -175,11 +189,13 @@ public static partial class JavaRuntime
 
     private static List<DownloadFile> CreateJavaDownloadFiles(
         JsonObject manifest,
-        string baseDirectory)
+        string baseDirectory,
+        out IReadOnlyList<string> executables)
     {
         var manifestFiles = manifest["files"]?.AsObject()
             ?? throw new Exception("Java 运行时清单缺少 files 字段");
         var results = new List<DownloadFile>(manifestFiles.Count);
+        var executableFiles = new List<string>();
 
         foreach (var file in manifestFiles)
         {
@@ -202,6 +218,8 @@ public static partial class JavaRuntime
 
             if (!Files.IsPathWithinDirectory(filePath, baseDirectory))
                 throw new Exception($"{filePath} 不在 {baseDirectory} 中");
+            if (file.Value?["executable"]?.GetValue<bool>() == true)
+                executableFiles.Add(filePath);
 
             if (checker.Check(filePath) is null)
                 continue;
@@ -217,6 +235,45 @@ public static partial class JavaRuntime
                     checker));
         }
 
+        executables = executableFiles;
         return results;
+    }
+
+    /// <summary>Java 运行环境统一放在启动器管理目录，默认位于集中数据根目录下的 Java。</summary>
+    private static string GetManagedJavaRoot()
+    {
+        var configured = Environment.GetEnvironmentVariable("PCL_JAVA_DIR");
+        if (!string.IsNullOrWhiteSpace(configured))
+            return Path.GetFullPath(Paths.ExpandUserPath(configured));
+        return Path.Combine(Paths.SharedLocalData, "Java");
+    }
+
+    private static void _MakeJavaExecutables(IReadOnlyList<string> executables)
+    {
+        if (OperatingSystem.IsWindows()) return;
+
+        const UnixFileMode mode =
+            UnixFileMode.UserRead
+            | UnixFileMode.UserWrite
+            | UnixFileMode.UserExecute
+            | UnixFileMode.GroupRead
+            | UnixFileMode.GroupExecute
+            | UnixFileMode.OtherRead
+            | UnixFileMode.OtherExecute;
+        foreach (var path in executables)
+        {
+            try
+            {
+                if (File.Exists(path))
+                    File.SetUnixFileMode(path, mode);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                LauncherCommon.Log(
+                    ex,
+                    $"[Java] 无法设置 Java 可执行权限：{path}",
+                    LauncherLogLevel.Debug);
+            }
+        }
     }
 }

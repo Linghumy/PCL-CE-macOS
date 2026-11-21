@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using PCL.Core.App;
 using PCL.Core.Logging;
 
 namespace PCL.Core.Minecraft.Java.Scanner;
@@ -18,6 +19,7 @@ public sealed class MacOsJavaScanner : IJavaScanner
         try
         {
             _AddJavaHome(results);
+            _AddManagedJava(results);
             _AddBundles(JvmRoot, results);
             _AddBundles(SystemJvmRoot, results);
             _AddFromCommandV(results);
@@ -46,6 +48,26 @@ public sealed class MacOsJavaScanner : IJavaScanner
         catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
         {
             LogWrapper.Debug($"跳过 macOS JVM 目录 {root}: {ex.Message}");
+        }
+    }
+
+    private static void _AddManagedJava(ICollection<string> results)
+    {
+        var configured = Environment.GetEnvironmentVariable("PCL_JAVA_DIR");
+        var root = string.IsNullOrWhiteSpace(configured)
+            ? Path.Combine(Paths.SharedLocalData, "Java")
+            : Path.GetFullPath(Paths.ExpandUserPath(configured));
+        if (!Directory.Exists(root)) return;
+
+        try
+        {
+            // Mojang 的 macOS 运行时布局为 <component>/jre.bundle/Contents/Home/bin。
+            foreach (var component in Directory.EnumerateDirectories(root))
+                _AddBundles(component, results);
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+        {
+            LogWrapper.Warn($"跳过托管 Java 目录 {root}: {ex.Message}");
         }
     }
 

@@ -81,6 +81,47 @@
                 </Grid>
             </ui:MyCard>
 
+            <ui:MyCard x:Name="CardStorage"
+                       Margin="0,0,0,15"
+                       Title="{loc:Loc Setup.Misc.Storage.Title}">
+                <StackPanel Margin="25,40,25,16"
+                            Spacing="10">
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                        <TextBlock VerticalAlignment="Center"
+                                   Text="{loc:Loc Setup.Misc.Storage.Root}" />
+                        <TextBlock x:Name="LabStorageRoot"
+                                   Grid.Column="1"
+                                   Margin="20,0"
+                                   VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
+                        <ui:MyButton x:Name="BtnStorageOpenRoot"
+                                     Grid.Column="2"
+                                     MinWidth="110"
+                                     Margin="0,0,10,0"
+                                     Text="{loc:Loc Setup.Misc.Storage.OpenRoot}" />
+                        <ui:MyButton x:Name="BtnStorageClear"
+                                     Grid.Column="3"
+                                     MinWidth="150"
+                                     ColorType="Red"
+                                     Text="{loc:Loc Setup.Misc.Storage.Clear}" />
+                    </Grid>
+
+                    <ui:MyCheckBox x:Name="CheckStorageAll"
+                                   Text="{loc:Loc Setup.Misc.Storage.All}" />
+                    <ui:MyCheckBox x:Name="CheckStorageSettings"
+                                   Text="{loc:Loc Setup.Misc.Storage.Settings}" />
+                    <ui:MyCheckBox x:Name="CheckStorageCache"
+                                   Text="{loc:Loc Setup.Misc.Storage.Cache}" />
+                    <ui:MyCheckBox x:Name="CheckStorageJava"
+                                   Text="{loc:Loc Setup.Misc.Storage.Java}" />
+                    <ui:MyCheckBox x:Name="CheckStorageMinecraft"
+                                   Text="{loc:Loc Setup.Misc.Storage.Minecraft}"
+                                   ToolTip.Tip="{loc:Loc Setup.Misc.Storage.Minecraft.ToolTip}" />
+                    <ui:MyHint Theme="Yellow"
+                               Text="{loc:Loc Setup.Misc.Storage.Hint}" />
+                </StackPanel>
+            </ui:MyCard>
+
             <ui:MyCard Margin="0,0,0,15"
                        Title="{loc:Loc Setup.Misc.Network.Title}">
                 <Grid Margin="25,38,25,15"

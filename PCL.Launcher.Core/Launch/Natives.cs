@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using PCL.Core.App;
 using PCL.Core.App.Localization;
 using PCL.Core.IO;
 using PCL.Core.Platform;
@@ -110,11 +111,10 @@ public static partial class GameLaunch
         if (SystemInfo.IsGBKEncoding || result.IsAscii())
             return result;
 
+        var tempRoot = Environment.GetEnvironmentVariable("PCL_TEMP_DIR");
         result = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            ".minecraft",
-            "bin",
-            "natives");
+            string.IsNullOrWhiteSpace(tempRoot) ? Paths.Temp : tempRoot,
+            "Natives");
         return result.IsAscii()
             ? result
             : ApplicationRuntime

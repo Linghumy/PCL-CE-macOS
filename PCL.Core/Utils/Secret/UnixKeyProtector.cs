@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
+using PCL.Core.App;
 using PCL.Core.Logging;
 using PCL.Core.Utils.Encryption;
 
@@ -96,10 +97,9 @@ public sealed class UnixKeyProtector : IKeyProtector
 
     private static string _GetOrCreateFallbackMachineId()
     {
-        var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        if (string.IsNullOrEmpty(appDataDir))
+        var dir = Paths.SharedData;
+        if (string.IsNullOrWhiteSpace(dir))
             throw new NotSupportedException("无法确定机器标识的持久化目录");
-        var dir = Path.Combine(appDataDir, "PCLCE");
         var path = Path.Combine(dir, FallbackMachineIdFileName);
 
         try

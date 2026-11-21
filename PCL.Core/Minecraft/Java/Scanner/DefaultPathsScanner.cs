@@ -40,6 +40,8 @@ public class DefaultPathsScanner : IJavaScanner
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
             Paths.Data
         };
+        AddIfConfigured("PCL_JAVA_DIR");
+        roots.Add(Path.Combine(Paths.SharedLocalData, "Java"));
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
@@ -91,6 +93,13 @@ public class DefaultPathsScanner : IJavaScanner
         }
 
         return roots;
+
+        void AddIfConfigured(string variable)
+        {
+            var value = Environment.GetEnvironmentVariable(variable);
+            if (!string.IsNullOrWhiteSpace(value))
+                roots.Add(Path.GetFullPath(Paths.ExpandUserPath(value)));
+        }
     }
 
     private static void _BfsSearch(string rootPath, ICollection<string> results)

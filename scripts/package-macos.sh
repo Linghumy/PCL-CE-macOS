@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 生成 macOS .app。可选 Developer ID 签名、公证与 staple。
+# 生成自包含的 PCL-CE-macOS .app。可选 Developer ID 签名、公证与 staple。
 # 用法：scripts/package-macos.sh <osx-arm64|osx-x64> <configuration> <version> <output-dir>
 #
 # 可选环境变量：
@@ -23,7 +23,7 @@ esac
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DOTNET="${DOTNET:-$(command -v dotnet || echo "$HOME/.dotnet/dotnet")}"
-APP_NAME="PCL CE.app"
+APP_NAME="${PCL_APP_NAME:-PCL-CE-macOS.app}"
 APP="$OUT/$APP_NAME"
 TEMP="$OUT/.publish-$RID"
 
@@ -32,9 +32,19 @@ fail() { echo "[macos-package] $*" >&2; exit 1; }
 rm -rf "$APP" "$TEMP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
-"$DOTNET" publish "$ROOT/PCL.Launcher/PCL.Launcher.csproj" \
-  -c "$CONFIG" -r "$RID" --no-self-contained \
+"$DOTNET" build "$ROOT/PCL.Launcher/PCL.Launcher.csproj" \
+  -c "$CONFIG" -r "$RID" --self-contained true \
+  -t:Rebuild \
+  -p:UseSharedCompilation=false \
   -p:Platform="$PLATFORM" \
+  -p:PublishSingleFile=false \
+  -p:PublishTrimmed=false \
+  -p:DebugType=None -p:DebugSymbols=false
+"$DOTNET" publish "$ROOT/PCL.Launcher/PCL.Launcher.csproj" \
+  -c "$CONFIG" -r "$RID" --self-contained true --no-build \
+  -p:Platform="$PLATFORM" \
+  -p:PublishSingleFile=false \
+  -p:PublishTrimmed=false \
   -p:DebugType=None -p:DebugSymbols=false \
   -o "$TEMP"
 
@@ -55,8 +65,18 @@ set -eu
 HERE="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
 export PCL_PACKAGE_KIND=macos-app
-export PCL_DATA_DIR="${PCL_DATA_DIR:-$HOME/PCLCE}"
-export PCL_MINECRAFT_DIR="${PCL_MINECRAFT_DIR:-$HOME/PCLCE/.minecraft}"
+export PCL_CE_ROOT="${PCL_CE_ROOT:-$HOME/PCL-CE}"
+export PCL_DATA_DIR="${PCL_DATA_DIR:-$PCL_CE_ROOT/Launcher}"
+export PCL_MINECRAFT_DIR="${PCL_MINECRAFT_DIR:-$PCL_CE_ROOT/.minecraft}"
+export PCL_JAVA_DIR="${PCL_JAVA_DIR:-$PCL_CE_ROOT/Java}"
+export PCL_CACHE_DIR="${PCL_CACHE_DIR:-$PCL_CE_ROOT/Cache}"
+export PCL_TEMP_DIR="${PCL_TEMP_DIR:-$PCL_CE_ROOT/Temp}"
+export DOTNET_BUNDLE_EXTRACT_BASE_DIR="${DOTNET_BUNDLE_EXTRACT_BASE_DIR:-$PCL_CE_ROOT/.dotnet-bundle}"
+
+mkdir -p "$PCL_CE_ROOT" "$PCL_DATA_DIR" "$PCL_MINECRAFT_DIR" \
+  "$PCL_JAVA_DIR" "$PCL_CACHE_DIR" "$PCL_TEMP_DIR"
+TMPDIR="$PCL_TEMP_DIR"
+export TMPDIR
 
 exec "$HERE/PCL.Launcher" "$@"
 LAUNCHER
@@ -83,11 +103,11 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>PCL CE</string>
+    <string>PCL-CE-macOS</string>
     <key>CFBundleDisplayName</key>
-    <string>PCL Community Edition</string>
+    <string>PCL-CE-macOS</string>
     <key>CFBundleIdentifier</key>
-    <string>cc.pclc.pcl-ce</string>
+    <string>cn.org.reasonable.pcl-ce-macos</string>
     <key>CFBundleExecutable</key>
     <string>launcher</string>
     <key>CFBundleIconFile</key>
@@ -105,9 +125,9 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
     <key>LSApplicationCategoryType</key>
-    <string>public.app-category.utilities</string>
+    <string>public.app-category.games</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © PCL Community</string>
+    <string>PCL-CE-macOS, based on PCL Community Edition</string>
     <key>CFBundleLocalizations</key>
     <array>
         <string>zh-Hans</string>

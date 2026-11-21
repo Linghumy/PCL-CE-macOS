@@ -32,6 +32,13 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        if (OperatingSystem.IsMacOS())
+        {
+            // 保留系统原生红黄绿交通灯；窗口内容仍使用 PCL 原有标题栏和布局。
+            WindowDecorations = Avalonia.Controls.WindowDecorations.Full;
+            ExtendClientAreaToDecorationsHint = true;
+            ExtendClientAreaTitleBarHeightHint = 48d;
+        }
         ApplyWindowIcon();
         TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
         Opacity = 0d;

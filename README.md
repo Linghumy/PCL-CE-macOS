@@ -1,5 +1,9 @@
 **简体中文** | [English](README-EN.md) | [繁體中文](README-ZH_TW.md)
 
+> 本分支是 **PCL-CE-macOS**：自包含 `.app` 发行版，使用
+> `cn.org.reasonable.pcl-ce-macos` 作为 Bundle ID。构建、数据目录和迁移说明见
+> [README-macOS.md](README-macOS.md)。
+
 <div align="center">
 
 <img src="PCL.Launcher/Assets/Images/icon.svg" alt="Logo" width="80" height="80">

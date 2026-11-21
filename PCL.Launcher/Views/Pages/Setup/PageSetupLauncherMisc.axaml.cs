@@ -21,6 +21,7 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
 {
     private bool _loaded;
     private bool _reloading;
+    private bool _storageDialogOpen;
 
     public PageSetupLauncherMisc()
     {
@@ -102,6 +103,21 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
         BtnSystemSettingExp.Click += (_, _) => ExportSettings();
         BtnSystemSettingImp.Click += async (_, _) => await ImportSettingsAsync();
         BtnSystemStopUsingPclCe.Click += async (_, _) => await StopUsingPclCeAsync();
+        CardStorage.IsVisible = OperatingSystem.IsMacOS();
+        BtnStorageOpenRoot.Click += (_, _) => Basics.OpenPath(Paths.CentralRoot);
+        BtnStorageClear.Click += async (_, _) => await ClearSelectedStorageAsync();
+        CheckStorageAll.Change += (_, _) =>
+        {
+            var all = CheckStorageAll.Checked == true;
+            CheckStorageSettings.Checked = all;
+            CheckStorageCache.Checked = all;
+            CheckStorageJava.Checked = all;
+            CheckStorageMinecraft.Checked = all;
+        };
+        CheckStorageSettings.Checked = true;
+        CheckStorageCache.Checked = true;
+        CheckStorageJava.Checked = true;
+        CheckStorageMinecraft.Checked = false;
 
         Loaded += (_, _) =>
         {
@@ -173,6 +189,7 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
             CheckDebugSkipCopy.Checked = Config.Debug.DontCopy;
             CheckDebugMode.Checked = Config.Debug.Enabled;
             CheckDebugDelay.Checked = Config.Debug.AddRandomDelay;
+            LabStorageRoot.Text = Paths.CentralRoot;
         }
         finally
         {
@@ -321,6 +338,175 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
     }
 
     #region 停止使用 PCL CE
+
+    [Flags]
+    private enum StorageCategory
+    {
+        None = 0,
+        Settings = 1,
+        Cache = 2,
+        Java = 4,
+        Minecraft = 8
+    }
+
+    private async Task ClearSelectedStorageAsync()
+    {
+        if (_storageDialogOpen) return;
+        _storageDialogOpen = true;
+        BtnStorageClear.IsEnabled = false;
+        try
+        {
+            var selected = GetSelectedStorageCategories();
+            if (selected == StorageCategory.None)
+            {
+                HintService.Show(Hints.Info(Lang.Text("Setup.Misc.Storage.NothingSelected")));
+                return;
+            }
+
+            if (selected.HasFlag(StorageCategory.Minecraft)
+                && GameWatcher.hasRunningMinecraft)
+            {
+                HintService.Show(Hints.Info(Lang.Text("Setup.Misc.Storage.CloseMinecraft")));
+                return;
+            }
+
+            var confirmed = await DialogService.Instance.ShowAsync(
+                new TextDialogRequest
+                {
+                    Title = Lang.Text("Setup.Misc.Storage.Confirm.Title"),
+                    Content = Lang.Text("Setup.Misc.Storage.Confirm.Message"),
+                    Buttons = DialogButtons.ContinueCancel,
+                    IsWarn = true
+                });
+            if (!confirmed.IsConfirmed) return;
+
+            if (selected.HasFlag(StorageCategory.Minecraft))
+            {
+                var finalConfirm = await DialogService.Instance.ShowAsync(
+                    new TextDialogRequest
+                    {
+                        Title = Lang.Text("Setup.Misc.Storage.MinecraftConfirm.Title"),
+                        Content = Lang.Text("Setup.Misc.Storage.MinecraftConfirm.Message"),
+                        Buttons = DialogButtons.ContinueCancel,
+                        IsWarn = true
+                    });
+                if (!finalConfirm.IsConfirmed) return;
+            }
+
+            var folders = GetStorageCleanupPaths(selected);
+            if (folders.Count == 0)
+            {
+                HintService.Show(Hints.Info(Lang.Text("Setup.Misc.Storage.NothingFound")));
+                return;
+            }
+
+            ApplicationRuntime.Current.Platform.ProcessCleanup
+                .DeleteFoldersAndRestart(folders);
+            HintService.Show(Hints.Success(Lang.Text("Setup.Misc.Storage.Cleared")));
+            await Task.Delay(650);
+            UiInteraction.Shutdown();
+        }
+        catch (Exception ex)
+        {
+            LauncherCommon.Log(
+                ex,
+                "清理启动器数据失败",
+                LauncherLogLevel.Msgbox,
+                userSummary: Lang.Text("Setup.Error.OperationFailed"));
+        }
+        finally
+        {
+            _storageDialogOpen = false;
+            BtnStorageClear.IsEnabled = true;
+        }
+    }
+
+    private StorageCategory GetSelectedStorageCategories()
+    {
+        var selected = StorageCategory.None;
+        if (CheckStorageSettings.Checked == true) selected |= StorageCategory.Settings;
+        if (CheckStorageCache.Checked == true) selected |= StorageCategory.Cache;
+        if (CheckStorageJava.Checked == true) selected |= StorageCategory.Java;
+        if (CheckStorageMinecraft.Checked == true) selected |= StorageCategory.Minecraft;
+        return selected;
+    }
+
+    private static List<string> GetStorageCleanupPaths(StorageCategory selected)
+    {
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var centralRoot = Path.GetFullPath(Paths.CentralRoot);
+        var paths = new List<string>();
+
+        void Add(string? path, bool mayDeleteCentralRoot = false)
+        {
+            if (string.IsNullOrWhiteSpace(path)) return;
+            string fullPath;
+            try
+            {
+                fullPath = Path.GetFullPath(Paths.ExpandUserPath(path));
+            }
+            catch
+            {
+                return;
+            }
+
+            var comparison = OperatingSystem.IsMacOS()
+                ? StringComparison.OrdinalIgnoreCase
+                : StringComparison.Ordinal;
+            if (string.Equals(fullPath, Path.GetPathRoot(fullPath), comparison)
+                || string.Equals(fullPath, home, comparison)
+                || (!mayDeleteCentralRoot
+                    && string.Equals(
+                        Path.TrimEndingDirectorySeparator(fullPath),
+                        Path.TrimEndingDirectorySeparator(centralRoot),
+                        comparison)))
+                return;
+            if (!paths.Contains(fullPath, StringComparer.FromComparison(comparison)))
+                paths.Add(fullPath);
+        }
+
+        if (selected.HasFlag(StorageCategory.Settings))
+        {
+            Add(Paths.Data);
+            Add(Paths.SharedData);
+            Add(Paths.OldSharedData);
+            Add(Path.Combine(appData, "PCLCE"));
+            Add(Path.Combine(home, "PCLCE", "PCL"));
+        }
+
+        if (selected.HasFlag(StorageCategory.Cache))
+        {
+            Add(Paths.SharedLocalData);
+            Add(Paths.Temp);
+            Add(Path.Combine(localAppData, "PCLCE"));
+        }
+
+        if (selected.HasFlag(StorageCategory.Java))
+        {
+            var configuredJava = Environment.GetEnvironmentVariable("PCL_JAVA_DIR");
+            Add(string.IsNullOrWhiteSpace(configuredJava)
+                ? Path.Combine(Paths.SharedLocalData, "Java")
+                : configuredJava);
+            Add(Path.Combine(appData, ".minecraft", "runtime"));
+        }
+
+        if (selected.HasFlag(StorageCategory.Minecraft))
+        {
+            Add(LauncherPaths.DefaultMinecraftDirectory, true);
+            Add(GameFolders.mcFolderSelected, true);
+            Add(Path.Combine(home, "PCLCE", ".minecraft"), true);
+            if (!string.IsNullOrWhiteSpace(States.Game.Folders))
+                foreach (var folder in States.Game.Folders.Split('|'))
+                {
+                    var parts = folder.Split('>');
+                    if (parts.Length >= 2) Add(parts[1], true);
+                }
+        }
+
+        return paths;
+    }
 
     private static async Task StopUsingPclCeAsync()
     {

@@ -46,6 +46,11 @@ case "$RID" in
     for name in "${mac_native[@]}"; do
       [ -e "$DIR/$name" ] || fail "missing macOS native library: $name"
     done
+    for name in PCL.Launcher libhostfxr.dylib libhostpolicy.dylib libcoreclr.dylib; do
+      [ -e "$DIR/$name" ] || fail "missing self-contained macOS payload: $name"
+    done
+    [ -e "$DIR/PCL.Launcher.dll" ] || fail "missing launcher assembly"
+    [ -e "$DIR/PCL.Launcher.deps.json" ] || fail "missing launcher deps.json"
     ;;
   *) fail "unsupported RID: $RID" ;;
 esac

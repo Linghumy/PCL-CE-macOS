@@ -74,10 +74,7 @@ public static class LauncherPaths
             return _WithTrailingSeparator(Paths.ExpandUserPath(dataDirectory));
 
         if (!string.IsNullOrWhiteSpace(Paths.PackageKind))
-            return _WithTrailingSeparator(
-                Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    "PCLCE"));
+            return _WithTrailingSeparator(Paths.Data);
 
         return ExecutableDirectory;
     }
@@ -97,10 +94,8 @@ public static class LauncherPaths
                     ".minecraft"));
 
         if (!string.IsNullOrWhiteSpace(Paths.PackageKind))
-            return Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                "PCLCE",
-                ".minecraft");
+            return Path.TrimEndingDirectorySeparator(
+                Path.Combine(Paths.CentralRoot, ".minecraft"));
 
         return Path.TrimEndingDirectorySeparator(
             Path.Combine(ExecutableDirectory, ".minecraft"));

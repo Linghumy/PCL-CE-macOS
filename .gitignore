@@ -215,6 +215,12 @@ _pkginfo.txt
 # but keep track of directories ending in .cache
 !?*.[Cc]ache/
 
+# PCL-CE-macOS 本地工具链与构建缓存（依赖仍留在项目目录中）
+/.toolchain/
+/.cache/
+/dist/
+/.build-secrets.env
+
 # Others
 ClientBin/
 ~$*

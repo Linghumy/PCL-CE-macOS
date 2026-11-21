@@ -2992,6 +2992,25 @@
     <sys:String x:Key="Setup.Misc.System.Telemetry">啟用遙測資料收集</sys:String>
     <sys:String x:Key="Setup.Misc.System.Telemetry.ToolTip">啟用此功能後，啟動器將會收集並上報錯誤與裝置環境資訊，這可以幫助開發者修復潛在的問題、更好的進行規劃和開發。&#xA;若啟用此功能，我們將會收集以下資訊：啟動器內出現的錯誤，啟動器版本資訊與識別碼，使用的 Windows 系統版本與架構，已安裝的實體記憶體大小，NAT 與 IPv6 支援情況，是否使用過原版 PCL、HMCL 或 BakaXL。&#xA;&#xA;這些資料均不與你關聯，我們也絕不會向第三方出售資料。不啟用此功能不會影響你使用其他功能，但可能會影響開發者修復潛在 Bug。&#xA;&#xA;此項更改將在重新啟動啟動器後生效。</sys:String>
     <sys:String x:Key="Setup.Misc.System.Title">系統</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Title">啟動器資料</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Root">資料目錄</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.OpenRoot">開啟目錄</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Clear">清除所選資料</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.All">全選（包括 Minecraft 遊戲資料）</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Settings">啟動器設定與登入狀態</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cache">快取、日誌與暫存檔案</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Java">託管 Java 執行環境</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft">Minecraft 遊戲資料夾與實例</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">會刪除所選 Minecraft 資料夾中的存檔、模組、資源包等，且無法復原。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Hint">清理會在啟動器結束後執行。可自由組合要清除的資料類型。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingSelected">請至少選擇一種要清除的資料。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">請先結束正在執行的 Minecraft，再清理遊戲資料。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">清除 PCL-CE-macOS 資料？</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Message">所選資料將被永久刪除，啟動器隨後會結束。請確認沒有需要保留的設定、帳號或執行環境。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">刪除 Minecraft 遊戲資料？</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">所選 Minecraft 資料夾中的存檔、模組、資源包與實例都將被永久刪除，且無法透過啟動器復原。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingFound">沒有找到所選類別中可安全刪除的資料。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cleared">已安排清理，啟動器即將結束。</sys:String>
 
     <!-- Setup.Ui -->
     <sys:String x:Key="Setup.Ui.Error.ConfigReset">個人化設定項存在異常，已被自動重設</sys:String>

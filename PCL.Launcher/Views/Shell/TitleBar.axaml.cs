@@ -29,6 +29,13 @@ public partial class TitleBar : UserControl
     public TitleBar()
     {
         InitializeComponent();
+        if (OperatingSystem.IsMacOS())
+        {
+            // 为原生交通灯预留左侧空间，右侧不再绘制 Windows 风格窗口按钮。
+            PanTitleMain.Margin = new Thickness(68d, 0d, 0d, 0d);
+            PanInnerTitle.Margin = new Thickness(68d, 0d, 0d, 0d);
+            PanCaptionButtons.IsVisible = false;
+        }
         BuildMainTabs();
         AddHandler(
             PointerPressedEvent,
