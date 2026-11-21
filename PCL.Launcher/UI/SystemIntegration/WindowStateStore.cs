@@ -45,6 +45,7 @@ public sealed class WindowStateStore
 
     private void NormalizeWindowState()
     {
+        if (OperatingSystem.IsMacOS()) return;
         if (_normalizing || _normalizeScheduled)
             return;
         if (_window.WindowState != WindowState.Maximized)

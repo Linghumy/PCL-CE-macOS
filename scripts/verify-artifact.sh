@@ -14,7 +14,7 @@ fi
 
 win_native=(av_libglesv2.dll e_sqlite3.dll libSkiaSharp.dll libHarfBuzzSharp.dll miniaudioex.dll)
 linux_native=(libSkiaSharp.so libHarfBuzzSharp.so libe_sqlite3.so libminiaudioex.so)
-mac_native=(libSkiaSharp.dylib libHarfBuzzSharp.dylib libe_sqlite3.dylib libminiaudioex.dylib libAvaloniaNative.dylib libPCLMacWindow.dylib)
+mac_native=(libSkiaSharp.dylib libHarfBuzzSharp.dylib libe_sqlite3.dylib libminiaudioex.dylib libAvaloniaNative.dylib)
 
 case "$RID" in
   linux-*)

@@ -66,6 +66,7 @@
     <sys:String x:Key="Main.Menu.Hide">隐藏 PCL CE</sys:String>
     <sys:String x:Key="Main.Menu.HideOthers">隐藏其他</sys:String>
     <sys:String x:Key="Main.Menu.Minimize">最小化</sys:String>
+    <sys:String x:Key="Main.Menu.Maximize">最大化或还原</sys:String>
     <sys:String x:Key="Main.Menu.Quit">退出 PCL CE</sys:String>
     <sys:String x:Key="Main.Menu.Settings">设置…</sys:String>
     <sys:String x:Key="Main.Menu.ShowAll">全部显示</sys:String>

@@ -34,12 +34,10 @@ public partial class MainWindow : Window
         InitializeComponent();
         if (OperatingSystem.IsMacOS())
         {
-            // 保留系统原生交通灯，同时让 PCL 标题栏覆盖原生标题栏区域。
-            WindowDecorations = Avalonia.Controls.WindowDecorations.Full;
-            ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaTitleBarHeightHint = 48d;
+            // 完全接管 macOS 窗口标题栏，交通灯由 PCL 标题栏绘制。
+            WindowDecorations = Avalonia.Controls.WindowDecorations.None;
             PanBack.Margin = default;
-            PanBack.CornerRadius = default;
+            PanBack.CornerRadius = new CornerRadius(12d);
             PanWindowShadow.ShadowRadius = 0d;
             PanWindowShadow.CornerRadius = default;
             PanWindowShadow.Color = Colors.Transparent;
@@ -95,6 +93,7 @@ public partial class MainWindow : Window
         _titleBar.BackRequested += () => PageRouter.Back();
         _titleBar.HelpRequested += OpenHelp;
         _titleBar.MinimizeRequested += () => WindowState = WindowState.Minimized;
+        _titleBar.MaximizeRequested += ToggleZoom;
         _titleBar.CloseRequested += Close;
 
 
@@ -215,15 +214,23 @@ public partial class MainWindow : Window
 
     private void ApplyRoundedWindowClip()
     {
+        var radius = OperatingSystem.IsMacOS() ? 12d : 6d;
         PanBack.SizeChanged += (_, e) =>
         {
             PanBack.Clip = new RectangleGeometry
             {
                 Rect = new Rect(e.NewSize),
-                RadiusX = 6d,
-                RadiusY = 6d
+                RadiusX = radius,
+                RadiusY = radius
             };
         };
+    }
+
+    private void ToggleZoom()
+    {
+        WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
     }
 
     private void OnResizePointerPressed(object? sender, PointerPressedEventArgs e)

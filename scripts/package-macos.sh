@@ -51,14 +51,6 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp -a "$TEMP"/. "$APP/Contents/MacOS/"
 find "$APP/Contents/MacOS" -name '*.pdb' -delete
 chmod +x "$APP/Contents/MacOS/PCL.Launcher"
-case "$RID" in
-  osx-arm64) NATIVE_ARCH=arm64 ;;
-  osx-x64) NATIVE_ARCH=x86_64 ;;
-esac
-xcrun clang -dynamiclib -fobjc-arc -fvisibility=hidden -framework Cocoa \
-  -arch "$NATIVE_ARCH" \
-  "$ROOT/scripts/macos/PCLMacWindow.m" \
-  -o "$APP/Contents/MacOS/libPCLMacWindow.dylib"
 "$ROOT/scripts/verify-artifact.sh" "$RID" "$APP/Contents/MacOS"
 
 cp "$ROOT/PCL.Launcher/Assets/Images/icon.icns" "$APP/Contents/Resources/icon.icns"

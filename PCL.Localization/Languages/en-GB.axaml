@@ -66,6 +66,7 @@
     <sys:String x:Key="Main.Menu.Hide">Hide PCL CE</sys:String>
     <sys:String x:Key="Main.Menu.HideOthers">Hide Others</sys:String>
     <sys:String x:Key="Main.Menu.Minimize">Minimise</sys:String>
+    <sys:String x:Key="Main.Menu.Maximize">Zoom</sys:String>
     <sys:String x:Key="Main.Menu.Quit">Quit PCL CE</sys:String>
     <sys:String x:Key="Main.Menu.Settings">Settings…</sys:String>
     <sys:String x:Key="Main.Menu.ShowAll">Show All</sys:String>

@@ -31,10 +31,20 @@ public partial class TitleBar : UserControl
         InitializeComponent();
         if (OperatingSystem.IsMacOS())
         {
-            // 为原生交通灯预留左侧空间，右侧不再绘制 Windows 风格窗口按钮。
-            PanTitleMain.Margin = new Thickness(68d, 0d, 0d, 0d);
-            PanInnerTitle.Margin = new Thickness(68d, 0d, 0d, 0d);
+            // 使用自绘交通灯，避免原生标题栏在页面渐入渐出时露出横向底条。
+            PanMacTrafficLights.IsVisible = true;
+            PanTitleMain.Margin = new Thickness(82d, 0d, 0d, 0d);
+            PanInnerTitle.Margin = new Thickness(82d, 0d, 0d, 0d);
             PanCaptionButtons.IsVisible = false;
+            AttachMacTrafficLightHover(
+                BtnMacTrafficClose,
+                ShapeMacTrafficClose);
+            AttachMacTrafficLightHover(
+                BtnMacTrafficMinimize,
+                ShapeMacTrafficMinimize);
+            AttachMacTrafficLightHover(
+                BtnMacTrafficMaximize,
+                ShapeMacTrafficMaximize);
         }
         BuildMainTabs();
         AddHandler(
@@ -86,6 +96,8 @@ public partial class TitleBar : UserControl
     public event Action? HelpRequested;
 
     public event Action? MinimizeRequested;
+
+    public event Action? MaximizeRequested;
 
     public event Action? CloseRequested;
 
@@ -310,9 +322,35 @@ public partial class TitleBar : UserControl
         MinimizeRequested?.Invoke();
     }
 
+    private void Maximize_OnClick(object? sender, EventArgs e)
+    {
+        MaximizeRequested?.Invoke();
+    }
+
+    private void MacClose_OnClick(object? sender, RoutedEventArgs e)
+    {
+        CloseRequested?.Invoke();
+    }
+
+    private void MacMinimize_OnClick(object? sender, RoutedEventArgs e)
+    {
+        MinimizeRequested?.Invoke();
+    }
+
+    private void MacMaximize_OnClick(object? sender, RoutedEventArgs e)
+    {
+        MaximizeRequested?.Invoke();
+    }
+
     private void Close_OnClick(object? sender, EventArgs e)
     {
         CloseRequested?.Invoke();
+    }
+
+    private static void AttachMacTrafficLightHover(Button button, Control symbol)
+    {
+        button.PointerEntered += (_, _) => symbol.Opacity = 1d;
+        button.PointerExited += (_, _) => symbol.Opacity = 0d;
     }
 
     private void Root_OnPointerPressed(object? sender, PointerPressedEventArgs e)
