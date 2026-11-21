@@ -41,21 +41,11 @@ public sealed class SetupPageModule : IPageModule
             reset: "Setup.Left.Reset.GameManage.Message"),
         Sub(
             PageIds.Setup,
-            SubPageIds.SetupGameLink,
-            "Setup.Left.Item.GameLink",
-            "lucide/bubbles",
-            "tools",
-            3,
-            (sp, _) => ActivatorUtilities.CreateInstance<PageSetupGameLink>(sp),
-            () => !Config.Preference.Hide.SetupGameLink,
-            reset: "Setup.Left.Reset.GameLink.Message"),
-        Sub(
-            PageIds.Setup,
             SubPageIds.SetupUi,
             "Setup.Left.Item.Ui",
             "lucide/palette",
             "launcher",
-            4,
+            3,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupUI>(sp),
             () => !Config.Preference.Hide.SetupUi,
             reset: "Setup.Left.Reset.Ui.Message"),
@@ -65,7 +55,7 @@ public sealed class SetupPageModule : IPageModule
             "Setup.Language.Title",
             "lucide/earth",
             "launcher",
-            5,
+            4,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupLauncherLanguage>(sp),
             () => !Config.Preference.Hide.SetupLauncherLanguage,
             reset: "Setup.Left.Reset.Language.Message"),
@@ -75,7 +65,7 @@ public sealed class SetupPageModule : IPageModule
             "Setup.Left.Item.Misc",
             "lucide/monitor-cog",
             "launcher",
-            6,
+            5,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupLauncherMisc>(sp),
             () => !Config.Preference.Hide.SetupLauncherMisc,
             reset: "Setup.Left.Reset.Misc.Message"),
@@ -85,7 +75,7 @@ public sealed class SetupPageModule : IPageModule
             "Setup.Left.Item.About",
             "lucide/info",
             "about",
-            7,
+            6,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupAbout>(sp),
             () => !Config.Preference.Hide.SetupAbout),
         Sub(
@@ -94,7 +84,7 @@ public sealed class SetupPageModule : IPageModule
             "Setup.Left.Item.Update",
             "lucide/refresh-cw",
             "about",
-            8,
+            7,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupUpdate>(sp),
             () => !Config.Preference.Hide.SetupUpdate),
         Sub(
@@ -103,7 +93,7 @@ public sealed class SetupPageModule : IPageModule
             "Setup.Left.Item.Feedback",
             "lucide/message-circle",
             "about",
-            9,
+            8,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupFeedback>(sp),
             () => !Config.Preference.Hide.SetupFeedback,
             true),
@@ -113,7 +103,7 @@ public sealed class SetupPageModule : IPageModule
             "Setup.Left.Item.Log",
             "lucide/scroll-text",
             "about",
-            10,
+            9,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupLog>(sp),
             () => !Config.Preference.Hide.SetupLog)
     ];
@@ -129,9 +119,8 @@ public sealed class SetupPageModule : IPageModule
             SubPageIds.SetupLaunch,
             [
                 new PageGroupDescriptor("game", "Setup.Left.Category.Game", 0),
-                new PageGroupDescriptor("tools", "Setup.Left.Category.Tools", 1),
-                new PageGroupDescriptor("launcher", "Setup.Left.Category.Launcher", 2),
-                new PageGroupDescriptor("about", "Setup.Left.Category.About", 3)
+                new PageGroupDescriptor("launcher", "Setup.Left.Category.Launcher", 1),
+                new PageGroupDescriptor("about", "Setup.Left.Category.About", 2)
             ],
             SetupSubPages,
             (sp, descriptor) => ActivatorUtilities.CreateInstance<PageSetupHost>(sp, descriptor))

@@ -262,10 +262,6 @@
                                          Classes="link"
                                          Margin="0,0,20,0"
                                          Text="{loc:Loc Setup.About.Legal.CommunitySource}" />
-                        <ui:MyTextButton x:Name="BtnCommunityLobbyPrivacy"
-                                         Classes="link"
-                                         Margin="0,0,20,0"
-                                         Text="{loc:Loc Setup.About.Legal.CommunityLobbyPrivacy}" />
                         <ui:MyTextButton x:Name="BtnNatayarkTerms"
                                          Classes="link"
                                          Margin="0,0,20,0"
@@ -349,6 +345,55 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+            </ui:MyCard>
+
+            <ui:MyCard Title="{loc:Loc Setup.About.MacPort.Title}">
+                <Grid Margin="21,40,21,16"
+                      ColumnDefinitions="40,*,150"
+                      RowDefinitions="45,45,10,Auto">
+                    <ui:MyImage Grid.Row="0"
+                                Width="34"
+                                Height="34"
+                                Margin="3"
+                                CornerRadius="17"
+                                VerticalAlignment="Center"
+                                Source="avares://PCL.Launcher/Assets/Images/Heads/Reasonable.png" />
+                    <ui:MyListItem Grid.Row="0"
+                                   Grid.Column="1"
+                                   Margin="-5,0,15,0"
+                                   IsHitTestVisible="False"
+                                   Info="{loc:Loc Setup.About.MacPort.Reasonable.Info}"
+                                   Title="{loc:Loc Setup.About.MacPort.Reasonable.Name}" />
+                    <ui:MyButton x:Name="BtnReasonableWebsite"
+                                 Grid.Row="0"
+                                 Grid.Column="2"
+                                 Height="35"
+                                 Text="{loc:Loc Setup.About.MacPort.OpenWebsite}" />
+
+                    <ui:MyImage Grid.Row="1"
+                                Width="34"
+                                Height="34"
+                                Margin="3"
+                                CornerRadius="17"
+                                VerticalAlignment="Center"
+                                Source="avares://PCL.Launcher/Assets/Images/Heads/Linghumy.png" />
+                    <ui:MyListItem Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="-5,0,15,0"
+                                   IsHitTestVisible="False"
+                                   Info="{loc:Loc Setup.About.MacPort.Linghumy.Info}"
+                                   Title="{loc:Loc Setup.About.MacPort.Linghumy.Name}" />
+                    <ui:MyButton x:Name="BtnLinghumyGitHub"
+                                 Grid.Row="1"
+                                 Grid.Column="2"
+                                 Height="35"
+                                 Text="{loc:Loc Setup.About.MacPort.OpenGitHub}" />
+
+                    <ui:MyHint Grid.Row="3"
+                               Grid.ColumnSpan="3"
+                               Theme="Blue"
+                               Text="{loc:Loc Setup.About.MacPort.Assistance}" />
+                </Grid>
             </ui:MyCard>
         </StackPanel>
     </ui:MyScrollViewer>

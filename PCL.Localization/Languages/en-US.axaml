@@ -2597,6 +2597,14 @@
 
     <sys:String x:Key="Setup.About.Legal.CommunityLobbyPrivacy">Community lobby privacy policy</sys:String>
     <sys:String x:Key="Setup.About.Legal.CommunitySource">PCL CE source code</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Title">macOS port</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Name">Reasonable Heli Team</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Info">macOS porting and adaptation</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Name">Linghumy</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Info">macOS distribution, data management, and system integration</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenWebsite">Visit website</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenGitHub">GitHub</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Assistance">macOS porting and adaptation were completed with assistance from DeepSeek V4.1 Flash.</sys:String>
     <sys:String x:Key="Setup.About.Legal.CopyrightText">Copyright © PCL Community &amp; LTCat (龙腾猫跃) 2026.&#xD;NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</sys:String>
     <sys:String x:Key="Setup.About.Legal.NatayarkTerms">Natayark OpenID ToS</sys:String>
     <sys:String x:Key="Setup.About.Legal.OtherInfo">Other information</sys:String>

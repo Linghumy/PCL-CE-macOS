@@ -2538,6 +2538,14 @@
 
     <sys:String x:Key="Setup.About.Legal.CommunityLobbyPrivacy">PCL CE 連線大廳隱私政策</sys:String>
     <sys:String x:Key="Setup.About.Legal.CommunitySource">PCL CE 開放原始碼</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Title">macOS 移植</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Name">Reasonable禾李團隊</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Info">macOS 移植與適配</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Name">令狐夢秧</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Info">macOS 發行、資料管理與系統適配</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenWebsite">前往官網</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenGitHub">GitHub</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Assistance">在 DeepSeek V4.1 Flash 的協助下完成 macOS 移植與適配。</sys:String>
     <sys:String x:Key="Setup.About.Legal.CopyrightText">Copyright © 2026 PCL Community &amp; 龙腾猫跃.&#xD;非 MINECRAFT 官方產品。未經 MOJANG 或 MICROSOFT 批准，也不與 MOJANG 或 MICROSOFT 關聯。</sys:String>
     <sys:String x:Key="Setup.About.Legal.NatayarkTerms">Natayark OpenID 服務條款</sys:String>
     <sys:String x:Key="Setup.About.Legal.OtherInfo">其他資訊</sys:String>

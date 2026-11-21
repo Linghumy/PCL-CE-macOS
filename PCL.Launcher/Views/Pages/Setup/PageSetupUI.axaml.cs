@@ -626,9 +626,6 @@ public partial class PageSetupUI : MyPageRight, ISetupResetPage
                 new HideCheckDefinition(
                     "UiHiddenSetupGameManage",
                     "Setup.Ui.FeatureHide.Item.GameManage"),
-                new HideCheckDefinition(
-                    "UiHiddenSetupGameLink",
-                    "Setup.Ui.FeatureHide.Item.GameLink"),
                 new HideCheckDefinition("UiHiddenSetupUi", "Setup.Ui.FeatureHide.Item.Ui"),
                 new HideCheckDefinition(
                     "UiHiddenSetupLauncherLanguage",
@@ -646,7 +643,6 @@ public partial class PageSetupUI : MyPageRight, ISetupResetPage
             "Setup.Ui.FeatureHide.SubTools",
             false,
             [
-                new HideCheckDefinition("UiHiddenToolsGameLink", "Setup.Ui.FeatureHide.Item.Lobby"),
                 new HideCheckDefinition("UiHiddenToolsTest", "Setup.Ui.FeatureHide.Item.Toolbox")
             ]);
 

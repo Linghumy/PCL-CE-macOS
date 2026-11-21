@@ -31,8 +31,6 @@ public partial class PageSetupAbout : MyPageRight
             Basics.OpenPath("https://github.com/Linghumy/PCL-CE-macOS/graphs/contributors");
         BtnCommunitySource.Click +=
             (_, _) => Basics.OpenPath("https://github.com/Linghumy/PCL-CE-macOS");
-        BtnCommunityLobbyPrivacy.Click += (_, _) =>
-            Basics.OpenPath("https://www.pclc.cc/privacy/personal-info-brief.html");
         BtnNatayarkTerms.Click += (_, _) => Basics.OpenPath("https://account.naids.com/policy");
         BtnUpstreamTerms.Click +=
             (_, _) => Basics.OpenPath("https://shimo.im/docs/rGrd8pY8xWkt6ryW");
@@ -42,6 +40,8 @@ public partial class PageSetupAbout : MyPageRight
         BtnPysioBlog.Click += (_, _) => Basics.OpenPath("https://www.pysio.online");
         BtnYunmoanWebsite.Click += (_, _) => Basics.OpenPath("https://www.zyghit.cn");
         BtnEasyTierWebsite.Click += (_, _) => Basics.OpenPath("https://easytier.cn");
+        BtnReasonableWebsite.Click += (_, _) => Basics.OpenPath("https://www.reasonable.org.cn/");
+        BtnLinghumyGitHub.Click += (_, _) => Basics.OpenPath("https://github.com/Linghumy");
 
         Loaded += (_, _) =>
         {

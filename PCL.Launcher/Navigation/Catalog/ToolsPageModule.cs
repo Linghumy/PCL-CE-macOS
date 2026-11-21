@@ -11,21 +11,11 @@ public sealed class ToolsPageModule : IPageModule
     [
         Sub(
             PageIds.Tools,
-            SubPageIds.ToolsGameLink,
-            "Tools.Left.Lobby",
-            "lucide/link-2",
-            "multiplayer",
-            0,
-            (sp, _) => ActivatorUtilities.CreateInstance<PageToolsGameLink>(sp),
-            refresh: true,
-            visible: () => !Config.Preference.Hide.ToolsGameLink),
-        Sub(
-            PageIds.Tools,
             SubPageIds.ToolsTest,
             "Tools.Left.Utilities.Title",
             "lucide/tool-case",
             "utilities",
-            1,
+            0,
             (sp, _) => ActivatorUtilities.CreateInstance<PageToolsTest>(sp),
             () => !Config.Preference.Hide.ToolsTest)
     ];
@@ -34,14 +24,13 @@ public sealed class ToolsPageModule : IPageModule
     [
         new(
             PageIds.Tools,
-            "Tools.Left.Lobby",
+            "Tools.Left.Utilities.Title",
             "lucide/wrench",
             MainTab.Tools,
             150d,
-            SubPageIds.ToolsGameLink,
+            SubPageIds.ToolsTest,
             [
-                new PageGroupDescriptor("multiplayer", "Tools.Left.Multiplayer", 0),
-                new PageGroupDescriptor("utilities", "Tools.Left.Utilities", 1)
+                new PageGroupDescriptor("utilities", "Tools.Left.Utilities", 0)
             ],
             ToolsSubPages,
             (sp, descriptor) => ActivatorUtilities.CreateInstance<ToolsPageHost>(sp, descriptor))
