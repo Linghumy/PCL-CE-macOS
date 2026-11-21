@@ -2,8 +2,10 @@ using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Platform;
 using Avalonia.Input;
 using Avalonia.Platform;
+using Avalonia.Threading;
 using PCL.Navigation;
 using PlainToolkit.ObjectiveC.Runtime;
 
@@ -39,6 +41,8 @@ internal sealed class LinuxShellIntegration : IPlatformShellIntegration
 
 internal sealed class MacOsShellIntegration : IPlatformShellIntegration
 {
+    private const double TitleBarHeight = 48d;
+
     private static readonly ObjCSel Alloc = ObjCSel.FromString("alloc");
 
     private static readonly ObjCSel InitWithBytesLength =
@@ -67,7 +71,51 @@ internal sealed class MacOsShellIntegration : IPlatformShellIntegration
     public void OnWindowCreated(Window window)
     {
         _AttachMenus(window);
+        window.Opened += (_, _) => _ScheduleTrafficLightAlignment(window);
+        window.Activated += (_, _) => _ScheduleTrafficLightAlignment(window);
+        window.SizeChanged += (_, _) => _ScheduleTrafficLightAlignment(window);
+        window.PropertyChanged += (_, args) =>
+        {
+            if (args.Property != Window.WindowStateProperty) return;
+            _ScheduleTrafficLightAlignment(window);
+        };
     }
+
+    private static void _ScheduleTrafficLightAlignment(Window window)
+    {
+        Dispatcher.UIThread.Post(
+            () => _AlignTrafficLights(window),
+            DispatcherPriority.Loaded);
+        Dispatcher.UIThread.Post(
+            () => _AlignTrafficLights(window),
+            DispatcherPriority.ApplicationIdle);
+    }
+
+    private static void _AlignTrafficLights(Window window)
+    {
+        if (window.WindowState is WindowState.FullScreen or WindowState.Maximized)
+            return;
+        if (window.TryGetPlatformHandle() is not { HandleDescriptor: "NSWindow" } handle)
+            return;
+
+        try
+        {
+            PCLMacOSAlignTrafficLights(handle.Handle, TitleBarHeight);
+        }
+        catch (DllNotFoundException)
+        {
+            // 调试运行未打包原生辅助层时，保留 AppKit 的默认按钮位置。
+        }
+        catch (EntryPointNotFoundException)
+        {
+            // 允许旧版本产物继续启动。
+        }
+    }
+
+    [DllImport("libPCLMacWindow.dylib", ExactSpelling = true)]
+    private static extern void PCLMacOSAlignTrafficLights(
+        IntPtr windowHandle,
+        double titleBarHeight);
 
     private static void _AttachMenus(Window window)
     {
