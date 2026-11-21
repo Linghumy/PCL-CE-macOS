@@ -35,11 +35,6 @@ export DOTNET_CLI_USE_MSBUILD_SERVER=0
 mkdir -p "$DOTNET_CLI_HOME" "$NUGET_PACKAGES" "$TMPDIR" "$STAGING_OUT"
 rm -rf "$STAGING_OUT/PCL-CE-macOS.app"
 
-# 密钥由增量源生成器写入程序集；正式打包前清理，避免环境变量变化后复用旧生成结果。
-"$DOTNET" clean "$ROOT/PCL.Launcher/PCL.Launcher.csproj" \
-  -c "$CONFIG" -r "$RID" -p:Platform="$([ "$RID" = osx-arm64 ] && echo ARM64 || echo x64)" \
-  --nologo >/dev/null
-
 "$ROOT/scripts/package-macos.sh" "$RID" "$CONFIG" "2.15.1" "$STAGING_OUT"
 
 APP="$STAGING_OUT/PCL-CE-macOS.app"
