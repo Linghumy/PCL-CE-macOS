@@ -286,20 +286,26 @@ public partial class MainWindow : Window
 
     private void AnimateLeftWidth(double target)
     {
-        var current = double.IsNaN(RectLeftBackground.Width)
-            ? RectLeftBackground.Bounds.Width
-            : RectLeftBackground.Width;
-
-        // macOS 上逐帧修改 Width 会触发布局并使侧栏伸展动画掉帧。
-        // 页面内容宽度本身已同步切换，因此让背景直接跟随即可保持视觉一致。
-        if (OperatingSystem.IsMacOS()
-            || Math.Abs(target - current) < 0.1d
-            || !IsVisible
+        if (!IsVisible
             || !AnimationService.IsEnabled
             || !RectLeftBackground.IsLoaded)
         {
-            AnimationService.CancelAnimationByName(LeftWidthAnimationKey);
-            RectLeftBackground.Width = target;
+            SetLeftWidthImmediately(target);
+            return;
+        }
+
+        if (OperatingSystem.IsMacOS())
+        {
+            AnimateLeftWidthOnMacOs(target);
+            return;
+        }
+
+        var current = double.IsNaN(RectLeftBackground.Width)
+            ? RectLeftBackground.Bounds.Width
+            : RectLeftBackground.Width;
+        if (Math.Abs(target - current) < 0.1d)
+        {
+            SetLeftWidthImmediately(target);
             return;
         }
 
@@ -314,6 +320,56 @@ public partial class MainWindow : Window
             },
             LeftWidthAnimationKey,
             true);
+    }
+
+    /// <summary>macOS 只缩放渲染层，避免每一帧修改 Width 触发整窗布局。</summary>
+    private void AnimateLeftWidthOnMacOs(double target)
+    {
+        AnimationService.CancelAnimationByName(LeftWidthAnimationKey);
+
+        var existingScale = RectLeftBackground.RenderTransform as ScaleTransform;
+        var fixedWidth = double.IsNaN(RectLeftBackground.Width)
+            ? RectLeftBackground.Bounds.Width
+            : RectLeftBackground.Width;
+        var current = fixedWidth * (existingScale?.ScaleX ?? 1d);
+        if (Math.Abs(target - current) < 0.1d)
+        {
+            SetLeftWidthImmediately(target);
+            return;
+        }
+
+        fixedWidth = Math.Max(1d, Math.Max(current, target));
+        RectLeftBackground.Width = fixedWidth;
+        var scale = new ScaleTransform(current / fixedWidth, 1d);
+        RectLeftBackground.RenderTransformOrigin = RelativePoint.TopLeft;
+        RectLeftBackground.RenderTransform = scale;
+        var delta = target / fixedWidth - scale.ScaleX;
+        AnimationService.Run(
+            new List<IAnimation>
+            {
+                new DoubleAnimation(
+                    value => scale.ScaleX = Math.Max(0d, scale.ScaleX + value),
+                    delta,
+                    180,
+                    ease: new FluentEaseOut(EasePower.ExtraStrong)),
+                new ActionAnimation(
+                    () =>
+                    {
+                        RectLeftBackground.Width = target;
+                        scale.ScaleX = 1d;
+                    },
+                    true)
+            },
+            LeftWidthAnimationKey,
+            true);
+    }
+
+    private void SetLeftWidthImmediately(double target)
+    {
+        AnimationService.CancelAnimationByName(LeftWidthAnimationKey);
+        if (RectLeftBackground.RenderTransform is ScaleTransform scale)
+            scale.ScaleX = 1d;
+        RectLeftBackground.Width = target;
     }
 
     private void OnClosed()
