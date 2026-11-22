@@ -290,7 +290,10 @@ public partial class MainWindow : Window
             ? RectLeftBackground.Bounds.Width
             : RectLeftBackground.Width;
 
-        if (Math.Abs(target - current) < 0.1d
+        // macOS 上逐帧修改 Width 会触发布局并使侧栏伸展动画掉帧。
+        // 页面内容宽度本身已同步切换，因此让背景直接跟随即可保持视觉一致。
+        if (OperatingSystem.IsMacOS()
+            || Math.Abs(target - current) < 0.1d
             || !IsVisible
             || !AnimationService.IsEnabled
             || !RectLeftBackground.IsLoaded)
