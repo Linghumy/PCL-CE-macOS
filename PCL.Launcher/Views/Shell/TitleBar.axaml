@@ -3,6 +3,23 @@
              xmlns:controls="using:PCL.UI.Controls"
              xmlns:loc="using:PCL.Core.UI"
              x:Class="PCL.Views.Shell.TitleBar">
+    <UserControl.Styles>
+        <Style Selector="Button.mac-traffic">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Content="{TemplateBinding Content}" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
     <Grid x:Name="PanTitle"
           Height="48"
           Background="Transparent">
@@ -17,6 +34,7 @@
                     Spacing="0"
                     IsVisible="False">
             <Button x:Name="BtnMacTrafficClose"
+                    Classes="mac-traffic"
                     Width="18"
                     Height="18"
                     Padding="0"
@@ -33,16 +51,20 @@
                              Stroke="#26000000"
                              StrokeThickness="0.7" />
                     <Path x:Name="ShapeMacTrafficClose"
-                          Width="14"
-                          Height="14"
-                          Data="M3.5,3.5 L10.5,10.5 M10.5,3.5 L3.5,10.5"
+                          Width="8"
+                          Height="8"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Data="M2,2 L6,6 M6,2 L2,6"
                           Stroke="#7A0000"
-                          StrokeThickness="1.25"
-                          Stretch="Fill"
+                          StrokeThickness="1.1"
+                          StrokeLineCap="Round"
+                          Stretch="None"
                           Opacity="0" />
                 </Panel>
             </Button>
             <Button x:Name="BtnMacTrafficMinimize"
+                    Classes="mac-traffic"
                     Width="18"
                     Height="18"
                     Padding="0"
@@ -58,17 +80,18 @@
                              Fill="#FEBC2E"
                              Stroke="#26000000"
                              StrokeThickness="0.7" />
-                    <Path x:Name="ShapeMacTrafficMinimize"
-                          Width="14"
-                          Height="14"
-                          Data="M3.5,7 L10.5,7"
-                          Stroke="#7A4B00"
-                          StrokeThickness="1.25"
-                          Stretch="Fill"
-                          Opacity="0" />
+                    <Border x:Name="ShapeMacTrafficMinimize"
+                            Width="6"
+                            Height="1.1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="#7A4B00"
+                            CornerRadius="0.55"
+                            Opacity="0" />
                 </Panel>
             </Button>
             <Button x:Name="BtnMacTrafficMaximize"
+                    Classes="mac-traffic"
                     Width="18"
                     Height="18"
                     Padding="0"
@@ -84,14 +107,27 @@
                              Fill="#28C840"
                              Stroke="#26000000"
                              StrokeThickness="0.7" />
-                    <Path x:Name="ShapeMacTrafficMaximize"
-                          Width="14"
-                          Height="14"
-                          Data="M3.5,7 L10.5,7 M7,3.5 L7,10.5"
-                          Stroke="#005A12"
-                          StrokeThickness="1.25"
-                          Stretch="Fill"
-                          Opacity="0" />
+                    <Grid x:Name="ShapeMacTrafficMaximize"
+                          Width="8"
+                          Height="8"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Opacity="0">
+                        <Border Width="6"
+                                Height="1.1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="#005A12"
+                                CornerRadius="0.55"
+                                RenderTransformOrigin="0.5,0.5" />
+                        <Border Width="1.1"
+                                Height="6"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="#005A12"
+                                CornerRadius="0.55"
+                                RenderTransformOrigin="0.5,0.5" />
+                    </Grid>
                 </Panel>
             </Button>
         </StackPanel>

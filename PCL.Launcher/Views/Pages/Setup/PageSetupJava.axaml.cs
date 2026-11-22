@@ -181,7 +181,28 @@ public partial class PageSetupJava : MyPageRight, IRefreshable
         };
 
         var btnEnableSwitch = new MyIconButton();
-        item.Buttons = [btnOpenFolder, btnInfo, btnEnableSwitch];
+        var buttons = new List<MyIconButton>
+        {
+            btnOpenFolder,
+            btnInfo
+        };
+
+        if (entry.Source == JavaSource.AutoInstalled)
+        {
+            var btnDelete = new MyIconButton
+            {
+                SvgIcon = "lucide/trash-2"
+            };
+            btnDelete.SetLocalizedValue(
+                ToolTip.TipProperty,
+                "Setup.Java.Delete.ToolTip");
+            btnDelete.Click += async (_, _) =>
+                await DeleteManagedJavaAsync(entry);
+            buttons.Add(btnDelete);
+        }
+
+        buttons.Add(btnEnableSwitch);
+        item.Buttons = buttons;
 
         btnEnableSwitch.Click += (_, _) =>
         {
@@ -253,6 +274,46 @@ public partial class PageSetupJava : MyPageRight, IRefreshable
         finally
         {
             BtnAdd.IsEnabled = true;
+        }
+    }
+
+    private async Task DeleteManagedJavaAsync(JavaEntry entry)
+    {
+        var result = await DialogService.Instance.ShowAsync(
+            new TextDialogRequest
+            {
+                Title = Lang.Text("Setup.Java.Delete.Title"),
+                Content = Lang.Text(
+                    "Setup.Java.Delete.Message",
+                    entry.Installation.Version,
+                    entry.Installation.Architecture),
+                Buttons = DialogButtons.From(
+                    DialogButton.Create(Lang.Text("Common.Action.Delete")),
+                    DialogButton.Create(Lang.Text("Common.Action.Cancel"))),
+                IsWarn = true
+            });
+        if (!result.IsConfirmed)
+            return;
+
+        try
+        {
+            if (await ViewModel.RemoveManagedJavaAsync(entry))
+            {
+                HintService.Show(Hints.Success(Lang.Text("Setup.Java.Delete.Success")));
+                _loader.Start(true, true);
+            }
+            else
+            {
+                HintService.Show(Hints.Error(Lang.Text("Setup.Java.Delete.Failed")));
+            }
+        }
+        catch (Exception ex)
+        {
+            LauncherCommon.Log(
+                ex,
+                Lang.Text("Setup.Java.Delete.Failed"),
+                LauncherLogLevel.Hint,
+                userSummary: Lang.Text("Setup.Java.Delete.Failed"));
         }
     }
 }

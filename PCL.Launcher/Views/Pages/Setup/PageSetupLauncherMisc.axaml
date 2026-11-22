@@ -47,17 +47,12 @@
                                        Grid.Column="0"
                                        Margin="0,0,20,0"
                                        Text="{loc:Loc Setup.Misc.System.DisableHardwareAcceleration}" />
-                        <ui:MyCheckBox x:Name="CheckSystemTelemetry"
-                                       Grid.Column="1"
-                                       IsEnabled="{Binding TelemetryEnabled}"
-                                       Text="{loc:Loc Setup.Misc.System.Telemetry}"
-                                       ToolTip.Tip="{loc:Loc Setup.Misc.System.Telemetry.ToolTip}" />
                     </Grid>
 
                     <Grid Grid.Row="6"
                           Grid.ColumnSpan="2"
                           RowDefinitions="35"
-                          ColumnDefinitions="Auto,Auto,Auto,Auto">
+                          ColumnDefinitions="Auto,Auto">
                         <ui:MyButton x:Name="BtnSystemSettingExp"
                                      Grid.Column="0"
                                      MinWidth="140"
@@ -70,13 +65,6 @@
                                      Margin="0,0,20,0"
                                      Padding="13,0"
                                      Text="{loc:Loc Setup.Misc.System.ImportSettings}" />
-                        <ui:MyButton x:Name="BtnSystemStopUsingPclCe"
-                                     Grid.Column="2"
-                                     MinWidth="140"
-                                     Margin="0,0,20,0"
-                                     Padding="13,0"
-                                     ColorType="Red"
-                                     Text="{loc:Loc Setup.Misc.System.StopUsingPclCe}" />
                     </Grid>
                 </Grid>
             </ui:MyCard>
@@ -86,7 +74,8 @@
                        Title="{loc:Loc Setup.Misc.Storage.Title}">
                 <StackPanel Margin="25,40,25,16"
                             Spacing="10">
-                    <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto"
+                          RowDefinitions="35">
                         <TextBlock VerticalAlignment="Center"
                                    Text="{loc:Loc Setup.Misc.Storage.Root}" />
                         <TextBlock x:Name="LabStorageRoot"
@@ -98,10 +87,14 @@
                                      Grid.Column="2"
                                      MinWidth="110"
                                      Margin="0,0,10,0"
+                                     Padding="13,0"
+                                     VerticalAlignment="Stretch"
                                      Text="{loc:Loc Setup.Misc.Storage.OpenRoot}" />
                         <ui:MyButton x:Name="BtnStorageClear"
                                      Grid.Column="3"
                                      MinWidth="150"
+                                     Padding="13,0"
+                                     VerticalAlignment="Stretch"
                                      ColorType="Red"
                                      Text="{loc:Loc Setup.Misc.Storage.Clear}" />
                     </Grid>
@@ -117,8 +110,6 @@
                     <ui:MyCheckBox x:Name="CheckStorageMinecraft"
                                    Text="{loc:Loc Setup.Misc.Storage.Minecraft}"
                                    ToolTip.Tip="{loc:Loc Setup.Misc.Storage.Minecraft.ToolTip}" />
-                    <ui:MyHint Theme="Yellow"
-                               Text="{loc:Loc Setup.Misc.Storage.Hint}" />
                 </StackPanel>
             </ui:MyCard>
 

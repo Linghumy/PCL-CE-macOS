@@ -48,7 +48,11 @@ public static class GameFolders
     public static void ApplySelectedFolder(string? value)
     {
         if (string.IsNullOrWhiteSpace(value)) return;
-        mcFolderSelected = value.Replace("$", LauncherPaths.UserDataRoot);
+        var expanded = value.Replace("$", LauncherPaths.UserDataRoot);
+        expanded = LauncherPaths.MigrateLegacyMinecraftDirectoryPath(expanded);
+        if (!expanded.EndsWith(Path.DirectorySeparatorChar))
+            expanded += Path.DirectorySeparatorChar;
+        mcFolderSelected = expanded;
     }
 
     private static void McFolderListLoadSub()
@@ -102,7 +106,8 @@ public static class GameFolders
             }
 
             var name = folder.Split(">")[0];
-            var path = folder.Split(">")[1];
+            var path = LauncherPaths.MigrateLegacyMinecraftDirectoryPath(
+                folder.Split(">")[1]);
             try
             {
                 Directories.EnsureWritable(path);

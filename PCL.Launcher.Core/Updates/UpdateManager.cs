@@ -15,17 +15,20 @@ public static class UpdateManager
     public static UpdatesWrapperModel remoteServer = new(
         new List<IUpdateSource>
         {
-            new UpdatesMirrorChyanModel(),
+            new GitHubReleaseUpdateSource()
+        });
+
+    /// <summary>原 PCL-CE 的公告接口公开可用，仅用于只读公告展示。</summary>
+    public static UpdatesWrapperModel announcementServer = new(
+        new List<IUpdateSource>
+        {
             new UpdatesRandomModel(
             [
                 new UpdatesMinioModel("https://s3.pysio.online/pcl2-ce/", "Pysio"),
                 new UpdatesMinioModel(
                     "https://staticassets.naids.com/resources/pclce/",
                     "Naids")
-            ]),
-            new UpdatesMinioModel(
-                "https://github.com/PCL-Community/PCL2_CE_Server/raw/main/",
-                "GitHub")
+            ])
         });
 
     public static Loading.LoaderCombo<JsonObject> updateLoader;
@@ -116,10 +119,20 @@ public static class UpdateManager
         {
             try
             {
-                var version = remoteServer.GetLatestVersion(
-                    IsCurrentVersionBeta ? UpdateSourceChannel.Beta : UpdateSourceChannel.Stable,
-                    SystemInfo.IsArm64System ? UpdateArch.Arm64 : UpdateArch.X64
-                );
+                var channel = IsCurrentVersionBeta
+                    ? UpdateSourceChannel.Beta
+                    : UpdateSourceChannel.Stable;
+                var arch = SystemInfo.IsArm64System
+                    ? UpdateArch.Arm64
+                    : UpdateArch.X64;
+                if (remoteServer.IsLatest(
+                        channel,
+                        arch,
+                        SemVer.Parse(LauncherCommon.VersionBaseName),
+                        LauncherCommon.VersionCode))
+                    return;
+
+                var version = remoteServer.GetLatestVersion(channel, arch);
 
                 Files.WriteAllText($"{LauncherPaths.Temp}CEUpdateLog.md", version.Changelog);
                 LauncherCommon.Log(
@@ -372,13 +385,4 @@ public static class UpdateManager
         }
     }
 
-    /// <summary>展示社区版提示</summary>
-    /// <param name="IsUpdate">是否为更新时启动</param>
-    public static void ShowCeAnnounce()
-    {
-        UpdateUi.Current?.ShowMessageBox(
-            Lang.Text("Update.CommunityNotice.Body"),
-            Lang.Text("Update.CommunityNotice.Title"),
-            Lang.Text("Update.CommunityNotice.Confirm"));
-    }
 }

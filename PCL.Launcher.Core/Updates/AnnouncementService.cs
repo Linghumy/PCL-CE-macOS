@@ -16,7 +16,7 @@ public static class AnnouncementService
             .ToList();
 
         var showAnnounce = UpdateManager
-            .remoteServer.GetAnnouncementList()
+            .announcementServer.GetAnnouncementList()
             .Content
             .Where(x => !showedAnnounced.Contains(x.Id))
             .ToList();
@@ -28,7 +28,7 @@ public static class AnnouncementService
             foreach (var item in showAnnounce)
                 UpdateUi.Current?.ShowMessageBox(
                     item.Detail,
-                    item.Title,
+                    Lang.Text("Announcement.Source.OriginalPclCe", item.Title),
                     item.Btn1 is null ? "" : item.Btn1.Text,
                     item.Btn2 is null ? "" : item.Btn2.Text,
                     Lang.Text("Common.Action.Close"),

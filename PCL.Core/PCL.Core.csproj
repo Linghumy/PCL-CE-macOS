@@ -68,7 +68,6 @@
         <PackageReference Include="Humanizer.Core.zh-CN" Version="3.0.10" />
         <!-- 日志与遥测 -->
         <PackageReference Include="Microsoft.Extensions.Logging" Version="11.0.0" />
-        <PackageReference Include="Sentry" Version="6.6.0" />
         <!-- 身份认证 -->
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />
         <!-- 验证 -->

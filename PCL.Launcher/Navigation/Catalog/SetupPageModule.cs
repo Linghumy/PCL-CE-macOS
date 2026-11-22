@@ -89,21 +89,11 @@ public sealed class SetupPageModule : IPageModule
             () => !Config.Preference.Hide.SetupUpdate),
         Sub(
             PageIds.Setup,
-            SubPageIds.SetupFeedback,
-            "Setup.Left.Item.Feedback",
-            "lucide/message-circle",
-            "about",
-            8,
-            (sp, _) => ActivatorUtilities.CreateInstance<PageSetupFeedback>(sp),
-            () => !Config.Preference.Hide.SetupFeedback,
-            true),
-        Sub(
-            PageIds.Setup,
             SubPageIds.SetupLog,
             "Setup.Left.Item.Log",
             "lucide/scroll-text",
             "about",
-            9,
+            8,
             (sp, _) => ActivatorUtilities.CreateInstance<PageSetupLog>(sp),
             () => !Config.Preference.Hide.SetupLog)
     ];

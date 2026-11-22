@@ -633,9 +633,6 @@ public partial class PageSetupUI : MyPageRight, ISetupResetPage
                 new HideCheckDefinition("UiHiddenLauncherMisc", "Setup.Ui.FeatureHide.Item.Misc"),
                 new HideCheckDefinition("UiHiddenSetupUpdate", "Setup.Ui.FeatureHide.Item.Update"),
                 new HideCheckDefinition("UiHiddenSetupAbout", "Setup.Ui.FeatureHide.Item.About"),
-                new HideCheckDefinition(
-                    "UiHiddenSetupFeedback",
-                    "Setup.Ui.FeatureHide.Item.Feedback"),
                 new HideCheckDefinition("UiHiddenSetupLog", "Setup.Ui.FeatureHide.Item.Log")
             ]);
 

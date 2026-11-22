@@ -53,10 +53,7 @@ public sealed class MacOsJavaScanner : IJavaScanner
 
     private static void _AddManagedJava(ICollection<string> results)
     {
-        var configured = Environment.GetEnvironmentVariable("PCL_JAVA_DIR");
-        var root = string.IsNullOrWhiteSpace(configured)
-            ? Path.Combine(Paths.SharedLocalData, "Java")
-            : Path.GetFullPath(Paths.ExpandUserPath(configured));
+        var root = ManagedJavaRuntime.Root;
         if (!Directory.Exists(root)) return;
 
         try

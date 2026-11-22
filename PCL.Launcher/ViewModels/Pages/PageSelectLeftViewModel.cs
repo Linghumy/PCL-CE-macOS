@@ -181,7 +181,7 @@ public partial class PageSelectLeftViewModel : ViewModelBase
         {
             Directory.CreateDirectory(minecraftFolder);
             Directory.CreateDirectory(Path.Combine(minecraftFolder, "versions"));
-            States.Game.SelectedFolder = "$.minecraft" + Path.DirectorySeparatorChar;
+            States.Game.SelectedFolder = LauncherPaths.DefaultMinecraftFolderToken;
             GameFolders.ApplySelectedFolder(minecraftFolder);
             GameFolders.McFolderLauncherProfilesJsonCreate(minecraftFolder);
             HintService.Show(Hints.Success(Lang.Text("Select.Folder.CreateSuccess")));
@@ -215,7 +215,7 @@ public partial class PageSelectLeftViewModel : ViewModelBase
             var segments = newFolder
                 .TrimEnd(separator)
                 .Split(separator);
-            var defaultName = segments[^1] == ".minecraft"
+            var defaultName = segments[^1] is ".minecraft" or "Minecraft"
                 ? segments.Length >= 3 ? segments[^2] : ""
                 : segments[^1];
             if (defaultName.Length > 40)

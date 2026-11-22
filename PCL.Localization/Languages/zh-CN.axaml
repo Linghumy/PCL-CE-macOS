@@ -28,6 +28,7 @@
     <sys:String x:Key="Application.InitializationError.Path">PCL CE 所在路径：{0}</sys:String>
     <sys:String x:Key="Application.InitializationError.PathUnavailable">获取失败</sys:String>
     <sys:String x:Key="Application.InitializationError.Title">PCL CE 初始化错误</sys:String>
+    <sys:String x:Key="Announcement.Source.OriginalPclCe">【来自原 PCL-CE 的公告】{0}</sys:String>
     <sys:String x:Key="Application.Loader.Error.OperationFailed">任务加载操作失败。请查看错误详情。</sys:String>
 
     <!-- Common -->
@@ -1947,8 +1948,6 @@
     <sys:String x:Key="Main.Tab.Launch">启动</sys:String>
     <sys:String x:Key="Main.Tab.Settings">设置</sys:String>
     <sys:String x:Key="Main.Tab.Tools">工具</sys:String>
-    <sys:String x:Key="Main.Telemetry.Message">启用遥测数据收集后，启动器将会收集并上报错误与设备环境信息，这可以帮助开发者修复潜在的问题、更好的进行规划和开发。&#xA;若启用此功能，我们将会收集以下信息：&#xA;&#xA;- 启动器内出现的错误&#xA;- 启动器版本信息与识别码&#xA;- Windows 系统版本与架构&#xA;- 已安装的物理内存大小&#xA;- NAT 与 IPv6 支持情况&#xA;- 是否使用过原版 PCL、HMCL 或 BakaXL&#xA;&#xA;这些数据均不与你关联，我们也绝不会向第三方出售数据。&#xA;如果不希望启用遥测，可以选择拒绝。这不会影响其他功能的正常使用，但可能会影响开发者修复潜在 Bug。&#xA;你可以随时在启动器设置中调整这项设置。</sys:String>
-    <sys:String x:Key="Main.Telemetry.Title">启用遥测数据收集</sys:String>
     <sys:String x:Key="Main.Title.GameLog">实时日志</sys:String>
     <sys:String x:Key="Main.Title.InstanceSelect">实例选择</sys:String>
     <sys:String x:Key="Main.Title.InstanceSetup">实例设置 - {0}</sys:String>
@@ -2633,40 +2632,9 @@
     <sys:String x:Key="Setup.About.SpecialThanks.SponsorMirror">赞助镜像源</sys:String>
     <sys:String x:Key="Setup.About.SpecialThanks.Title">特别鸣谢</sys:String>
 
-    <!-- Setup.Feedback -->
 
-    <sys:String x:Key="Setup.Feedback.ErrorPrompt.Submit.Action">反馈</sys:String>
-    <sys:String x:Key="Setup.Feedback.ErrorPrompt.Submit.Message">{0}&#xA;&#xA;是否反馈此问题？如果不反馈，这个问题可能永远无法得到解决！</sys:String>
-    <sys:String x:Key="Setup.Feedback.ErrorPrompt.Update.Message">{0}&#xA;&#xA;将 PCL CE 更新至最新版或许可以解决这个问题。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Item.Submitter">提交者：{0}（{1}）</sys:String>
-    <sys:String x:Key="Setup.Feedback.Item.Type">类型：{0}</sys:String>
-    <sys:String x:Key="Setup.Feedback.Item.ViewDetail">查看详情</sys:String>
-    <sys:String x:Key="Setup.Feedback.LoadFailed">无法获取到内容</sys:String>
-    <sys:String x:Key="Setup.Feedback.Loading">正在获取反馈列表</sys:String>
-    <sys:String x:Key="Setup.Feedback.Reminder.Message">若要汇报 Bug，请点击“打开文件夹”并上传 Launch-{0}-[一串数字].log 中包含错误信息的文件。&#xA;&#xA;游戏崩溃一般与启动器无关，请不要因为游戏崩溃而提交启动器反馈。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Reminder.NotNeeded">不需要</sys:String>
-    <sys:String x:Key="Setup.Feedback.Reminder.Title">反馈提交提醒</sys:String>
-    <sys:String x:Key="Setup.Feedback.Submit.Description">在提交反馈之前，先查找一下是否存在重复反馈，如果有重复反馈，那么请不要再次提交反馈，这样会加剧维护者的负担……&#xA;注意：此页面未展示所有的反馈，如需查看更多反馈，请前往 GitHub。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Submit.Open">前往反馈</sys:String>
-    <sys:String x:Key="Setup.Feedback.Submit.Title">提交反馈</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.CheckFailed.Action">重新检查更新</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.CheckFailed.Message">检查更新失败，因此无法提交反馈。&#xA;请连接互联网，检查更新后确认该问题在最新版中依然存在，再提交反馈。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.NotLatest.Action">更新</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.NotLatest.Message">当前 PCL CE 不是最新版，因此无法提交反馈。&#xA;请更新后确认该问题在最新版中依然存在，再提交反馈。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.Title">无法提交反馈</sys:String>
-    <sys:String x:Key="Setup.Feedback.Uncategorized">未分类</sys:String>
 
-    <!-- Setup.Feedback.Status -->
 
-    <sys:String x:Key="Setup.Feedback.Status.Completed">已完成</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Declined">已拒绝</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Duplicate">重复</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Ignored">已忽略</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Paused">暂停</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Processing">正在处理</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.UpNext">在即</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Waiting">等待</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.WaitingProcess">等待处理</sys:String>
 
     <!-- Setup.GameLink -->
 
@@ -2791,6 +2759,11 @@
     <sys:String x:Key="Setup.Java.AlreadyExists">Java 已经存在，不用再次添加……</sys:String>
     <sys:String x:Key="Setup.Java.AutoSelect.Info">Java 选择自动挡，依据游戏需要自动选择合适的 Java</sys:String>
     <sys:String x:Key="Setup.Java.AutoSelect.Title">自动选择</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Failed">无法删除此 Java 运行时，请关闭正在使用它的游戏后重试</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Message">将删除 PCL-CE 托管的 Java {0}（{1}）。&#xA;此操作会移除整个运行时目录，且无法撤销。</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Success">已删除托管的 Java 运行时</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Title">删除托管 Java</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.ToolTip">删除此 PCL-CE 托管的 Java</sys:String>
     <sys:String x:Key="Setup.Java.DeselectBeforeDisable">请先取消选择此 Java 作为默认 Java 后再禁用</sys:String>
     <sys:String x:Key="Setup.Java.Detail.ToolTip">详细信息</sys:String>
     <sys:String x:Key="Setup.Java.Disable">禁用此 Java</sys:String>
@@ -2802,6 +2775,8 @@
     <sys:String x:Key="Setup.Java.Loading">正在加载 Java 列表</sys:String>
     <sys:String x:Key="Setup.Java.SelectFile.Filter">Java 程序({0})|{0}</sys:String>
     <sys:String x:Key="Setup.Java.SelectFile.Title">选择 Java 程序</sys:String>
+    <sys:String x:Key="Setup.Java.Source.AutoInstalled">PCL-CE 托管</sys:String>
+    <sys:String x:Key="Setup.Java.Source.ManualAdded">手动添加</sys:String>
     <sys:String x:Key="Setup.Java.Unavailable">此 Java 不可用，请刷新列表</sys:String>
 
     <!-- Setup.Language -->
@@ -2965,7 +2940,6 @@
     <!-- Setup.Left.Item -->
 
     <sys:String x:Key="Setup.Left.Item.About">软件信息</sys:String>
-    <sys:String x:Key="Setup.Left.Item.Feedback">反馈</sys:String>
     <sys:String x:Key="Setup.Left.Item.GameLink">联机</sys:String>
     <sys:String x:Key="Setup.Left.Item.GameManage">管理</sys:String>
     <sys:String x:Key="Setup.Left.Item.Java">Java</sys:String>
@@ -3061,14 +3035,6 @@
     <sys:String x:Key="Setup.Misc.System.MaxLogLines">实时日志行数</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.ToolTip">实时日志功能中最大显示行数，超过该值会自动删除旧的日志。</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.Unlimited">无限制</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe">停止使用 PCL CE</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.ContinueAndRemove">继续并清理实例文件夹</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.Message">即将删除此电脑上与 PCL CE 有关的全部配置、缓存、已保存的账户信息及其他相关数据，并撤销已接受的许可协议。完成后，软件将自动关闭。&#xA;&#xA;但请注意，以下内容无法自动删除或注销：&#xA;- 此电脑上其他 PCL CE 实例的本地数据&#xA;- Natayark 账户&#xA;&#xA;如需同时删除 Minecraft 实例中的 PCL CE 配置文件，请选择“继续并清理实例文件夹”，这不会影响你的游戏配置、模组、存档，以及其他数据。&#xA;&#xA;此操作无法撤销。您确定要继续吗？</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.Message.Final">你确定要继续操作吗？这是最后警告！&#xA;与 PCL CE 有关的一切数据将被永久消除！（真的很久！）</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.Title">停止使用 PCL CE？</sys:String>
-    <sys:String x:Key="Setup.Misc.System.Telemetry">启用遥测数据收集</sys:String>
-    <sys:String x:Key="Setup.Misc.System.Telemetry.ToolTip">启用此功能后，启动器将会收集并上报错误与设备环境信息，这可以帮助开发者修复潜在的问题、更好的进行规划和开发。&#xA;若启用此功能，我们将会收集以下信息：启动器内出现的错误，启动器版本信息与识别码，使用的 Windows 系统版本与架构，已安装的物理内存大小，NAT 与 IPv6 支持情况，是否使用过原版 PCL、HMCL 或 BakaXL。&#xA;&#xA;这些数据均不与你关联，我们也绝不会向第三方出售数据。不启用此功能不会影响你使用其他功能，但可能会影响开发者修复潜在 Bug。&#xA;&#xA;此项更改将在重新启动启动器后生效。</sys:String>
-    <sys:String x:Key="Setup.Misc.System.Telemetry.Unavailable">此版本受到修改或非官方构建，Sentry 回报不可用</sys:String>
     <sys:String x:Key="Setup.Misc.System.Title">系统</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Title">启动器数据</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Root">数据目录</sys:String>
@@ -3080,7 +3046,6 @@
     <sys:String x:Key="Setup.Misc.Storage.Java">托管 Java 运行环境</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Minecraft">Minecraft 游戏文件夹与实例</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">会删除所选 Minecraft 文件夹中的存档、模组、资源包等，且无法恢复。</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.Hint">清理会在启动器退出后执行。可自由组合要清除的数据类型。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.NothingSelected">请至少选择一种要清除的数据。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">请先退出正在运行的 Minecraft，再清理游戏数据。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">清除 PCL-CE-macOS 数据？</sys:String>
@@ -3304,9 +3269,6 @@
     <sys:String x:Key="Setup.Update.Flatpak">请通过 Flatpak 或软件中心更新</sys:String>
     <sys:String x:Key="Setup.Update.OpenDownload">打开下载页</sys:String>
     <sys:String x:Key="Setup.Update.Latest">已是最新版本</sys:String>
-    <sys:String x:Key="Setup.Update.MirrorChyanCdk.Get">获取 CDK</sys:String>
-    <sys:String x:Key="Setup.Update.MirrorChyanCdk.Label">Mirror 酱 CDK</sys:String>
-    <sys:String x:Key="Setup.Update.MirrorChyanCdk.ToolTip">Mirror 酱 (mirrorchyan.com) 是一个付费的第三方应用分发平台，用于提供国内有偿高速下载源。&#xA;这是一项可选服务，不填入 CDK 不影响正常使用与更新。&#xA;如果你有 Mirror 酱的 CDK，可以提供给 PCL CE，启动器会优先使用他们的高速下载源下载软件更新，也能缓解社区公益更新服务器的一些压力……</sys:String>
     <sys:String x:Key="Setup.Update.OtherOptions.Placeholder">AquaCL 3 是 PCL CE 的第一个主要更新，带来了让人眼前一亮的新设计，使用了最新开发技术，完全重构了基础体验，并更支持 macOS、Linux 等其他平台。</sys:String>
     <sys:String x:Key="Setup.Update.OtherOptions.Title">其他更新选项 - 升级到 AquaCL</sys:String>
     <sys:String x:Key="Setup.Update.RestartInstall">重启安装</sys:String>
@@ -3637,9 +3599,6 @@
     <sys:String x:Key="Update.Action">更新</sys:String>
     <sys:String x:Key="Update.Available">启动器有新版本可用（{0} -&gt; {1}）&#xA;是否立即更新？</sys:String>
     <sys:String x:Key="Update.Check.Failed">无法获取最新版本信息，请检查网络连接</sys:String>
-    <sys:String x:Key="Update.CommunityNotice.Body">你正在使用来自 PCL-Community 的 PCL CE，遇到问题请不要向原版仓库反馈！&#xA;PCL-Community 及其成员与龙腾猫跃无从属关系，且均不会为您的使用做担保。&#xA;&#xA;如果你是意外下载的 PCL CE，建议下载原版 PCL 使用。&#xA;如果你是意外下载的 PCL CE，建议下载原版 PCL 使用。&#xA;如果你是意外下载的 PCL CE，建议下载原版 PCL 使用。&#xA;&#xA;该版本与原版的特性区别：&#xA;- 主题切换：仅部分固定蓝色系主题，没有计划新增其它主题。&#xA;- 百宝箱：缺失部分原版中的内容（回声洞、千万别点）。&#xA;&#xA;此提示会在启动器更新后展示一次。</sys:String>
-    <sys:String x:Key="Update.CommunityNotice.Confirm">我知道了</sys:String>
-    <sys:String x:Key="Update.CommunityNotice.Title">PCL CE 版本说明</sys:String>
     <sys:String x:Key="Update.Error.FetchFailed">获取启动器更新失败，请检查网络连接</sys:String>
     <sys:String x:Key="Update.Error.FileNotFound">找不到更新文件</sys:String>
     <sys:String x:Key="Update.Error.OperationFailed">更新操作失败。请查看错误详情。</sys:String>

@@ -1,6 +1,7 @@
 using PCL.Core.App.Localization;
 using PCL.Core.App;
 using PCL.Core.IO;
+using PCL.Core.Minecraft.Java;
 using PCL.Core.Utils.OS;
 using PCL.Network;
 using PCL.Network.Loaders;
@@ -242,10 +243,7 @@ public static partial class JavaRuntime
     /// <summary>Java 运行环境统一放在启动器管理目录，默认位于集中数据根目录下的 Java。</summary>
     private static string GetManagedJavaRoot()
     {
-        var configured = Environment.GetEnvironmentVariable("PCL_JAVA_DIR");
-        if (!string.IsNullOrWhiteSpace(configured))
-            return Path.GetFullPath(Paths.ExpandUserPath(configured));
-        return Path.Combine(Paths.SharedLocalData, "Java");
+        return ManagedJavaRuntime.Root;
     }
 
     private static void _MakeJavaExecutables(IReadOnlyList<string> executables)

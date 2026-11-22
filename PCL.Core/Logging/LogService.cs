@@ -17,9 +17,9 @@ namespace PCL.Core.Logging;
 /// <summary>
 /// The single lifecycle log service. It owns the <see cref="Logger" /> instance,
 /// bridges both logging entry points (<c>LogWrapper</c> and <c>LifecycleContext</c>) into it,
-/// forwards unhandled exceptions to telemetry, and translates <see cref="ActionLevel" />
-/// values into user-visible hints, message boxes and fatal exits. Level filtering is delegated
-/// to <see cref="Logger" /> so it can never suppress those side effects.
+/// and translates <see cref="ActionLevel" /> values into user-visible hints, message boxes and
+/// fatal exits. Level filtering is delegated to <see cref="Logger" /> so it can never suppress
+/// those side effects.
 /// </summary>
 [LifecycleService(LifecycleState.Loading, Priority = int.MaxValue)]
 public class LogService : ILifecycleLogService
@@ -151,17 +151,13 @@ public class LogService : ILifecycleLogService
     }
 
     /// <summary>
-    /// Handles one log item: reports the exception to telemetry, enqueues the entry for
-    /// the file writer, then performs the action required by <paramref name="actionLevel" />. The
-    /// three steps are independent, which is what keeps
+    /// Handles one log item: enqueues the entry for the file writer, then performs the action
+    /// required by <paramref name="actionLevel" />. The two steps are independent, which is what keeps
     /// <see cref="LoggerConfiguration.MinLogLevel" /> from silencing hints, message boxes or fatal
     /// exits.
     /// </summary>
     private static void _LogAction(in LogEntry entry, ActionLevel actionLevel)
     {
-        if (entry.Exception is not null)
-            TelemetryService.ReportException(entry.Exception, entry.Message, entry.Level);
-
         _logger?.Enqueue(entry);
 
         var plain = entry.Message;

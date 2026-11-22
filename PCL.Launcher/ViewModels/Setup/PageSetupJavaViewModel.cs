@@ -1,5 +1,6 @@
 using PCL.Core.App;
 using PCL.Core.App.Localization;
+using PCL.Core.IO;
 using PCL.Core.Minecraft;
 using PCL.Core.UI.Hints;
 using PCL.Core.ViewModel;
@@ -23,11 +24,22 @@ public class PageSetupJavaViewModel : ViewModelBase
 
     public static List<string> BuildTags(JavaEntry entry)
     {
-        return
+        List<string> tags =
         [
             entry.Installation.Architecture == MachineType.ARM64 ? "ARM64" : (entry.Installation.Is64Bit ? "64 Bit" : "32 Bit"), 
             entry.Installation.Brand.ToString()
         ];
+        switch (entry.Source)
+        {
+            case JavaSource.AutoInstalled:
+                tags.Add(Lang.Text("Setup.Java.Source.AutoInstalled"));
+                break;
+            case JavaSource.ManualAdded:
+                tags.Add(Lang.Text("Setup.Java.Source.ManualAdded"));
+                break;
+        }
+
+        return tags;
     }
 
     public static string BuildInfoMessage(JavaEntry entry)
@@ -121,5 +133,36 @@ public class PageSetupJavaViewModel : ViewModelBase
             },
             ct));
         return JavaRuntime.Javas.Exist(javaExePath);
+    }
+
+    public async Task<bool> RemoveManagedJavaAsync(JavaEntry entry)
+    {
+        if (entry.Source != JavaSource.AutoInstalled
+            || !ManagedJavaRuntime.TryGetInstallationRoot(
+                entry.Installation.JavaExePath,
+                out var installationRoot))
+        {
+            return false;
+        }
+
+        if (string.Equals(
+                Config.Launch.SelectedJava,
+                entry.Installation.JavaExePath,
+                StringComparison.Ordinal))
+        {
+            Config.Launch.SelectedJava = string.Empty;
+        }
+
+        var result = await RunAsync(ct => Task.Run(
+            () =>
+            {
+                ct.ThrowIfCancellationRequested();
+                JavaRuntime.Javas.Remove(entry.Installation.JavaExePath);
+                JavaRuntime.Javas.SaveConfig();
+                Directories.DeleteDirectory(installationRoot);
+                return !Directory.Exists(installationRoot);
+            },
+            ct));
+        return result is true;
     }
 }

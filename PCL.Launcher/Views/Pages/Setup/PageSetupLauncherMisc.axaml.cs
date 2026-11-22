@@ -81,8 +81,6 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
             HintService.Show(
                 Hints.Info(Lang.Text("Setup.Misc.HardwareAcceleration.RestartNotice")));
         });
-        CheckSystemTelemetry.Change += (_, _) =>
-            WriteIfReady(() => Config.System.Telemetry = CheckSystemTelemetry.Checked == true);
         CheckNetDohEnable.Change += (_, _) =>
             WriteIfReady(() => Config.Network.EnableDoH = CheckNetDohEnable.Checked == true);
         CheckDebugSkipCopy.Change += (_, _) =>
@@ -102,7 +100,6 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
         BtnApplyHttpProxy.Click += (_, _) => ViewModel.ApplyHttpProxy();
         BtnSystemSettingExp.Click += (_, _) => ExportSettings();
         BtnSystemSettingImp.Click += async (_, _) => await ImportSettingsAsync();
-        BtnSystemStopUsingPclCe.Click += async (_, _) => await StopUsingPclCeAsync();
         CardStorage.IsVisible = OperatingSystem.IsMacOS();
         BtnStorageOpenRoot.Click += (_, _) => Basics.OpenPath(Paths.CentralRoot);
         BtnStorageClear.Click += async (_, _) => await ClearSelectedStorageAsync();
@@ -169,8 +166,6 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
             SliderMaxLog.Value = Config.System.MaxGameLog;
             CheckSystemDisableHardwareAcceleration.Checked =
                 Config.System.DisableHardwareAcceleration;
-            CheckSystemTelemetry.Checked =
-                !ViewModel.IsBuildUntrusted && Config.System.Telemetry;
 
             CheckNetDohEnable.Checked = Config.Network.EnableDoH;
             var proxyType = Math.Clamp(Config.Network.HttpProxy.Type, 0, 2);
@@ -196,25 +191,6 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
             _reloading = false;
         }
 
-        RefreshTelemetryToolTip();
-    }
-
-    private void RefreshTelemetryToolTip()
-    {
-        if (ViewModel.IsBuildUntrusted)
-        {
-            CheckSystemTelemetry.SetLocalizedValue(
-                ToolTip.TipProperty,
-                "Setup.Misc.System.Telemetry.Unavailable");
-            ToolTip.SetShowOnDisabled(CheckSystemTelemetry, true);
-        }
-        else
-        {
-            CheckSystemTelemetry.SetLocalizedValue(
-                ToolTip.TipProperty,
-                "Setup.Misc.System.Telemetry.ToolTip");
-            ToolTip.SetShowOnDisabled(CheckSystemTelemetry, false);
-        }
     }
 
     private void WriteIfReady(Action action)
@@ -506,95 +482,6 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
         }
 
         return paths;
-    }
-
-    private static async Task StopUsingPclCeAsync()
-    {
-        try
-        {
-            var first = await DialogService.Instance.ShowAsync(
-                new TextDialogRequest
-                {
-                    Title = Lang.Text("Setup.Misc.System.StopUsingPclCe.Title"),
-                    Content = Lang.Text("Setup.Misc.System.StopUsingPclCe.Message"),
-                    Buttons = DialogButtons.Create(
-                        "Common.Action.Continue",
-                        "Setup.Misc.System.StopUsingPclCe.ContinueAndRemove",
-                        "Common.Action.Cancel"),
-                    IsWarn = true
-                });
-            if (first.Button is < 1 or > 2) return;
-
-            var second = await DialogService.Instance.ShowAsync(
-                new TextDialogRequest
-                {
-                    Title = Lang.Text("Common.Dialog.Warning"),
-                    Content = Lang.Text("Setup.Misc.System.StopUsingPclCe.Message.Final"),
-                    Buttons = DialogButtons.ContinueCancel,
-                    IsWarn = true
-                });
-            if (!second.IsConfirmed) return;
-
-            StopUsingPclCeCore(first.Button == 2);
-        }
-        catch (Exception ex)
-        {
-            LauncherCommon.Log(
-                ex,
-                "停止使用 PCL CE 失败",
-                LauncherLogLevel.Msgbox,
-                userSummary: Lang.Text("Setup.Error.OperationFailed"));
-        }
-    }
-
-    private static void StopUsingPclCeCore(bool removeMcResources)
-    {
-        if (removeMcResources && !string.IsNullOrWhiteSpace(States.Game.Folders))
-            foreach (var folder in States.Game.Folders.Split('|'))
-            {
-                var parts = folder.Split('>');
-                if (parts.Length < 2) continue;
-                var realPath = parts[1];
-                DeleteFiles([Path.Combine(realPath, "PCL.ini")]);
-
-                var versionsPath = Path.Combine(realPath, "versions");
-                if (!Directory.Exists(versionsPath)) continue;
-                DeleteFiles(
-                    Directory
-                        .EnumerateDirectories(versionsPath)
-                        .Select(p => Path.Combine(p, "PCL", "config.v1.yml")));
-            }
-
-        var folders = new[]
-            {
-                Paths.Data,
-                Paths.OldSharedData,
-                Paths.SharedData,
-                Paths.SharedLocalData,
-                Paths.Temp
-            }
-            .Where(folder => !string.IsNullOrWhiteSpace(folder))
-            .Distinct()
-            .ToArray();
-
-        ApplicationRuntime.Current.Platform.ProcessCleanup.DeleteFoldersAndRestart(folders);
-
-        UiInteraction.Shutdown();
-        return;
-
-        static void DeleteFiles(IEnumerable<string> paths)
-        {
-            foreach (var path in paths)
-                try
-                {
-                    if (File.Exists(path))
-                        File.Delete(path);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-        }
     }
 
     #endregion

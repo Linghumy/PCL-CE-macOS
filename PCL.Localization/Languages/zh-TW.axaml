@@ -28,6 +28,7 @@
     <sys:String x:Key="Application.InitializationError.Path">PCL CE 所在路徑：{0}</sys:String>
     <sys:String x:Key="Application.InitializationError.PathUnavailable">取得失敗</sys:String>
     <sys:String x:Key="Application.InitializationError.Title">PCL CE 初始化錯誤</sys:String>
+    <sys:String x:Key="Announcement.Source.OriginalPclCe">【來自原 PCL-CE 的公告】{0}</sys:String>
     <sys:String x:Key="Application.Loader.Error.OperationFailed">任務載入操作失敗。請檢視錯誤詳情。</sys:String>
 
     <!-- Common -->
@@ -1890,8 +1891,6 @@
     <sys:String x:Key="Main.Tab.Launch">啟動</sys:String>
     <sys:String x:Key="Main.Tab.Settings">設定</sys:String>
     <sys:String x:Key="Main.Tab.Tools">工具</sys:String>
-    <sys:String x:Key="Main.Telemetry.Message">啟用遙測資料收集後，啟動器將會收集並上報錯誤與裝置環境資訊，這可以幫助開發者修復潛在的問題、更好的進行規劃和開發。&#xA;若啟用此功能，我們將會收集以下資訊：&#xA;&#xA;- 啟動器內出現的錯誤&#xA;- 啟動器版本資訊與識別碼&#xA;- Windows 系統版本與架構&#xA;- 已安裝的實體記憶體大小&#xA;- NAT 與 IPv6 支援情況&#xA;- 是否使用過原版 PCL、HMCL 或 BakaXL&#xA;&#xA;這些資料均不與你關聯，我們也絕不會向第三方出售資料。&#xA;如果不希望啟用遙測，可以選擇拒絕。這不會影響其他功能的正常使用，但可能會影響開發者修復潛在 Bug。&#xA;你可以隨時在啟動器設定中調整這項設定。</sys:String>
-    <sys:String x:Key="Main.Telemetry.Title">啟用遙測資料收集</sys:String>
     <sys:String x:Key="Main.Title.GameLog">即時日誌</sys:String>
     <sys:String x:Key="Main.Title.InstanceSelect">實例選擇</sys:String>
     <sys:String x:Key="Main.Title.InstanceSetup">實例設定 - {0}</sys:String>
@@ -2574,40 +2573,9 @@
     <sys:String x:Key="Setup.About.SpecialThanks.SponsorMirror">贊助鏡像來源</sys:String>
     <sys:String x:Key="Setup.About.SpecialThanks.Title">特別鳴謝</sys:String>
 
-    <!-- Setup.Feedback -->
 
-    <sys:String x:Key="Setup.Feedback.ErrorPrompt.Submit.Action">回饋</sys:String>
-    <sys:String x:Key="Setup.Feedback.ErrorPrompt.Submit.Message">{0}&#xA;&#xA;是否回饋此問題？如果不回饋，這個問題可能永遠無法得到解決！</sys:String>
-    <sys:String x:Key="Setup.Feedback.ErrorPrompt.Update.Message">{0}&#xA;&#xA;將 PCL CE 更新至最新版或許可以解決這個問題。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Item.Submitter">提交者：{0}（{1}）</sys:String>
-    <sys:String x:Key="Setup.Feedback.Item.Type">型別：{0}</sys:String>
-    <sys:String x:Key="Setup.Feedback.Item.ViewDetail">檢視詳情</sys:String>
-    <sys:String x:Key="Setup.Feedback.LoadFailed">無法取得到內容</sys:String>
-    <sys:String x:Key="Setup.Feedback.Loading">正在取得回饋清單</sys:String>
-    <sys:String x:Key="Setup.Feedback.Reminder.Message">若要彙報 Bug，請點擊「開啟資料夾」並上傳 Launch-{0}-[一串數字].log 中包含錯誤資訊的檔案。&#xA;&#xA;遊戲崩潰一般與啟動器無關，請不要因為遊戲崩潰而提交啟動器回饋。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Reminder.NotNeeded">不需要</sys:String>
-    <sys:String x:Key="Setup.Feedback.Reminder.Title">回饋提交提醒</sys:String>
-    <sys:String x:Key="Setup.Feedback.Submit.Description">在提交回饋之前，先查詢一下是否存在重複回饋，如果有重複回饋，那麼請不要再次提交回饋，這樣會加劇維護者的負擔……&#xA;注意：此頁面未展示所有的回饋，如需檢視更多回饋，請前往 GitHub。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Submit.Open">前往回饋</sys:String>
-    <sys:String x:Key="Setup.Feedback.Submit.Title">提交回饋</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.CheckFailed.Action">重新檢查更新</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.CheckFailed.Message">檢查更新失敗，因此無法提交回饋。&#xA;請連線網際網路，檢查更新後確認該問題在最新版中依然存在，再提交回饋。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.NotLatest.Action">更新</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.NotLatest.Message">目前 PCL CE 不是最新版，因此無法提交回饋。&#xA;請更新後確認該問題在最新版中依然存在，再提交回饋。</sys:String>
-    <sys:String x:Key="Setup.Feedback.Unavailable.Title">無法提交回饋</sys:String>
-    <sys:String x:Key="Setup.Feedback.Uncategorized">未分類</sys:String>
 
-    <!-- Setup.Feedback.Status -->
 
-    <sys:String x:Key="Setup.Feedback.Status.Completed">已完成</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Declined">已拒絕</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Duplicate">重複</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Ignored">已忽略</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Paused">暫停</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Processing">正在處理</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.UpNext">在即</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.Waiting">等待</sys:String>
-    <sys:String x:Key="Setup.Feedback.Status.WaitingProcess">等待處理</sys:String>
 
     <!-- Setup.GameLink -->
 
@@ -2723,6 +2691,11 @@
     <sys:String x:Key="Setup.Java.AlreadyExists">Java 已經存在，不用再次新增……</sys:String>
     <sys:String x:Key="Setup.Java.AutoSelect.Info">Java 選擇自動模式，依據遊戲需要自動選擇合適的 Java</sys:String>
     <sys:String x:Key="Setup.Java.AutoSelect.Title">自動選擇</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Failed">無法刪除此 Java 執行環境，請關閉正在使用它的遊戲後重試</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Message">將刪除 PCL-CE 託管的 Java {0}（{1}）。&#xA;此操作會移除整個執行環境目錄，且無法復原。</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Success">已刪除託管的 Java 執行環境</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Title">刪除託管 Java</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.ToolTip">刪除此 PCL-CE 託管的 Java</sys:String>
     <sys:String x:Key="Setup.Java.DeselectBeforeDisable">請先取消選取此 Java 作為預設 Java 後再停用</sys:String>
     <sys:String x:Key="Setup.Java.Detail.ToolTip">詳細資訊</sys:String>
     <sys:String x:Key="Setup.Java.Disable">停用此 Java</sys:String>
@@ -2734,6 +2707,8 @@
     <sys:String x:Key="Setup.Java.Loading">正在載入 Java 清單</sys:String>
     <sys:String x:Key="Setup.Java.SelectFile.Filter">Java 程式({0})|{0}</sys:String>
     <sys:String x:Key="Setup.Java.SelectFile.Title">選擇 Java 程式</sys:String>
+    <sys:String x:Key="Setup.Java.Source.AutoInstalled">PCL-CE 託管</sys:String>
+    <sys:String x:Key="Setup.Java.Source.ManualAdded">手動新增</sys:String>
     <sys:String x:Key="Setup.Java.Unavailable">此 Java 不可用，請重新整理清單</sys:String>
 
     <!-- Setup.Language -->
@@ -2897,7 +2872,6 @@
     <!-- Setup.Left.Item -->
 
     <sys:String x:Key="Setup.Left.Item.About">軟體資訊</sys:String>
-    <sys:String x:Key="Setup.Left.Item.Feedback">回饋</sys:String>
     <sys:String x:Key="Setup.Left.Item.GameLink">連線</sys:String>
     <sys:String x:Key="Setup.Left.Item.GameManage">管理</sys:String>
     <sys:String x:Key="Setup.Left.Item.Java">Java</sys:String>
@@ -2993,13 +2967,6 @@
     <sys:String x:Key="Setup.Misc.System.MaxLogLines">即時日誌行數</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.ToolTip">即時日誌功能中最大顯示行數，超過該值會自動刪除舊的日誌。</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.Unlimited">無限制</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe">停止使用 PCL CE</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.ContinueAndRemove">繼續並清理實例資料夾</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.Message.Final">你確認要繼續操作嗎？這是最後警告！&#xA;與 PCL CE 有關的一切資料將被永久消除！（真的很久！）</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.Message">即將刪除此電腦上與 PCL CE 有關的全部設定、快取、已儲存的帳戶資訊及其他相關資料，並復原已接受的許可協議。完成後，軟體將自動關閉。&#xA;&#xA;但請注意，以下內容無法自動刪除或登出：&#xA;- 此電腦上其他 PCL CE 實例的本機資料&#xA;- Natayark 帳戶&#xA;&#xA;如需同時刪除 Minecraft 實例中的 PCL CE 設定檔，請選擇「繼續並清理實例資料夾」，這不會影響你的遊戲設定、模組、存檔，以及其他資料。&#xA;&#xA;此操作無法復原。您確認要繼續嗎？</sys:String>
-    <sys:String x:Key="Setup.Misc.System.StopUsingPclCe.Title">停止使用 PCL CE？</sys:String>
-    <sys:String x:Key="Setup.Misc.System.Telemetry">啟用遙測資料收集</sys:String>
-    <sys:String x:Key="Setup.Misc.System.Telemetry.ToolTip">啟用此功能後，啟動器將會收集並上報錯誤與裝置環境資訊，這可以幫助開發者修復潛在的問題、更好的進行規劃和開發。&#xA;若啟用此功能，我們將會收集以下資訊：啟動器內出現的錯誤，啟動器版本資訊與識別碼，使用的 Windows 系統版本與架構，已安裝的實體記憶體大小，NAT 與 IPv6 支援情況，是否使用過原版 PCL、HMCL 或 BakaXL。&#xA;&#xA;這些資料均不與你關聯，我們也絕不會向第三方出售資料。不啟用此功能不會影響你使用其他功能，但可能會影響開發者修復潛在 Bug。&#xA;&#xA;此項更改將在重新啟動啟動器後生效。</sys:String>
     <sys:String x:Key="Setup.Misc.System.Title">系統</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Title">啟動器資料</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Root">資料目錄</sys:String>
@@ -3011,7 +2978,6 @@
     <sys:String x:Key="Setup.Misc.Storage.Java">託管 Java 執行環境</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Minecraft">Minecraft 遊戲資料夾與實例</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">會刪除所選 Minecraft 資料夾中的存檔、模組、資源包等，且無法復原。</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.Hint">清理會在啟動器結束後執行。可自由組合要清除的資料類型。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.NothingSelected">請至少選擇一種要清除的資料。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">請先結束正在執行的 Minecraft，再清理遊戲資料。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">清除 PCL-CE-macOS 資料？</sys:String>
@@ -3235,9 +3201,6 @@
     <sys:String x:Key="Setup.Update.Flatpak">請透過 Flatpak 或軟體中心更新</sys:String>
     <sys:String x:Key="Setup.Update.OpenDownload">開啟下載頁</sys:String>
     <sys:String x:Key="Setup.Update.Latest">已是最新版本</sys:String>
-    <sys:String x:Key="Setup.Update.MirrorChyanCdk.Get">取得 CDK</sys:String>
-    <sys:String x:Key="Setup.Update.MirrorChyanCdk.Label">Mirror 醬 CDK</sys:String>
-    <sys:String x:Key="Setup.Update.MirrorChyanCdk.ToolTip">Mirror 醬 (mirrorchyan.com) 是一個付費的第三方應用分發平台，用於提供有償高速下載源。&#xA;這是一項可選服務，不填入 CDK 不影響正常使用與更新。&#xA;如果你有 Mirror 醬的 CDK，可以提供給 PCL CE，啟動器會優先使用他們的高速下載源下載軟體更新，也能紓解社群公益更新伺服器的一些壓力……</sys:String>
     <sys:String x:Key="Setup.Update.OtherOptions.Placeholder">AquaCL 3 是 PCL CE 的第一個主要更新，帶來了讓人眼睛一亮的新設計，使用了最新開發技術，完全重構了基礎體驗，並更支援 macOS、Linux 等其他平台。</sys:String>
     <sys:String x:Key="Setup.Update.OtherOptions.Title">其他更新選項 - 升級到 AquaCL</sys:String>
     <sys:String x:Key="Setup.Update.RestartInstall">重啟安裝</sys:String>
@@ -3566,9 +3529,6 @@
     <sys:String x:Key="Update.Action">更新</sys:String>
     <sys:String x:Key="Update.Available">啟動器有新版本可用（{0} -&gt; {1}）&#xA;是否立即更新？</sys:String>
     <sys:String x:Key="Update.Check.Failed">無法取得最新版本資訊，請檢查網路連線</sys:String>
-    <sys:String x:Key="Update.CommunityNotice.Body">你正在使用來自 PCL-Community 的 PCL CE，遇到問題請不要向原版儲存庫回饋！&#xA;PCL-Community 及其成員與龍騰貓躍無從屬關係，且均不會為您的使用做擔保。&#xA;&#xA;如果你是意外下載的 PCL CE，建議下載原版 PCL 使用。&#xA;如果你是意外下載的 PCL CE，建議下載原版 PCL 使用。&#xA;如果你是意外下載的 PCL CE，建議下載原版 PCL 使用。&#xA;&#xA;該版本與原版的特性區別：&#xA;- 主題切換：僅部分固定藍色系主題，沒有計劃新增其他主題。&#xA;- 百寶箱：缺失部分原版中的內容（回聲洞、千萬別點）。&#xA;&#xA;此提示會在啟動器更新後展示一次。</sys:String>
-    <sys:String x:Key="Update.CommunityNotice.Confirm">我知道了</sys:String>
-    <sys:String x:Key="Update.CommunityNotice.Title">PCL CE 版本說明</sys:String>
     <sys:String x:Key="Update.Error.FetchFailed">取得啟動器更新失敗，請檢查網路連線</sys:String>
     <sys:String x:Key="Update.Error.FileNotFound">找不到更新檔案</sys:String>
     <sys:String x:Key="Update.Error.OperationFailed">更新操作失敗。請檢視錯誤詳情。</sys:String>
@@ -3715,7 +3675,6 @@
     <sys:String x:Key="Setup.GameManage.Download.HttpProtocol.Http11.ToolTip">所有文件下载强制使用 HTTP/1.1。适合需要多条独立连接提升大文件速度的网络环境。</sys:String>
     <sys:String x:Key="Setup.GameManage.Download.HttpProtocol.Http2">优先使用 HTTP/2</sys:String>
     <sys:String x:Key="Setup.GameManage.Download.HttpProtocol.Http2.ToolTip">所有文件下载优先使用 HTTP/2；如果下载源或代理不支持，会自动回退到 HTTP/1.1。</sys:String>
-    <sys:String x:Key="Setup.Misc.System.Telemetry.Unavailable">此版本受到修改或非官方构建，Sentry 回报不可用</sys:String>
     <sys:String x:Key="Tools.Test.Dependency.Package.D3DMappingLayers">OpenGL 兼容包</sys:String>
     <sys:String x:Key="Tools.Test.Dependency.Package.WebpImageExtension">WebP 组件包</sys:String>
     <sys:String x:Key="Setup.Ui.Error.BackgroundVideoUnsupported">重新整理背景內容失敗。該影片檔案可能並非 H.264（AVC）格式。請使用影片轉檔工具將其轉檔為 H.264（AVC）後再試。</sys:String>

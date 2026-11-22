@@ -37,11 +37,11 @@ public class DnsQuery : IDisposable
             },
             new HttpClient(proxyHandler)
             {
-                BaseAddress = new Uri("https://doh.pysio.online/")
+                BaseAddress = new Uri("https://dns.google/dns-query/")
             },
             new HttpClient(proxyHandler)
             {
-                BaseAddress = new Uri("https://cloudflare-dns.com/")
+                BaseAddress = new Uri("https://cloudflare-dns.com/dns-query/")
             }
         ];
         _resolver = new DnsCachingClient(

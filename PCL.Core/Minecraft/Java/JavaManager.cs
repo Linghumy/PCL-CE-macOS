@@ -66,7 +66,9 @@ public class JavaManager(
                     {
                         Installation = installation,
                         IsEnabled = item.IsEnable,
-                        Source = item.Source ?? JavaSource.AutoScanned
+                        Source = ManagedJavaRuntime.Contains(installation.JavaExePath)
+                            ? JavaSource.AutoInstalled
+                            : item.Source ?? JavaSource.AutoScanned
                     }));
                 parserResult.IfFailure(_ =>
                     LogWrapper.Trace(ModuleName, $"Can not find Java {item.Path}, skip"));
@@ -146,17 +148,19 @@ public class JavaManager(
         var scannedEntries = new List<JavaEntry>();
         foreach (var parserResult in pathSet.Keys.Select(_ParseInstallation))
         {
-            parserResult.IfSuccess(installation => scannedEntries.Add(
-                new JavaEntry
+            parserResult.IfSuccess(installation =>
+            {
+                var normalizedPath = _NormalizePath(installation.JavaExePath);
+                existingEntries.TryGetValue(normalizedPath, out var existingJava);
+                scannedEntries.Add(new JavaEntry
                 {
                     Installation = installation,
-                    IsEnabled = existingEntries.TryGetValue(
-                        _NormalizePath(installation.JavaExePath),
-                        out var existingJava)
-                        ? existingJava.IsEnabled
-                        : _ShouldEnableByDefault(installation),
-                    Source = JavaSource.AutoScanned
-                }));
+                    IsEnabled = existingJava?.IsEnabled ?? _ShouldEnableByDefault(installation),
+                    Source = ManagedJavaRuntime.Contains(installation.JavaExePath)
+                        ? JavaSource.AutoInstalled
+                        : existingJava?.Source ?? JavaSource.AutoScanned
+                });
+            });
             parserResult.IfFailure(error => LogWrapper.Warn(error, "Unable to parse Java file"));
         }
 
@@ -220,6 +224,12 @@ public class JavaManager(
     public bool Exist(string javaExePath)
     {
         return _javaEntries.ContainsKey(javaExePath);
+    }
+
+    public bool Remove(string javaExePath)
+    {
+        lock (_javaEntries)
+            return _javaEntries.Remove(javaExePath);
     }
 
     /// <summary>获取，如果没有就加入记录</summary>

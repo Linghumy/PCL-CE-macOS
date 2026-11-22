@@ -170,12 +170,6 @@
       "license": "https://github.com/protobuf-net/protobuf-net/blob/main/Licence.txt"
     },
     {
-      "name": "Sentry",
-      "info": "Copyright © 2018 Sentry\nLicensed under the MIT license.",
-      "website": "https://sentry.io/",
-      "license": "https://github.com/getsentry/sentry-dotnet/blob/main/LICENSE"
-    },
-    {
       "name": "SharpZipLib",
       "info": "Copyright © ICSharpCode\nLicensed under the MIT License.",
       "website": "https://github.com/icsharpcode/SharpZipLib",

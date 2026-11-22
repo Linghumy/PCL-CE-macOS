@@ -484,7 +484,7 @@ public partial class PageLaunchLeftViewModel : ViewModelBase
     {
         var separator = Path.DirectorySeparatorChar;
         var folder = LauncherPaths.DefaultMinecraftDirectory + separator;
-        States.Game.SelectedFolder = "$.minecraft" + separator;
+        States.Game.SelectedFolder = LauncherPaths.DefaultMinecraftFolderToken;
         if (!Directory.Exists(folder))
         {
             Directory.CreateDirectory(folder);
@@ -507,7 +507,7 @@ public partial class PageLaunchLeftViewModel : ViewModelBase
         var separator = Path.DirectorySeparatorChar;
         var trimmed = folder.TrimEnd(separator);
         var name = Path.GetFileName(trimmed) ?? "";
-        if (name == ".minecraft")
+        if (name is ".minecraft" or "Minecraft")
             name = Path.GetFileName(Path.GetDirectoryName(trimmed) ?? "") ?? "";
         if (string.IsNullOrWhiteSpace(name))
             name = "Minecraft";

@@ -1,3 +1,4 @@
+using System.Linq;
 using PCL.Core.App;
 using PCL.Core.Platform;
 
@@ -6,6 +7,8 @@ namespace PCL;
 /// <summary>业务层使用的路径常量。</summary>
 public static class LauncherPaths
 {
+    private const string LegacyMinecraftFolderName = ".minecraft";
+
     /// <summary>Mesa Loader Windows 版本。</summary>
     public const string MesaLoaderWindowsVersion = "26.0.4";
 
@@ -23,6 +26,12 @@ public static class LauncherPaths
 
     /// <summary>默认 Minecraft 文件夹，不是以路径分隔符结尾的路径。</summary>
     public static string DefaultMinecraftDirectory { get; } = _GetDefaultMinecraftDirectory();
+
+    /// <summary>默认 Minecraft 文件夹在用户数据目录中的配置占位符。</summary>
+    public static string DefaultMinecraftFolderToken =>
+        "$"
+        + (OperatingSystem.IsMacOS() ? "Minecraft" : LegacyMinecraftFolderName)
+        + Path.DirectorySeparatorChar;
 
     /// <summary>临时目录，以路径分隔符结尾。</summary>
     public static string Temp => Paths.Temp + Path.DirectorySeparatorChar;
@@ -83,22 +92,159 @@ public static class LauncherPaths
     {
         var minecraftDirectory = Environment.GetEnvironmentVariable("PCL_MINECRAFT_DIR");
         if (!string.IsNullOrWhiteSpace(minecraftDirectory))
-            return Path.TrimEndingDirectorySeparator(
+        {
+            var explicitPath = Path.TrimEndingDirectorySeparator(
                 Path.GetFullPath(Paths.ExpandUserPath(minecraftDirectory)));
+            var parent = Directory.GetParent(explicitPath)?.FullName;
+            if (OperatingSystem.IsMacOS() && !string.IsNullOrWhiteSpace(parent))
+            {
+                var folderName = Path.GetFileName(explicitPath);
+                if (folderName is LegacyMinecraftFolderName or "Minecraft")
+                    return _ResolveDefaultMinecraftDirectory(parent);
+            }
+
+            return explicitPath;
+        }
 
         var dataDirectory = Environment.GetEnvironmentVariable("PCL_DATA_DIR");
         if (!string.IsNullOrWhiteSpace(dataDirectory))
-            return Path.TrimEndingDirectorySeparator(
-                Path.Combine(
-                    Path.GetFullPath(Paths.ExpandUserPath(dataDirectory)),
-                    ".minecraft"));
+        {
+            return _ResolveDefaultMinecraftDirectory(
+                Path.GetFullPath(Paths.ExpandUserPath(dataDirectory)));
+        }
 
         if (!string.IsNullOrWhiteSpace(Paths.PackageKind))
-            return Path.TrimEndingDirectorySeparator(
-                Path.Combine(Paths.CentralRoot, ".minecraft"));
+            return _ResolveDefaultMinecraftDirectory(Paths.CentralRoot);
 
-        return Path.TrimEndingDirectorySeparator(
-            Path.Combine(ExecutableDirectory, ".minecraft"));
+        return _ResolveDefaultMinecraftDirectory(ExecutableDirectory);
+    }
+
+    /// <summary>
+    /// 将旧版 macOS 集中目录中的 <c>.minecraft</c> 迁移为可见的 <c>Minecraft</c>。
+    /// 若新旧目录同时存在，则保留两者并继续使用新目录，避免覆盖用户数据。
+    /// </summary>
+    private static string _ResolveDefaultMinecraftDirectory(string baseDirectory)
+    {
+        var preferredName = OperatingSystem.IsMacOS()
+            ? "Minecraft"
+            : LegacyMinecraftFolderName;
+        var preferred = Path.TrimEndingDirectorySeparator(
+            Path.Combine(baseDirectory, preferredName));
+        if (!OperatingSystem.IsMacOS())
+            return preferred;
+
+        var legacy = Path.TrimEndingDirectorySeparator(
+            Path.Combine(baseDirectory, LegacyMinecraftFolderName));
+        if (!Directory.Exists(legacy))
+            return preferred;
+        if (Directory.Exists(preferred))
+        {
+            if (!_IsMinecraftSkeleton(preferred))
+                return preferred;
+
+            var backup = preferred + $".empty-{Guid.NewGuid():N}";
+            Directory.Move(preferred, backup);
+            try
+            {
+                Directory.Move(legacy, preferred);
+                Directory.Delete(backup, true);
+                return preferred;
+            }
+            catch
+            {
+                if (!Directory.Exists(preferred) && Directory.Exists(backup))
+                    Directory.Move(backup, preferred);
+                throw;
+            }
+        }
+
+        try
+        {
+            Directory.Move(legacy, preferred);
+            return preferred;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            Console.Error.WriteLine(
+                $"[Paths] 无法将 Minecraft 文件夹迁移到可见位置，继续使用旧目录：{ex.Message}");
+            return legacy;
+        }
+    }
+
+    private static bool _IsMinecraftSkeleton(string directory)
+    {
+        try
+        {
+            foreach (var entry in Directory.EnumerateFileSystemEntries(directory))
+            {
+                var name = Path.GetFileName(entry);
+                if (name == "launcher_profiles.json" && File.Exists(entry))
+                    continue;
+                if (name == "versions"
+                    && Directory.Exists(entry)
+                    && !Directory.EnumerateFileSystemEntries(entry).Any())
+                {
+                    continue;
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>将旧版 <c>.minecraft</c> 绝对路径映射到迁移后的默认目录。</summary>
+    public static string MigrateLegacyMinecraftDirectoryPath(string path)
+    {
+        if (!OperatingSystem.IsMacOS() || string.IsNullOrWhiteSpace(path))
+            return path;
+
+        var hasTrailingSeparator = path.EndsWith(Path.DirectorySeparatorChar);
+        var normalized = Path.TrimEndingDirectorySeparator(Path.GetFullPath(path));
+        var legacy = Path.TrimEndingDirectorySeparator(
+            Path.Combine(UserDataRoot, LegacyMinecraftFolderName));
+        if (!PathsEqual(normalized, legacy)
+            || Directory.Exists(legacy)
+            || !Directory.Exists(DefaultMinecraftDirectory))
+        {
+            return path;
+        }
+
+        return DefaultMinecraftDirectory
+            + (hasTrailingSeparator ? Path.DirectorySeparatorChar : string.Empty);
+    }
+
+    /// <summary>把用户数据目录下的路径转换为可持久化的 <c>$</c> 占位符形式。</summary>
+    public static string ToUserDataToken(string path)
+    {
+        var hasTrailingSeparator = path.EndsWith(Path.DirectorySeparatorChar);
+        var fullPath = Path.GetFullPath(path);
+        var relative = Path.GetRelativePath(UserDataRoot, fullPath);
+        if (relative == "."
+            || relative.StartsWith(".." + Path.DirectorySeparatorChar, StringComparison.Ordinal)
+            || relative == "..")
+        {
+            return fullPath;
+        }
+
+        return "$"
+               + relative.Replace(Path.DirectorySeparatorChar, '/')
+               + (hasTrailingSeparator ? "/" : string.Empty);
+    }
+
+    private static bool PathsEqual(string left, string right)
+    {
+        return string.Equals(
+            Path.TrimEndingDirectorySeparator(left),
+            Path.TrimEndingDirectorySeparator(right),
+            OperatingSystem.IsMacOS() || OperatingSystem.IsWindows()
+                ? StringComparison.OrdinalIgnoreCase
+                : StringComparison.Ordinal);
     }
 
     private static string _WithTrailingSeparator(string path)

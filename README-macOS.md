@@ -24,7 +24,7 @@ The packaged app keeps launcher-owned data under one user-selected root:
 
 ```text
 ~/PCL-CE/
-├── .minecraft/   Minecraft data and instances
+├── Minecraft/    Minecraft data and instances
 ├── Launcher/     configuration, profiles, logs, and launcher state
 ├── Java/         Java runtimes downloaded by the launcher
 ├── Cache/        disposable caches
