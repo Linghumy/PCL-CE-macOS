@@ -6,7 +6,6 @@ namespace PCL.Core.Platform;
 public interface IPlatformCapabilities
 {
     bool SupportsBundledLauncher { get; }
-    bool SupportsShortcutIcon { get; }
     IReadOnlyList<string> NativeLibraryExtensions { get; }
     bool SupportsWindowsStoreDependencies { get; }
     bool SuppressAltMenu { get; }

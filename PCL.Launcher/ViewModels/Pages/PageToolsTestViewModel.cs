@@ -4,14 +4,12 @@ using System.Text.Json.Nodes;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PCL.Core.App;
 using PCL.Core.App.Localization;
 using PCL.Core.IO;
 using PCL.Core.Logging;
-using PCL.Core.Platform;
 using PCL.Core.UI;
 using PCL.Core.UI.Dialogs;
 using PCL.Core.UI.Hints;
@@ -83,8 +81,6 @@ public partial class PageToolsTestViewModel : ViewModelBase
     [ObservableProperty] public partial int HeadSizeIndex { get; set; }
 
     [ObservableProperty] public partial bool LaunchCountEnabled { get; set; } = true;
-
-    [ObservableProperty] public partial bool ShortcutEnabled { get; set; } = true;
 
     [ObservableProperty] public partial string SkinId { get; set; } = string.Empty;
 
@@ -168,94 +164,6 @@ public partial class PageToolsTestViewModel : ViewModelBase
         finally
         {
             LaunchCountEnabled = true;
-        }
-    }
-
-    private static string? EnsureShortcutIcon()
-    {
-        try
-        {
-            var iconPath = Path.Combine(
-                Paths.SharedLocalData,
-                "icons",
-                "pcl-community-edition.png");
-            Directory.CreateDirectory(Path.GetDirectoryName(iconPath)!);
-            if (!File.Exists(iconPath))
-            {
-                using var source = AssetLoader.Open(
-                    new Uri("avares://PCL.Launcher/Assets/Images/icon.png"));
-                using var target = File.Create(iconPath);
-                source.CopyTo(target);
-            }
-
-            return iconPath;
-        }
-        catch (Exception ex)
-        {
-            LogWrapper.Warn(ex, "Tools", "导出快捷方式图标失败");
-            return null;
-        }
-    }
-
-    [RelayCommand]
-    public async Task CreateShortcutAsync()
-    {
-        ShortcutEnabled = false;
-        try
-        {
-            var target = Environment.ProcessPath;
-            if (string.IsNullOrWhiteSpace(target))
-            {
-                HintService.Show(Hints.Error(Lang.Text("Tools.Test.Error.OperationFailed")));
-                return;
-            }
-
-            var shortcuts = ApplicationRuntime.Current.Platform.Shortcuts;
-            var extension = shortcuts.GetPreferredExtension(target);
-            var shortcutName = Lang.Text("Tools.Test.Shortcut.FileName", extension);
-            var desktopPath = shortcuts.GetDesktopPath(shortcutName);
-            var startMenuPath = shortcuts.GetStartMenuPath(shortcutName);
-            var desktopName = Lang.Text("Tools.Test.Shortcut.Desktop");
-            var startName = Lang.Text("Tools.Test.Shortcut.StartMenu");
-
-            var choice = (await Dialog.ShowAsync(
-                new TextDialogRequest
-                {
-                    Title = Lang.Text("Tools.Test.Shortcut.SelectLocation"),
-                    Content = Lang.Text(
-                        "Tools.Test.Shortcut.ConfirmMessage",
-                        desktopName,
-                        desktopPath,
-                        startName,
-                        startMenuPath),
-                    Buttons = DialogButtons.From(
-                        DialogButton.Create(Lang.Text("Common.Action.Cancel")),
-                        DialogButton.Create(desktopName),
-                        DialogButton.Create(startName))
-                })).Button;
-            if (choice == 1)
-                return;
-
-            var shortcutPath = choice == 2 ? desktopPath : startMenuPath;
-            var locationName = choice == 2 ? desktopName : startName;
-            shortcuts.Create(
-                shortcutPath,
-                target,
-                workingDirectory: AppContext.BaseDirectory,
-                description: "PCL CE",
-                icon: ApplicationRuntime.Current.Platform.Capabilities.SupportsShortcutIcon
-                    ? EnsureShortcutIcon()
-                    : null);
-            HintService.Show(Hints.Success(Lang.Text("Tools.Test.Shortcut.Created", locationName)));
-        }
-        catch (Exception ex)
-        {
-            LogWrapper.Error(ex, "Tools", "创建快捷方式失败");
-            HintService.Show(Hints.Error(Lang.Text("Tools.Test.Error.OperationFailed")));
-        }
-        finally
-        {
-            ShortcutEnabled = true;
         }
     }
 

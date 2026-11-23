@@ -11,7 +11,6 @@ public sealed class PlatformModule : IDisposable
 
     public ISystemProxyProvider SystemProxy => _Get<ISystemProxyProvider>();
     public IWindowInterop WindowInterop => _Get<IWindowInterop>();
-    public IShortcutService Shortcuts => _Get<IShortcutService>();
     public IJavaPlatformInfo Java => _Get<IJavaPlatformInfo>();
     public IProcessCleanupService ProcessCleanup => _Get<IProcessCleanupService>();
     public IGpuPreferenceService GpuPreference => _Get<IGpuPreferenceService>();

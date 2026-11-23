@@ -21,7 +21,7 @@ using PCL.UI.Controls;
 namespace PCL.Views.Pages.Tools;
 
 /// <summary>
-/// 测试工具页：常用工具（清理垃圾、今日人品、启动次数、创建快捷方式、手动崩溃）、 自定义下载、正版玩家皮肤下载、服务器查询、自定义成就图片与皮肤头像生成器。
+/// 测试工具页：常用工具（清理垃圾、今日人品、启动次数、手动崩溃）、 自定义下载、正版玩家皮肤下载、服务器查询、自定义成就图片与皮肤头像生成器。
 /// 自定义下载走统一的下载管线，皮肤与成就图片通过联网接口获取，头像在本地由皮肤贴图裁切生成。
 /// </summary>
 public partial class PageToolsTest : MyPageRight
@@ -122,7 +122,7 @@ public partial class PageToolsTest : MyPageRight
         card.IsSwapped = true;
     }
 
-    /// <summary>WPF <c>PageToolsTest.RubbishClear</c> 的等价实现：运行中游戏、下载任务、清理确认、 完整清理范围与重启行为都与原版一致。</summary>
+    /// <summary>WPF <c>PageToolsTest.RubbishClear</c> 的等价实现：运行中游戏、下载任务、清理确认与完整清理范围；macOS 清理完成后由用户手动重新启动。</summary>
     public static void ClearTrash()
     {
         LauncherCommon.RunInUi(() =>

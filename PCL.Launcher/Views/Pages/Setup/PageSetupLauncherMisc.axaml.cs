@@ -281,7 +281,7 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
                         DialogButton.Create(
                             Lang.Text("Setup.Misc.System.ImportSettings.Success.Restart")))
                 });
-            // 导入的配置需要重启后生效；与 WPF 一样立即重启启动器。
+            // 导入的配置需要重启后生效；macOS 上由 UiInteraction 关闭程序，交由用户手动启动。
             UiInteraction.Restart();
         }
         catch (Exception ex)

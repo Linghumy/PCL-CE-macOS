@@ -2963,8 +2963,8 @@
     <sys:String x:Key="Setup.Misc.System.ExportSettings.Success">設定匯出成功！</sys:String>
     <sys:String x:Key="Setup.Misc.System.ImportSettings">匯入設定</sys:String>
     <sys:String x:Key="Setup.Misc.System.ImportSettings.SelectTitle">選擇設定檔</sys:String>
-    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">設定匯入成功！請重啟 PCL CE 以應用設定……</sys:String>
-    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">重啟</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">設定匯入成功！請手動重新啟動 PCL CE 以套用設定。</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">關閉 PCL CE</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines">即時日誌行數</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.ToolTip">即時日誌功能中最大顯示行數，超過該值會自動刪除舊的日誌。</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.Unlimited">無限制</sys:String>
@@ -3463,9 +3463,9 @@
     <!-- Tools.Test.Clean -->
 
     <sys:String x:Key="Tools.Test.Clean.Cleared">快取已清理</sys:String>
-    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">清理了 {0} 個檔案！&#xA;PCL CE 即將自動重啟……</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">清理了 {0} 個檔案！&#xA;請手動重新啟動 PCL CE。</sys:String>
     <sys:String x:Key="Tools.Test.Clean.CloseGameFirst">請先關閉所有執行中的遊戲……</sys:String>
-    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">即將清理遊戲日誌、錯誤報告、快取等檔案。&#xA;雖然應該沒人往這些地方放重要檔案，但還是問一下，是否確認繼續？&#xA;&#xA;在完成清理後，PCL CE 將自動重啟。</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">即將清理遊戲日誌、錯誤報告、快取等檔案。&#xA;雖然應該沒人往這些地方放重要檔案，但還是問一下，是否確認繼續？&#xA;&#xA;在完成清理後，請手動重新啟動 PCL CE。</sys:String>
     <sys:String x:Key="Tools.Test.Clean.ConfirmTitle">清理確認</sys:String>
     <sys:String x:Key="Tools.Test.Clean.NoFiles">沒有找到任何可以清理的檔案！</sys:String>
     <sys:String x:Key="Tools.Test.Clean.Title">清理遊戲垃圾</sys:String>
@@ -3503,16 +3503,6 @@
     <sys:String x:Key="Tools.Test.Luck.Rating95">差一點就到100了呢...</sys:String>
     <sys:String x:Key="Tools.Test.Luck.Title">今日人品</sys:String>
 
-    <!-- Tools.Test.Shortcut -->
-
-    <sys:String x:Key="Tools.Test.Shortcut.ConfirmMessage">這個捷徑不會自動移除，在刪除/移動啟動器前請手動移除捷徑。&#xA;&#xA;{0}位置: {1}&#xA;{2}位置: {3}</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.Created">已在{0}建立捷徑</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.Desktop">桌面</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.FileName">PCL CE{0}</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.SelectLocation">選擇捷徑位置</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.StartMenu">開始選單</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.Title">建立捷徑</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.ToolTip">建立一個指向 PCL CE 執行檔的捷徑</sys:String>
 
     <!-- Tools.Test.Skin -->
 

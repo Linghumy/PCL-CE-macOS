@@ -247,14 +247,27 @@ internal static class UiInteraction
 
     internal static void Shutdown()
     {
+        if (!Dispatcher.UIThread.CheckAccess())
+        {
+            Dispatcher.UIThread.Post(Shutdown);
+            return;
+        }
+
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime
             desktop)
             desktop.Shutdown();
     }
 
-    /// <summary>更新完成后重启：交给生命周期在服务停止（含单实例锁释放）后以相同参数重新拉起当前可执行文件。</summary>
+    /// <summary>请求重启；macOS 上可靠地重新拉起应用进程不可用，因此关闭程序并由用户手动启动。</summary>
     internal static void Restart()
     {
+        if (OperatingSystem.IsMacOS())
+        {
+            LogWrapper.Info("UI", "macOS 不执行自动重启，关闭程序后由用户手动启动");
+            Shutdown();
+            return;
+        }
+
         try
         {
             Lifecycle.RequestRestartOnExit(_GetRestartArguments());

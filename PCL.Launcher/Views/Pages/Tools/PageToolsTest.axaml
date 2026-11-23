@@ -34,13 +34,6 @@
                                  IsVisible="{Binding CrashButtonVisible}"
                                  Text="{loc:Loc Tools.Test.Crash.Title}"
                                  ToolTip.Tip="{loc:Loc Tools.Test.Crash.ManualCrash}" />
-                    <ui:MyButton x:Name="BtnShortcut"
-                                 MinWidth="120"
-                                 Margin="0,0,15,15"
-                                 Command="{Binding CreateShortcutCommand}"
-                                 IsEnabled="{Binding ShortcutEnabled}"
-                                 Text="{loc:Loc Tools.Test.Shortcut.Title}"
-                                 ToolTip.Tip="{loc:Loc Tools.Test.Shortcut.ToolTip}" />
                     <ui:MyButton x:Name="BtnLaunchCount"
                                  MinWidth="120"
                                  Margin="0,0,15,15"

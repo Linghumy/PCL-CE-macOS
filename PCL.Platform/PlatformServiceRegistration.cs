@@ -28,13 +28,6 @@ public static class PlatformServiceRegistration
             PlatformKind.MacOs => new MacOsWindowInterop(),
             _ => throw _Throw(kind)
         });
-        services.AddSingleton<IShortcutService>(_ => kind switch
-        {
-            PlatformKind.Windows => new WindowsShortcutService(),
-            PlatformKind.Linux => new LinuxShortcutService(),
-            PlatformKind.MacOs => new MacOsShortcutService(),
-            _ => throw _Throw(kind)
-        });
         services.AddSingleton<IJavaPlatformInfo>(_ => kind switch
         {
             PlatformKind.Windows => new WindowsJavaPlatformInfo(),

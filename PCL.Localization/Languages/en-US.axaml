@@ -3031,8 +3031,8 @@
     <sys:String x:Key="Setup.Misc.System.ExportSettings.Success">Settings exported successfully!</sys:String>
     <sys:String x:Key="Setup.Misc.System.ImportSettings">Import settings</sys:String>
     <sys:String x:Key="Setup.Misc.System.ImportSettings.SelectTitle">Select config file</sys:String>
-    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">Settings imported successfully! Please restart PCL CE to apply them...</sys:String>
-    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">Restart</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">Settings imported successfully! Please restart PCL CE manually to apply them.</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">Close PCL CE</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines">Real-time log lines</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.ToolTip">Maximum number of lines displayed in the real-time log feature. Old logs are automatically deleted when exceeded.</sys:String>
     <sys:String x:Key="Setup.Misc.System.MaxLogLines.Unlimited">Unlimited</sys:String>
@@ -3533,9 +3533,9 @@
     <!-- Tools.Test.Clean -->
 
     <sys:String x:Key="Tools.Test.Clean.Cleared">Cache cleared</sys:String>
-    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">Cleaned {0} files!&#xA;PCL CE will restart...</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">Cleaned {0} files!&#xA;Please restart PCL CE manually.</sys:String>
     <sys:String x:Key="Tools.Test.Clean.CloseGameFirst">Please close all running games first...</sys:String>
-    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">About to clean game logs, error reports, caches, and other files.&#xA;These folders should not contain important files, but are you sure you want to continue?&#xA;&#xA;PCL CE will restart automatically after cleanup.</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">About to clean game logs, error reports, caches, and other files.&#xA;These folders should not contain important files, but are you sure you want to continue?&#xA;&#xA;Please restart PCL CE manually after cleanup.</sys:String>
     <sys:String x:Key="Tools.Test.Clean.ConfirmTitle">Confirm cleanup</sys:String>
     <sys:String x:Key="Tools.Test.Clean.NoFiles">No files to clean!</sys:String>
     <sys:String x:Key="Tools.Test.Clean.Title">Clean game junk</sys:String>
@@ -3573,16 +3573,6 @@
     <sys:String x:Key="Tools.Test.Luck.Rating95">So close to 100...</sys:String>
     <sys:String x:Key="Tools.Test.Luck.Title">Today's luck</sys:String>
 
-    <!-- Tools.Test.Shortcut -->
-
-    <sys:String x:Key="Tools.Test.Shortcut.ConfirmMessage">This shortcut will not be automatically removed. Please remove it manually before deleting/moving the launcher.&#xA;&#xA;{0} location: {1}&#xA;{2} location: {3}</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.Created">Shortcut created on {0}</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.Desktop">Desktop</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.FileName">PCL CE{0}</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.SelectLocation">Select shortcut location</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.StartMenu">Start menu</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.Title">Create shortcut</sys:String>
-    <sys:String x:Key="Tools.Test.Shortcut.ToolTip">Create a shortcut to the PCL CE executable</sys:String>
 
     <!-- Tools.Test.Skin -->
 
