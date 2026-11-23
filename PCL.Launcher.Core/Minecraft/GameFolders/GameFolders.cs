@@ -328,6 +328,8 @@ public static class GameFolders
                 var name = Path.GetFileName(entry);
                 if (name == "launcher_profiles.json" && File.Exists(entry))
                     continue;
+                if (name is "PCL.ini" or ".DS_Store" && File.Exists(entry))
+                    continue;
                 if (name == "versions"
                     && Directory.Exists(entry)
                     && !Directory.EnumerateFileSystemEntries(entry).Any())
