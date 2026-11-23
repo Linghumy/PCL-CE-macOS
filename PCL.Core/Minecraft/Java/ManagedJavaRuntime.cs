@@ -13,10 +13,13 @@ public static class ManagedJavaRuntime
         get
         {
             var configured = Environment.GetEnvironmentVariable("PCL_JAVA_DIR");
+            var defaultRoot = Paths.PackageKind == "macos-app"
+                ? Path.Combine(Paths.CentralRoot, "Java")
+                : Path.Combine(Paths.SharedLocalData, "Java");
             return Path.TrimEndingDirectorySeparator(
                 Path.GetFullPath(
                     string.IsNullOrWhiteSpace(configured)
-                        ? Path.Combine(Paths.SharedLocalData, "Java")
+                        ? defaultRoot
                         : Paths.ExpandUserPath(configured)));
         }
     }

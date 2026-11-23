@@ -1,5 +1,6 @@
 using Avalonia;
 using Microsoft.Extensions.DependencyInjection;
+using PCL.Core.App;
 using PCL.Core.App.Essentials;
 using PCL.Core.App.IoC;
 using PCL.Core.Platform;
@@ -17,6 +18,7 @@ internal static class Program
     public static void Main(string[] args)
     {
         var platform = PlatformDetector.Detect();
+        Environment.SetEnvironmentVariable("TMPDIR", Paths.Temp);
 
         PlatformStartup.Initialize(platform, args);
 

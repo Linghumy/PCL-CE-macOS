@@ -50,51 +50,27 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 cp -a "$TEMP"/. "$APP/Contents/MacOS/"
 find "$APP/Contents/MacOS" -name '*.pdb' -delete
-chmod +x "$APP/Contents/MacOS/PCL.Launcher"
+rm -f "$APP/Contents/MacOS/LICENSE" "$APP/Contents/MacOS/LICENCE.PCL.Launcher.Core"
+rm -rf "$APP/Contents/MacOS/Assets"
+for metadata in PCL.Launcher.deps.json PCL.Launcher.runtimeconfig.json; do
+  if [ -f "$APP/Contents/MacOS/$metadata" ]; then
+    mv "$APP/Contents/MacOS/$metadata" "$APP/Contents/Resources/$metadata"
+    ln -s "../Resources/$metadata" "$APP/Contents/MacOS/$metadata"
+  fi
+done
+while IFS= read -r -d '' file; do
+  file_kind="$(file -b "$file")"
+  case "$file_kind" in
+    Mach-O*) chmod 0755 "$file" ;;
+    *) chmod 0644 "$file" ;;
+  esac
+done < <(find "$APP/Contents/MacOS" -type f -print0)
 "$ROOT/scripts/verify-artifact.sh" "$RID" "$APP/Contents/MacOS"
 
 cp "$ROOT/PCL.Launcher/Assets/Images/icon.icns" "$APP/Contents/Resources/icon.icns"
 cp "$ROOT/LICENSE" "$APP/Contents/Resources/LICENSE"
 cp "$ROOT/PCL.Launcher.Core/LICENCE" "$APP/Contents/Resources/LICENCE.PCL.Launcher.Core"
 printf 'macos-app\n' > "$APP/Contents/Resources/package-kind"
-
-cat > "$APP/Contents/MacOS/launcher" <<'LAUNCHER'
-#!/bin/sh
-set -eu
-
-HERE="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-
-export PCL_PACKAGE_KIND=macos-app
-export PCL_CE_ROOT="${PCL_CE_ROOT:-$HOME/PCL-CE}"
-export PCL_DATA_DIR="${PCL_DATA_DIR:-$PCL_CE_ROOT/Launcher}"
-MINECRAFT_DIR="$PCL_CE_ROOT/Minecraft"
-LEGACY_MINECRAFT_DIR="$PCL_CE_ROOT/.minecraft"
-export PCL_MINECRAFT_DIR="${PCL_MINECRAFT_DIR:-$MINECRAFT_DIR}"
-PCL_MINECRAFT_DIR="${PCL_MINECRAFT_DIR%/}"
-MINECRAFT_DIR="${MINECRAFT_DIR%/}"
-LEGACY_MINECRAFT_DIR="${LEGACY_MINECRAFT_DIR%/}"
-export PCL_MINECRAFT_DIR
-export PCL_JAVA_DIR="${PCL_JAVA_DIR:-$PCL_CE_ROOT/Java}"
-export PCL_CACHE_DIR="${PCL_CACHE_DIR:-$PCL_CE_ROOT/Cache}"
-export PCL_TEMP_DIR="${PCL_TEMP_DIR:-$PCL_CE_ROOT/Temp}"
-export DOTNET_BUNDLE_EXTRACT_BASE_DIR="${DOTNET_BUNDLE_EXTRACT_BASE_DIR:-$PCL_CE_ROOT/.dotnet-bundle}"
-
-if [ "$PCL_MINECRAFT_DIR" = "$LEGACY_MINECRAFT_DIR" ] \
-  && [ ! -e "$MINECRAFT_DIR" ] \
-  && [ -d "$LEGACY_MINECRAFT_DIR" ]; then
-  mv "$LEGACY_MINECRAFT_DIR" "$MINECRAFT_DIR"
-  PCL_MINECRAFT_DIR="$MINECRAFT_DIR"
-  export PCL_MINECRAFT_DIR
-fi
-
-mkdir -p "$PCL_CE_ROOT" "$PCL_DATA_DIR" "$PCL_MINECRAFT_DIR" \
-  "$PCL_JAVA_DIR" "$PCL_CACHE_DIR" "$PCL_TEMP_DIR"
-TMPDIR="$PCL_TEMP_DIR"
-export TMPDIR
-
-exec "$HERE/PCL.Launcher" "$@"
-LAUNCHER
-chmod 0755 "$APP/Contents/MacOS/launcher"
 
 BUILD_VERSION="${PCL_BUILD_VERSION:-}"
 if [ -z "$BUILD_VERSION" ]; then
@@ -123,7 +99,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundleIdentifier</key>
     <string>cn.org.reasonable.pcl-ce-macos</string>
     <key>CFBundleExecutable</key>
-    <string>launcher</string>
+    <string>PCL.Launcher</string>
     <key>CFBundleIconFile</key>
     <string>icon.icns</string>
     <key>CFBundlePackageType</key>
@@ -169,20 +145,22 @@ ENTITLEMENTS="$ROOT/scripts/macos/Entitlements.plist"
 if [ "${PCL_SKIP_CODESIGN:-0}" != "1" ] && [ -n "$SIGN_IDENTITY" ] && command -v codesign >/dev/null 2>&1; then
   echo "[macos-package] signing with: $SIGN_IDENTITY"
   while IFS= read -r -d '' file; do
-    if file "$file" | grep -q "Mach-O"; then
-      if [ "$file" = "$APP/Contents/MacOS/PCL.Launcher" ]; then
-        codesign --force --options runtime --timestamp \
-          --entitlements "$ENTITLEMENTS" \
-          --sign "$SIGN_IDENTITY" "$file"
-      else
-        codesign --force --options runtime --timestamp --sign "$SIGN_IDENTITY" "$file"
-      fi
-    fi
+    codesign --force --timestamp --sign "$SIGN_IDENTITY" "$file"
+  done < <(find "$APP/Contents/MacOS" -type f -iname '*.dll' -print0)
+  while IFS= read -r -d '' file; do
+    [ "$file" = "$APP/Contents/MacOS/PCL.Launcher" ] && continue
+    file_kind="$(file -b "$file")"
+    case "$file_kind" in
+      Mach-O*) codesign --force --options runtime --timestamp --sign "$SIGN_IDENTITY" "$file" ;;
+    esac
   done < <(find "$APP/Contents/MacOS" -type f -print0)
   codesign --force --options runtime --timestamp \
     --entitlements "$ENTITLEMENTS" \
+    --sign "$SIGN_IDENTITY" "$APP/Contents/MacOS/PCL.Launcher"
+  codesign --force --options runtime --timestamp \
+    --entitlements "$ENTITLEMENTS" \
     --sign "$SIGN_IDENTITY" "$APP"
-  codesign --verify --deep --strict --verbose=2 "$APP"
+  codesign --verify --strict --verbose=2 "$APP"
 
   if [ "${PCL_SKIP_NOTARIZATION:-0}" != "1" ] \
     && [ -n "${APPLE_ID:-}" ] \
