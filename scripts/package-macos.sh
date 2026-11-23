@@ -165,15 +165,22 @@ if command -v plutil >/dev/null 2>&1; then
 fi
 
 SIGN_IDENTITY="${CODESIGN_IDENTITY:-}"
+ENTITLEMENTS="$ROOT/scripts/macos/Entitlements.plist"
 if [ "${PCL_SKIP_CODESIGN:-0}" != "1" ] && [ -n "$SIGN_IDENTITY" ] && command -v codesign >/dev/null 2>&1; then
   echo "[macos-package] signing with: $SIGN_IDENTITY"
   while IFS= read -r -d '' file; do
     if file "$file" | grep -q "Mach-O"; then
-      codesign --force --options runtime --timestamp --sign "$SIGN_IDENTITY" "$file"
+      if [ "$file" = "$APP/Contents/MacOS/PCL.Launcher" ]; then
+        codesign --force --options runtime --timestamp \
+          --entitlements "$ENTITLEMENTS" \
+          --sign "$SIGN_IDENTITY" "$file"
+      else
+        codesign --force --options runtime --timestamp --sign "$SIGN_IDENTITY" "$file"
+      fi
     fi
   done < <(find "$APP/Contents/MacOS" -type f -print0)
   codesign --force --options runtime --timestamp \
-    --entitlements "$ROOT/scripts/macos/Entitlements.plist" \
+    --entitlements "$ENTITLEMENTS" \
     --sign "$SIGN_IDENTITY" "$APP"
   codesign --verify --deep --strict --verbose=2 "$APP"
 
