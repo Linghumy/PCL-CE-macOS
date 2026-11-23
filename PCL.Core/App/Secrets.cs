@@ -6,10 +6,16 @@ namespace PCL.Core.App;
 // ReSharper disable InconsistentNaming
 public static class Secrets
 {
+    private const string DefaultMicrosoftOAuthClientId = "c14b0370-8d75-42f8-b329-5b60d39e319f";
+
     /// <summary>
     /// 微软 OAuth 的 Client ID
     /// </summary>
-    public static string MSOAuthClientId { get; } = EnvironmentInterop.GetSecret("MS_CLIENT_ID", readEnvDebugOnly: true).ReplaceNullOrEmpty();
+    public static string MSOAuthClientId { get; } =
+        EnvironmentInterop.GetSecret("MS_CLIENT_ID", readEnvDebugOnly: true).ReplaceNullOrEmpty()
+        is { Length: > 0 } configuredClientId
+            ? configuredClientId
+            : DefaultMicrosoftOAuthClientId;
 
     /// <summary>
     /// CurseForge API 的 Client ID
