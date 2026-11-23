@@ -1,91 +1,108 @@
 [简体中文](README.md) | [English](README-EN.md) | **繁體中文**
 
-<div align="center">
+# PCL-CE-macOS
 
-<img src="PCL.Launcher/Assets/Images/icon.svg" alt="Logo" width="80" height="80">
+## **本專案與 PCL-CE 團隊沒有任何隸屬、授權、合作或背書關係**
 
-# PCL Community Edition
+**這不是 PCL-CE 官方 macOS 版本，也不是由 PCL-CE 團隊發佈、批准或維護的版本。**
 
-[![Stars](https://img.shields.io/github/stars/PCL-Community/PCL-CE?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTTggLjI1YS43NS43NSAwIDAgMSAuNjczLjQxOGwxLjg4MiAzLjgxNSA0LjIxLjYxMmEuNzUuNzUgMCAwIDEgLjQxNiAxLjI3OWwtMy4wNDYgMi45Ny43MTkgNC4xOTJhLjc1MS43NTEgMCAwIDEtMS4wODguNzkxTDggMTIuMzQ3bC0zLjc2NiAxLjk4YS43NS43NSAwIDAgMS0xLjA4OC0uNzlsLjcyLTQuMTk0TC44MTggNi4zNzRhLjc1Ljc1IDAgMCAxIC40MTYtMS4yOGw0LjIxLS42MTFMNy4zMjcuNjY4QS43NS43NSAwIDAgMSA4IC4yNVoiIGZpbGw9IiNlYWM1NGYiLz48L3N2Zz4=&logoSize=auto&label=stars&labelColor=444444&color=eac54f)](https://github.com/PCL-Community/PCL-CE/)
-![GitHub Release](https://img.shields.io/github/v/release/PCL-Community/PCL-CE?label=release&logo=github&style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PCL-Community/PCL-CE/build-test.yml?style=for-the-badge)
+PCL-CE 原專案也正在推進 macOS 適配。如果你較希望使用官方實作，可以等待原專案發布 macOS 版本。本專案只是社群成員為滿足自身使用需求而製作的非官方技術移植，無意與 PCL-CE 官方搶先發佈，也不代表官方立場；如果官方日後發布 macOS 版本，建議優先使用官方版本。
 
-[![Issues](https://img.shields.io/github/issues/PCL-Community/PCL-CE?style=for-the-badge&label=issues&labelColor=444444&color=1F883D&logo=github)](https://github.com/PCL-Community/PCL-CE/issues)
-[![Pull requests](https://img.shields.io/github/issues-pr/PCL-Community/PCL-CE?style=for-the-badge&label=pull%20requests&labelColor=444444&color=1F883D&logo=github)](https://github.com/PCL-Community/PCL-CE/pulls)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/PCL-Community/PCL-CE/total?style=for-the-badge)
-[![嗶哩嗶哩](https://img.shields.io/badge/貼文-bilibili-00A4DB?style=for-the-badge&labelColor=444444&logo=bilibili)](https://space.bilibili.com/3546847192811755/dynamic) <br />
+原版 PCL-CE、PCL 原版及其團隊成員與本專案沒有隸屬關係，也沒有為本專案的使用提供擔保。問題、建議與回饋請提交到[本專案儲存庫](https://github.com/Linghumy/PCL-CE-macOS/issues)，不要傳送給原開發者。
 
-<a href="https://trendshift.io/repositories/21800?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-21800" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/21800/daily?language=C%23" alt="PCL-Community%2FPCL-CE | Trendshift" width="250" height="55"/></a>
-<a href="https://trendshift.io/repositories/21800" target="_blank"><img src="https://trendshift.io/api/badge/repositories/21800" alt="PCL-Community%2FPCL-CE | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+[原版 README 封存](docs/archive/upstream/README.zh-TW.md) · [PCL-CE 原專案](https://github.com/PCL-Community/PCL-CE) · [PCL 上游專案](https://github.com/Meloong-Git/PCL)
 
-[社群版下載](https://github.com/PCL-Community/PCL-CE/releases/latest) |
-[上游儲存庫](https://github.com/Meloong-Git/PCL)
+---
 
-[提交問題](https://github.com/PCL-Community/PCL-CE/issues/new/choose) |
-[貢獻指南](https://github.com/PCL-Community/PCL-CE/wiki/开发指南)
+## 專案簡介
 
-</div>
+PCL-CE-macOS 是基於 [PCL Community Edition](https://github.com/PCL-Community/PCL-CE) 原始碼製作的**非官方、自包含 macOS 發行版**。它保留原啟動器 UI 與主要功能，包括：
 
-PCL CE 是基於 PCL 開放原始碼二次開發的社群版本，包括了主線暫未製作的功能和改進！
+- Microsoft 正版登入與第三方帳號登入
+- Minecraft 原版、Forge、NeoForge、Fabric、Quilt 等安裝流程
+- Mod、整合包、資源包、光影包、資料包及世界管理
+- CurseForge、Modrinth 資源瀏覽與下載
+- `.mrpack`、CurseForge 整合包及啟動器整合包匯入
+- Java 自動選擇、版本管理與遊戲實例隔離
+- 啟動器更新檢查、日誌檢視與錯誤分析
+- 集中化資料目錄與可分類選擇的資料清理
 
-社群版的版本號與主線並非嚴格對應關係，也請不要向官方儲存庫回饋社群版問題。
+`.app` 內建所需 .NET 執行環境，使用者無需預先安裝 SDK 或執行環境。
 
-歡迎大家來用用看！
+## 發行資訊
 
-**開發群:** [599620549](https://qm.qq.com/q/PNQA4Md8wc) | **使用者 1 群:** [1028074835](https://qm.qq.com/q/qrMGJo8BQQ) | **使用者 2 群:** [1070029541](https://qm.qq.com/q/lBywbDMWhG)
+| 項目 | 值 |
+|---|---|
+| App Bundle | `PCL-CE-macOS.app` |
+| Bundle ID | `cn.org.reasonable.pcl-ce-macos` |
+| 預設架構 | Apple Silicon (`osx-arm64`) |
+| 可選架構 | Intel (`osx-x64`) |
+| 最低系統版本 | macOS 12 |
+| 最終發行成品 | `dist/PCL-CE-macOS.dmg` |
+| 簽章與公證 | Apple Developer ID 簽章、Apple 公證並 stapled |
 
-## 💻 支援平台
+## Apple 簽章與公證
 
-### Windows
+本專案對外發布的 DMG 及其中 `PCL-CE-macOS.app` 使用 **Apple Developer ID Application** 憑證簽章，並已通過 Apple 公證服務驗證、完成公證及 stapled。簽章與公證票據可由 Gatekeeper 自動驗證，正常安裝與首次啟動時無需前往「系統設定」手動允許未知來源軟體。
 
-| 版本 | 架構 | 支援情況 | 環境要求 |
-|---|---|---|---|
-| Windows 10 1809 (17763) 及以上，或 Windows 11 | x64、ARM64 | ✅ 完整支援 | [.NET 10 Runtime](https://get.dot.net/10) |
-| Windows 10 1607 (E) | x64 | ⚠️ 理論能跑，酌情提供社群支援 | [.NET 10 Runtime](https://get.dot.net/10) |
-| Windows 8.1、8、7 及更低版本 | / | ❌ 不支援 | / |
+簽章與公證由建置腳本中的 `CODESIGN_IDENTITY`、`APPLE_ID`、`APPLE_TEAM_ID` 與 `APPLE_APP_SPECIFIC_PASSWORD` 流程完成，相關憑證與金鑰不會提交到儲存庫。
 
-`(E)` 指 Enterprise 或 ESU 版本。.NET 10 對 Windows 10 1607 和 1809 的官方支援僅限這些版本。
+直接從原始碼建置但未提供發行憑證的開發版本可能使用 ad-hoc 簽章，不屬於本專案對外發布的 Apple 公證版本。請從本專案的正式 Release 下載並使用公證成品。
 
-### Linux
+## 集中化儲存
 
-| 發行版 | 架構 | 支援情況 | 環境要求 |
-|---|---|---|---|
-| 常見 glibc 桌面發行版<br>（Ubuntu 22.04 及以上、Fedora 43 及以上、Arch Linux 等） | x64 | ✅ 支援 | [.NET 10 Runtime](https://get.dot.net/10)、X11、Wayland 實驗 |
-| 同上 | ARM64 | ✅ 支援 | [.NET 10 Runtime](https://get.dot.net/10)、X11 |
-| 其他 glibc 桌面發行版 | x64、ARM64 | ⚠️ 理論能跑，酌情提供社群支援 | 需要 glibc 2.27 及以上，並能使用 X11 桌面 |
-| Alpine 等 musl 發行版 | x64、ARM64 | ❌ 不支援 | 目前產物尚未在 musl 環境驗證 |
+打包後的啟動器預設將本 App 產生的資料集中放在：
 
-預設使用 X11。設定 `PCL_USE_WAYLAND=1` 可以嘗試原生 Wayland。如果初始化失敗，會自動回退到 X11。使用 Wayland 還需要安裝 `libwayland-client` 和 `libxkbcommon`。
+```text
+~/PCL-CE/
+├── Minecraft/   Minecraft 遊戲資料夾與實例
+├── Launcher/    設定、登入狀態、日誌與啟動器狀態
+├── Java/        由啟動器下載並管理的 Java 執行環境
+├── Cache/       可重新產生的快取
+└── Temp/        暫存檔案
+```
 
-### macOS
+可以設定 `PCL_CE_ROOT` 一次性遷移整組目錄。也可以分別覆寫 `PCL_DATA_DIR`、`PCL_MINECRAFT_DIR`、`PCL_JAVA_DIR`、`PCL_CACHE_DIR` 與 `PCL_TEMP_DIR`。
 
-| 版本 | 架構 | 支援情況 | 環境要求 |
-|---|---|---|---|
-| macOS 12 及以上 | Apple Silicon (ARM64)、Intel (x64) | ✅ 支援 | [.NET 10 Runtime](https://get.dot.net/10) |
+Minecraft 資料夾仍可在原版資料夾管理器中檢視、切換、移動與自訂。macOS 預設目錄為可見的 `~/PCL-CE/Minecraft`；舊版集中式 `.minecraft` 會在首次啟動時安全遷移。
 
-**✅ 完整支援**：會盡量提供支援，但請先確保使用最新版本。
+設定中的「啟動器資料」支援自由組合清理：
 
-**⚠️ 理論能跑，酌情提供社群支援**：這些平台通常可以執行，但無法保證所有功能正常。遇到問題時，社群會視情況協助。升級到受支援的系統版本可以獲得更完整的支援。
+- 啟動器設定與登入狀態
+- 快取、日誌與暫存檔案
+- 託管 Java 執行環境
+- Minecraft 遊戲資料夾與實例
 
-**❌ 不支援**：這些平台基本無法正常使用，甚至可能無法啟動。請升級系統後再執行 PCL CE。
+## 網路與遙測
 
-**注**：
-- 社群只為最新版本提供支援。
-- 有些問題與系統環境有關。例如系統元件不完整時，仍需升級系統才能繼續獲得支援。
-- 建議使用較新的作業系統，以獲得更好的體驗。
-- 在不受支援的系統上仍可嘗試執行，但可能遇到更多問題。
+- 啟動器更新僅檢查[本專案的 GitHub Releases](https://github.com/Linghumy/PCL-CE-macOS/releases)。
+- 不再使用 Mirror 醬等原專案更新鏡像或 CDN。
+- 不包含 Sentry 遙測、啟動器遙測開關或聯機身分上報。
+- 原 PCL-CE 啟動器公告介面為公開唯讀服務；若介面可用則保留，並在公告標題中明確標示「來自原 PCL-CE 的公告」。
 
-## 🔒 授權條款
+## 建置
 
-- `PCL.Launcher/` 和 `PCL.Launcher.Core/` 使用 [自訂授權條款](https://github.com/PCL-Community/PCL-CE/blob/dev/PCL.Launcher.Core/LICENCE)
-- `其餘所有目錄` 使用 [Apache License 2.0](https://github.com/PCL-Community/PCL-CE/blob/dev/LICENSE)
+所有 SDK、NuGet 套件與暫存檔案均保存在專案目錄內：
 
-## 🌟 統計資料
-![Alt](https://repobeats.axiom.co/api/embed/3e46296e6e3a134991a783480fd2f62723bb0353.svg "Repobeats analytics image")
+```bash
+.toolchain/dotnet-install.sh \
+  --channel 11.0 \
+  --install-dir "$PWD/.toolchain/dotnet" \
+  --no-path
 
-[![Star History Chart](https://api.star-history.com/svg?repos=PCL-Community/PCL-CE&type=Date)](https://www.star-history.com/#PCL-Community/PCL-CE&Date)
+scripts/build-macos-app.sh osx-arm64 Release
+scripts/create-macos-dmg.sh
+```
 
-**此頁瀏覽量**（總計 / 今日）：[![Hits](https://hits.zkitefly.eu.org/?tag=https://github.com/PCL-Community/PCL-CE)](https://hits.zkitefly.eu.org/?tag=https://github.com/PCL-Community/PCL-CE&web=true)
-## ❤️ 貢獻者
+DMG 中包含 App、安裝箭頭與指向 `/Applications` 的捷徑。打包成功後只保留最終發行成品：
 
-[![](https://contrib.rocks/image?repo=PCL-Community/PCL-CE)](https://github.com/PCL-Community/PCL-CE/graphs/contributors)
+```text
+dist/PCL-CE-macOS.dmg
+```
+
+## 授權條款
+
+- `PCL.Launcher/` 與 `PCL.Launcher.Core/` 沿用 [PCL-CE 自訂授權條款](https://github.com/PCL-Community/PCL-CE/blob/dev/PCL.Launcher.Core/LICENCE)。
+- 其餘目錄沿用 [Apache License 2.0](https://github.com/PCL-Community/PCL-CE/blob/dev/LICENSE)。
+
+本專案對 PCL-CE 原始碼的修改、建置說明與非官方發行責任由本專案維護者承擔。

@@ -1,91 +1,108 @@
 [简体中文](README.md) | **English** | [繁體中文](README-ZH_TW.md)
 
-<div align="center">
+# PCL-CE-macOS
 
-<img src="PCL.Launcher/Assets/Images/icon.svg" alt="Logo" width="80" height="80">
+## **This project has no affiliation, authorization, partnership, or endorsement relationship with the PCL-CE team**
 
-# PCL Community Edition
+**This is not an official PCL-CE macOS release, and it is not published, approved, or maintained by the PCL-CE team.**
 
-[![Stars](https://img.shields.io/github/stars/PCL-Community/PCL-CE?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTTggLjI1YS43NS43NSAwIDAgMSAuNjczLjQxOGwxLjg4MiAzLjgxNSA0LjIxLjYxMmEuNzUuNzUgMCAwIDEgLjQxNiAxLjI3OWwtMy4wNDYgMi45Ny43MTkgNC4xOTJhLjc1MS43NTEgMCAwIDEtMS4wODguNzkxTDggMTIuMzQ3bC0zLjc2NiAxLjk4YS43NS43NSAwIDAgMS0xLjA4OC0uNzlsLjcyLTQuMTk0TC44MTggNi4zNzRhLjc1Ljc1IDAgMCAxIC40MTYtMS4yOGw0LjIxLS42MTFMNy4zMjcuNjY4QS43NS43NSAwIDAgMSA4IC4yNVoiIGZpbGw9IiNlYWM1NGYiLz48L3N2Zz4=&logoSize=auto&label=stars&labelColor=444444&color=eac54f)](https://github.com/PCL-Community/PCL-CE/)
-![GitHub Release](https://img.shields.io/github/v/release/PCL-Community/PCL-CE?label=release&logo=github&style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PCL-Community/PCL-CE/build-test.yml?style=for-the-badge)
+The original PCL-CE project is also working on macOS support. If you prefer an official implementation, you may wait for the official macOS release. This project is an unofficial technical port created by community members for their own use. It does not intend to compete with the official project's release schedule or represent its views. If the PCL-CE team later releases an official macOS build, please prefer that version.
 
-[![Issues](https://img.shields.io/github/issues/PCL-Community/PCL-CE?style=for-the-badge&label=issues&labelColor=444444&color=1F883D&logo=github)](https://github.com/PCL-Community/PCL-CE/issues)
-[![Pull requests](https://img.shields.io/github/issues-pr/PCL-Community/PCL-CE?style=for-the-badge&label=pull%20requests&labelColor=444444&color=1F883D&logo=github)](https://github.com/PCL-Community/PCL-CE/pulls)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/PCL-Community/PCL-CE/total?style=for-the-badge)
-[![Bilibili](https://img.shields.io/badge/Threads-bilibili-00A4DB?style=for-the-badge&labelColor=444444&logo=bilibili)](https://space.bilibili.com/3546847192811755/dynamic) <br />
+The original PCL-CE and PCL teams are not affiliated with this project and provide no guarantee for its use. Please submit issues and suggestions to [this repository](https://github.com/Linghumy/PCL-CE-macOS/issues), not to the original developers.
 
-<a href="https://trendshift.io/repositories/21800?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-21800" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/21800/daily?language=C%23" alt="PCL-Community%2FPCL-CE | Trendshift" width="250" height="55"/></a>
-<a href="https://trendshift.io/repositories/21800" target="_blank"><img src="https://trendshift.io/api/badge/repositories/21800" alt="PCL-Community%2FPCL-CE | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+[Archived upstream README](docs/archive/upstream/README.en.md) · [PCL-CE project](https://github.com/PCL-Community/PCL-CE) · [PCL upstream](https://github.com/Meloong-Git/PCL)
 
-[Download](https://github.com/PCL-Community/PCL-CE/releases/latest) |
-[Upstream repo](https://github.com/Meloong-Git/PCL)
+---
 
-[Submit issues](https://github.com/PCL-Community/PCL-CE/issues/new/choose) |
-[Contribution Guidelines](https://github.com/PCL-Community/PCL-CE/wiki/开发指南)
+## Overview
 
-</div>
+PCL-CE-macOS is an **unofficial, self-contained macOS distribution** built from the source code of [PCL Community Edition](https://github.com/PCL-Community/PCL-CE). It keeps the original launcher UI and major workflows, including:
 
-PCL CE is a community edition developed as a secondary project based on PCL’s open-source code. It includes features and improvements that have not yet been implemented in the main branch.
+- Microsoft and third-party account login
+- Vanilla Minecraft, Forge, NeoForge, Fabric, Quilt, and other installation flows
+- Mods, modpacks, resource packs, shaders, datapacks, and world management
+- CurseForge and Modrinth browsing and downloads
+- `.mrpack`, CurseForge modpack, and launcher modpack imports
+- Automatic Java selection, Java management, and per-instance isolation
+- Launcher update checks, logs, and crash analysis
+- Centralized storage with independently selectable cleanup categories
 
-The version numbers of the community edition do not strictly correspond to those of the main branch, so please do not report community edition issues to the official repository.
+The `.app` bundles its required .NET runtime. No separately installed SDK or runtime is needed.
 
-Everyone is welcome to try it out!
+## Distribution identity
 
-**Developing group:** [599620549](https://qm.qq.com/q/PNQA4Md8wc) | **User group 1:** [1028074835](https://qm.qq.com/q/qrMGJo8BQQ) | **User group 2:** [1070029541](https://qm.qq.com/q/lBywbDMWhG)
+| Item | Value |
+|---|---|
+| App bundle | `PCL-CE-macOS.app` |
+| Bundle identifier | `cn.org.reasonable.pcl-ce-macos` |
+| Default architecture | Apple Silicon (`osx-arm64`) |
+| Optional architecture | Intel (`osx-x64`) |
+| Minimum macOS version | macOS 12 |
+| Final distribution artifact | `dist/PCL-CE-macOS.dmg` |
+| Signing and notarization | Apple Developer ID signing, Apple notarization, and stapled ticket |
 
-## 💻 Supported Platforms
+## Apple signing and notarization
 
-### Windows
+The public DMG and the enclosed `PCL-CE-macOS.app` are signed with an **Apple Developer ID Application** certificate, submitted to and approved by Apple's notarization service, and have the notarization ticket stapled. Gatekeeper can verify the signature and ticket automatically, so normal installation and first launch do not require enabling unknown-source apps in System Settings.
 
-| Version | Architecture | Support | Requirements |
-|---|---|---|---|
-| Windows 10 1809 (17763) or later, or Windows 11 | x64, ARM64 | ✅ Fully supported | [.NET 10 Runtime](https://get.dot.net/10) |
-| Windows 10 1607 (E) | x64 | ⚠️ Expected to run; community support offered at discretion | [.NET 10 Runtime](https://get.dot.net/10) |
-| Windows 8.1, 8, 7 or earlier | / | ❌ Not supported | / |
+Signing and notarization are performed through the packaging script's `CODESIGN_IDENTITY`, `APPLE_ID`, `APPLE_TEAM_ID`, and `APPLE_APP_SPECIFIC_PASSWORD` flow. Certificates and credentials are never committed to the repository.
 
-<small>`(E)` means Enterprise or ESU editions. .NET 10 officially supports Windows 10 1607 and 1809 only on these editions.</small>
+Development builds compiled directly from source without distribution credentials may use ad-hoc signing and are not the notarized release distributed by this project. Download and use the notarized build from this project's official Release.
 
-### Linux
+## Centralized storage
 
-| Distribution | Architecture | Support | Requirements |
-|---|---|---|---|
-| Common glibc desktop distributions<br>(Ubuntu 22.04 or later, Fedora 43 or later, Arch Linux, etc.) | x64 | ✅ Supported | [.NET 10 Runtime](https://get.dot.net/10), X11, Wayland experimental |
-| Same as above | ARM64 | ✅ Supported | [.NET 10 Runtime](https://get.dot.net/10), X11 |
-| Other glibc desktop distributions | x64, ARM64 | ⚠️ Expected to run; community support offered at discretion | Requires glibc 2.27 or later and a working X11 desktop |
-| Alpine and other musl distributions | x64, ARM64 | ❌ Not supported | Current artifacts have not been tested on musl |
+By default, all app-owned data is kept under:
 
-<small>X11 is used by default. Set `PCL_USE_WAYLAND=1` to try native Wayland. If initialization fails, it falls back to X11 automatically. Wayland also requires `libwayland-client` and `libxkbcommon`.</small>
+```text
+~/PCL-CE/
+├── Minecraft/   Minecraft folders and instances
+├── Launcher/    settings, login state, logs, and launcher state
+├── Java/        Java runtimes managed by the launcher
+├── Cache/       disposable caches
+└── Temp/        temporary files
+```
 
-### macOS
+Set `PCL_CE_ROOT` to move the entire tree. Individual paths can also be overridden with `PCL_DATA_DIR`, `PCL_MINECRAFT_DIR`, `PCL_JAVA_DIR`, `PCL_CACHE_DIR`, and `PCL_TEMP_DIR`.
 
-| Version | Architecture | Support | Requirements |
-|---|---|---|---|
-| macOS 12 or later | Apple Silicon (ARM64), Intel (x64) | ✅ Supported | [.NET 10 Runtime](https://get.dot.net/10) |
+The Minecraft folder remains available to the original folder manager and can be viewed, switched, moved, or customized. On macOS the default is the visible `~/PCL-CE/Minecraft`; the old centralized `.minecraft` directory is migrated safely on first launch.
 
-**✅ Fully supported**: We will provide as much support as possible. Please make sure you are using the latest version.
+The launcher data section supports independently selecting:
 
-**⚠️ Expected to run; community support offered at discretion**: These platforms usually work, but we cannot guarantee that every feature will work correctly. The community will help when possible. Upgrading to a supported OS version gives you more complete support.
+- Launcher settings and login state
+- Caches, logs, and temporary files
+- Managed Java runtimes
+- Minecraft folders and instances
 
-**❌ Not supported**: These platforms generally cannot run PCL CE, and may not even start. Please upgrade your system before using PCL CE.
+## Network and telemetry
 
-**Note**:
-- The community only supports the latest version of the launcher.
-- Some issues depend on the system environment. For example, if system components are incomplete, you may still need to upgrade your system to get further support.
-- We recommend a newer OS for a better experience.
-- You can still try running PCL CE on unsupported systems, but you may run into more problems.
+- Update checks use only [this project's GitHub Releases](https://github.com/Linghumy/PCL-CE-macOS/releases).
+- Update mirrors and CDNs from the original project, including MirrorChyan, are not used.
+- Sentry telemetry, launcher telemetry settings, and lobby identity reporting are removed.
+- The original PCL-CE announcement endpoint is a public read-only service. If available, announcements are retained and labelled as originating from the original PCL-CE.
 
-## 🔒 License
+## Build
 
-- `PCL.Launcher/` and `PCL.Launcher.Core/` use [Custom License](https://github.com/PCL-Community/PCL-CE/blob/dev/PCL.Launcher.Core/LICENCE)
-- `All other directories` use [Apache License 2.0](https://github.com/PCL-Community/PCL-CE/blob/dev/LICENSE)
+All build dependencies stay inside the repository:
 
-## 🌟 Statistic
-![Alt](https://repobeats.axiom.co/api/embed/3e46296e6e3a134991a783480fd2f62723bb0353.svg "Repobeats analytics image")
+```bash
+.toolchain/dotnet-install.sh \
+  --channel 11.0 \
+  --install-dir "$PWD/.toolchain/dotnet" \
+  --no-path
 
-[![Star History Chart](https://api.star-history.com/svg?repos=PCL-Community/PCL-CE&type=Date)](https://www.star-history.com/#PCL-Community/PCL-CE&Date)
+scripts/build-macos-app.sh osx-arm64 Release
+scripts/create-macos-dmg.sh
+```
 
-**Views** (Total / Today): [![Hits](https://hits.zkitefly.eu.org/?tag=https://github.com/PCL-Community/PCL-CE)](https://hits.zkitefly.eu.org/?tag=https://github.com/PCL-Community/PCL-CE&web=true)
-## ❤️ Contributors
+The DMG contains the app, an installation arrow, and an `/Applications` shortcut. Only the final distribution artifact is retained after packaging:
 
-[![](https://contrib.rocks/image?repo=PCL-Community/PCL-CE)](https://github.com/PCL-Community/PCL-CE/graphs/contributors)
+```text
+dist/PCL-CE-macOS.dmg
+```
+
+## License
+
+- `PCL.Launcher/` and `PCL.Launcher.Core/` retain the [PCL-CE custom license](https://github.com/PCL-Community/PCL-CE/blob/dev/PCL.Launcher.Core/LICENCE).
+- All other directories retain the [Apache License 2.0](https://github.com/PCL-Community/PCL-CE/blob/dev/LICENSE).
+
+Responsibility for modifications, packaging, and this unofficial distribution rests with this project's maintainers.
