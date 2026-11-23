@@ -175,17 +175,11 @@ public partial class PageSelectLeftViewModel : ViewModelBase
             return;
         }
 
-        var minecraftFolder = LauncherPaths.DefaultMinecraftDirectory
-            + Path.DirectorySeparatorChar;
-        if (!Directory.Exists(minecraftFolder))
-        {
-            Directory.CreateDirectory(minecraftFolder);
-            Directory.CreateDirectory(Path.Combine(minecraftFolder, "versions"));
-            States.Game.SelectedFolder = LauncherPaths.DefaultMinecraftFolderToken;
-            GameFolders.ApplySelectedFolder(minecraftFolder);
-            GameFolders.McFolderLauncherProfilesJsonCreate(minecraftFolder);
+        var minecraftFolder = LauncherPaths.DefaultMinecraftDirectory;
+        var wasMissing = !Directory.Exists(minecraftFolder);
+        GameFolders.CreateDefaultMinecraftFolderAndSelect();
+        if (wasMissing)
             HintService.Show(Hints.Success(Lang.Text("Select.Folder.CreateSuccess")));
-        }
 
         GameFolders.McFolderListLoader.Start(null, true);
     }

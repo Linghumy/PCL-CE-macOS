@@ -228,6 +228,16 @@ public static class GameFolders
 
     private static McFolder? _EnsureMinecraftFolder(List<McFolder> cacheMcFolderList)
     {
+        if (OperatingSystem.IsMacOS())
+        {
+            var hadValidSelection = !string.IsNullOrWhiteSpace(mcFolderSelected)
+                && cacheMcFolderList.Any(folder => _IsSameFolder(folder.Location, mcFolderSelected));
+            var defaultFolder = _EnsureDefaultMinecraftFolder(cacheMcFolderList);
+            if (!hadValidSelection)
+                _SelectDefaultMinecraftFolder(defaultFolder);
+            return defaultFolder;
+        }
+
         if (cacheMcFolderList.Count != 0)
             return null;
 
@@ -240,6 +250,63 @@ public static class GameFolders
             McFolder.Types.Original);
         cacheMcFolderList.Add(fallbackFolder);
         return fallbackFolder;
+    }
+
+    /// <summary>
+    /// 确保 macOS 默认 Minecraft 文件夹存在、位于文件夹列表首位，并成为当前文件夹。
+    /// 即使已经检测到官方启动器或其他启动器的文件夹，也始终保留这个默认目录。
+    /// </summary>
+    public static string CreateDefaultMinecraftFolderAndSelect()
+    {
+        var defaultFolder = _EnsureDefaultMinecraftFolder(mcFolderList);
+        _SelectDefaultMinecraftFolder(defaultFolder);
+        McFolderLauncherProfilesJsonCreate(defaultFolder.Location);
+        return defaultFolder.Location;
+    }
+
+    private static McFolder _EnsureDefaultMinecraftFolder(List<McFolder> cacheMcFolderList)
+    {
+        var defaultLocation =
+            LauncherPaths.DefaultMinecraftDirectory + Path.DirectorySeparatorChar;
+        Directory.CreateDirectory(Path.Combine(defaultLocation, "versions"));
+
+        var defaultFolder = cacheMcFolderList.FirstOrDefault(
+            folder => _IsSameFolder(folder.Location, defaultLocation));
+        if (defaultFolder is null)
+        {
+            defaultFolder = McFolder.CreateBuiltin(
+                "Select.Folder.CurrentFolder",
+                defaultLocation,
+                McFolder.Types.Original);
+            cacheMcFolderList.Insert(0, defaultFolder);
+        }
+        else
+        {
+            cacheMcFolderList.Remove(defaultFolder);
+            cacheMcFolderList.Insert(0, defaultFolder);
+        }
+
+        return defaultFolder;
+    }
+
+    private static void _SelectDefaultMinecraftFolder(McFolder folder)
+    {
+        mcFolderSelected = folder.Location;
+        States.Game.SelectedFolder = LauncherPaths.DefaultMinecraftFolderToken;
+    }
+
+    private static bool _IsSameFolder(string? left, string? right)
+    {
+        if (string.IsNullOrWhiteSpace(left) || string.IsNullOrWhiteSpace(right))
+            return false;
+
+        var comparison = OperatingSystem.IsWindows()
+            ? StringComparison.OrdinalIgnoreCase
+            : StringComparison.Ordinal;
+        return string.Equals(
+            Path.TrimEndingDirectorySeparator(left),
+            Path.TrimEndingDirectorySeparator(right),
+            comparison);
     }
 
     /// <summary>为 Minecraft 文件夹创建 launcher_profiles.json 文件。</summary>
