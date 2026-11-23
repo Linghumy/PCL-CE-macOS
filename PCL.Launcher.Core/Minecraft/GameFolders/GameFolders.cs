@@ -232,9 +232,17 @@ public static class GameFolders
         {
             var hadValidSelection = !string.IsNullOrWhiteSpace(mcFolderSelected)
                 && cacheMcFolderList.Any(folder => _IsSameFolder(folder.Location, mcFolderSelected));
-            var defaultFolder = _EnsureDefaultMinecraftFolder(cacheMcFolderList);
+            var preferredFolder = cacheMcFolderList.FirstOrDefault(_HasMinecraftContent);
+            var defaultFolder = _EnsureDefaultMinecraftFolder(
+                cacheMcFolderList,
+                moveToFront: preferredFolder is null);
             if (!hadValidSelection)
-                _SelectDefaultMinecraftFolder(defaultFolder);
+            {
+                if (preferredFolder is null)
+                    _SelectDefaultMinecraftFolder(defaultFolder);
+                else
+                    _SelectMinecraftFolder(preferredFolder);
+            }
             return defaultFolder;
         }
 
@@ -258,13 +266,15 @@ public static class GameFolders
     /// </summary>
     public static string CreateDefaultMinecraftFolderAndSelect()
     {
-        var defaultFolder = _EnsureDefaultMinecraftFolder(mcFolderList);
+        var defaultFolder = _EnsureDefaultMinecraftFolder(mcFolderList, moveToFront: true);
         _SelectDefaultMinecraftFolder(defaultFolder);
         McFolderLauncherProfilesJsonCreate(defaultFolder.Location);
         return defaultFolder.Location;
     }
 
-    private static McFolder _EnsureDefaultMinecraftFolder(List<McFolder> cacheMcFolderList)
+    private static McFolder _EnsureDefaultMinecraftFolder(
+        List<McFolder> cacheMcFolderList,
+        bool moveToFront)
     {
         var defaultLocation =
             LauncherPaths.DefaultMinecraftDirectory + Path.DirectorySeparatorChar;
@@ -278,9 +288,11 @@ public static class GameFolders
                 "Select.Folder.CurrentFolder",
                 defaultLocation,
                 McFolder.Types.Original);
-            cacheMcFolderList.Insert(0, defaultFolder);
+            cacheMcFolderList.Insert(
+                moveToFront ? 0 : cacheMcFolderList.Count,
+                defaultFolder);
         }
-        else
+        else if (moveToFront)
         {
             cacheMcFolderList.Remove(defaultFolder);
             cacheMcFolderList.Insert(0, defaultFolder);
@@ -293,6 +305,45 @@ public static class GameFolders
     {
         mcFolderSelected = folder.Location;
         States.Game.SelectedFolder = LauncherPaths.DefaultMinecraftFolderToken;
+    }
+
+    private static void _SelectMinecraftFolder(McFolder folder)
+    {
+        mcFolderSelected = folder.Location;
+        States.Game.SelectedFolder = folder.Location
+            .Replace(LauncherPaths.UserDataRoot, "$");
+    }
+
+    /// <summary>判断启动器文件夹是否实际含有一份游戏、实例或其他 Minecraft 数据，而不是只建好了空骨架。</summary>
+    private static bool _HasMinecraftContent(McFolder folder)
+    {
+        if (string.IsNullOrWhiteSpace(folder.Location)
+            || !Directory.Exists(folder.Location))
+            return false;
+
+        try
+        {
+            foreach (var entry in Directory.EnumerateFileSystemEntries(folder.Location))
+            {
+                var name = Path.GetFileName(entry);
+                if (name == "launcher_profiles.json" && File.Exists(entry))
+                    continue;
+                if (name == "versions"
+                    && Directory.Exists(entry)
+                    && !Directory.EnumerateFileSystemEntries(entry).Any())
+                {
+                    continue;
+                }
+
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+
+        return false;
     }
 
     private static bool _IsSameFolder(string? left, string? right)
