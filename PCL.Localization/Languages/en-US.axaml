@@ -1933,6 +1933,8 @@
     <sys:String x:Key="Main.Extra.TaskManager.ToolTip">Task manager</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTip">Restart PCL CE to apply software updates</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTipWithVersion">Restart PCL CE to apply software updates ({0} → {1})</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">macOS rendering performance notice</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS does not provide the same efficient support for Minecraft's default OpenGL rendering pipeline as Windows. Using the vanilla renderer may significantly limit the performance available on your Mac.&#xA;&#xA;For better frame rates, consider installing a Vulkan rendering mod such as VulkanMod for the matching Minecraft version. Before installing, check that it is compatible with the game version, other mods, and this launcher.&#xA;&#xA;This notice is shown only once.</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Disabled">The feature hiding setting has been temporarily disabled!</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Enabled">The feature hiding setting has been re-enabled!</sys:String>
     <sys:String x:Key="Main.HomepageReset.Content">The homepage preset setting has been reset due to the launcher update.&#xA;Please go to Settings - Personalization and select the preset again.</sys:String>

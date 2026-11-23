@@ -10,4 +10,52 @@
     <sys:String x:Key="Meta.Code">es-ES</sys:String>
     <sys:String x:Key="Meta.Name">Español (España)</sys:String>
 
+    <!-- PCL-CE-macOS fork -->
+
+    <sys:String x:Key="Announcement.Source.OriginalPclCe">[Anuncio de PCL-CE original] {0}</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">Aviso de rendimiento gráfico en macOS</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS no ofrece para la canalización de renderizado OpenGL predeterminada de Minecraft el mismo soporte eficiente que Windows. Usar el renderizador original puede limitar notablemente el rendimiento disponible en tu Mac.&#xA;&#xA;Para obtener mejores velocidades de fotogramas, considera instalar un mod de renderizado Vulkan como VulkanMod para la versión correspondiente de Minecraft. Antes de instalarlo, comprueba su compatibilidad con la versión del juego, otros mods y este lanzador.&#xA;&#xA;Este aviso solo se muestra una vez.</sys:String>
+    <sys:String x:Key="Main.Menu.About">Acerca de PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Main.Menu.Maximize">Zoom</sys:String>
+    <sys:String x:Key="Select.Folder.PclCeGameFolder">Carpeta de juego de PCL-CE</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">Distribución para macOS de PCL Community Edition.</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Title">Port para macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Name">Reasonable Heli Team</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Info">Portabilidad y adaptación para macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Name">Linghumy</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Info">Distribución macOS, gestión de datos e integración con el sistema</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenWebsite">Visitar sitio web</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenGitHub">GitHub</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Assistance">La adaptación para macOS se completó con la ayuda de DeepSeek V4.1 Flash.</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Failed">No se puede eliminar este entorno Java. Cierra cualquier juego que lo esté usando e inténtalo de nuevo.</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Message">Se eliminará Java {0} ({1}) administrado por PCL-CE.&#xA;Esto borrará todo el directorio del entorno y no se podrá deshacer.</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Success">Entorno Java administrado eliminado</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Title">Eliminar Java administrado</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.ToolTip">Eliminar este entorno Java administrado por PCL-CE</sys:String>
+    <sys:String x:Key="Setup.Java.Source.AutoInstalled">Administrado por PCL-CE</sys:String>
+    <sys:String x:Key="Setup.Java.Source.ManualAdded">Añadido manualmente</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Title">Datos del lanzador</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Root">Carpeta de datos</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.OpenRoot">Abrir carpeta</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Clear">Borrar los datos seleccionados</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.All">Seleccionar todo (incluidos los datos de Minecraft)</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Settings">Ajustes del lanzador y estado de sesión</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cache">Cachés, registros y archivos temporales</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Java">Entornos Java administrados</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft">Carpetas e instancias de Minecraft</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">Elimina partidas, mods, paquetes de recursos y otro contenido de las carpetas de Minecraft seleccionadas. No se puede deshacer.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingSelected">Selecciona al menos una categoría de datos.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">Cierra Minecraft antes de borrar los datos del juego.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">¿Borrar los datos de PCL-CE-macOS?</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Message">Los datos seleccionados se eliminarán permanentemente y el lanzador se cerrará. Asegúrate de que no necesitas conservar ajustes, cuentas ni entornos.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">¿Eliminar los datos de Minecraft?</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">Las partidas, mods, paquetes de recursos e instancias de las carpetas seleccionadas se eliminarán permanentemente y el lanzador no podrá restaurarlos.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingFound">No se encontraron datos que se puedan eliminar de forma segura en las categorías seleccionadas.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cleared">Limpieza programada. El lanzador se cerrará en breve.</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">¡Ajustes importados correctamente! Reinicia PCL CE manualmente para aplicarlos.</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">Cerrar PCL CE</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">¡Se limpiaron {0} archivos!&#xA;Reinicia PCL CE manualmente.</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">Se limpiarán registros del juego, informes de errores, cachés y otros archivos.&#xA;Estas carpetas no deberían contener archivos importantes, pero ¿confirmas que deseas continuar?&#xA;&#xA;Reinicia PCL CE manualmente después de la limpieza.</sys:String>
+
 </ResourceDictionary>

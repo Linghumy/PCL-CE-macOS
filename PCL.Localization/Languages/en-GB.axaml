@@ -61,7 +61,7 @@
 
     <!-- Main.Menu -->
 
-    <sys:String x:Key="Main.Menu.About">About PCL CE</sys:String>
+    <sys:String x:Key="Main.Menu.About">About PCL-CE-macOS</sys:String>
     <sys:String x:Key="Main.Menu.CloseWindow">Close Window</sys:String>
     <sys:String x:Key="Main.Menu.Help">Help</sys:String>
     <sys:String x:Key="Main.Menu.Hide">Hide PCL CE</sys:String>
@@ -1878,6 +1878,8 @@
     <sys:String x:Key="Main.Extra.TaskManager.ToolTip">Task manager</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTip">Restart PCL CE to apply software updates</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTipWithVersion">Restart PCL CE to apply software updates ({0} → {1})</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">macOS rendering performance notice</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS does not provide the same efficient support for Minecraft's default OpenGL rendering pipeline as Windows. Using the vanilla renderer may significantly limit the performance available on your Mac.&#xA;&#xA;For better frame rates, consider installing a Vulkan rendering mod such as VulkanMod for the matching Minecraft version. Before installing, check that it is compatible with the game version, other mods, and this launcher.&#xA;&#xA;This notice is shown only once.</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Disabled">The feature hiding setting has been temporarily disabled!</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Enabled">The feature hiding setting has been re-enabled!</sys:String>
     <sys:String x:Key="Main.ShutdownMinecraft.Success">Minecraft instance closed!</sys:String>
@@ -2484,8 +2486,8 @@
 
     <!-- Setup.About -->
 
-    <sys:String x:Key="Setup.About.Community.Info">The development team of Plain Craft Launcher Community Edition!</sys:String>
-    <sys:String x:Key="Setup.About.Community.Name">PCL Community</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">The macOS distribution of PCL Community Edition.</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
     <sys:String x:Key="Setup.About.Contributors.Title">Contributors</sys:String>
     <sys:String x:Key="Setup.About.Contributors.ViewMore">View more</sys:String>
     <sys:String x:Key="Setup.About.Error.LoadContributorsFailed">Failed to load contributor information</sys:String>

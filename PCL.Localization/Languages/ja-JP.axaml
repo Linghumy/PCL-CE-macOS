@@ -22,4 +22,52 @@
     <sys:String x:Key="Application.EnvironmentWarning.TempFolder">- PCL CE は一時ディレクトリで実行中です。PCL CE をアーカイブから展開してからご使用ください。そうしないと、ゲームのセーブデータや設定が失われる可能性があります</sys:String>
     <sys:String x:Key="Application.EnvironmentWarning.Title">環境警報</sys:String>
     <sys:String x:Key="Application.EnvironmentWarning.WindowsVersion">- Windows 版本は推奨要件を満たしておらず、少なくともWindows 10 1809が推奨されており、Windowsシステムのアップグレードを検討することをお勧めします</sys:String>
+
+    <!-- PCL-CE-macOS fork -->
+
+    <sys:String x:Key="Announcement.Source.OriginalPclCe">【元の PCL-CE からのお知らせ】{0}</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">macOS の描画パフォーマンスに関するお知らせ</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS は、Minecraft が既定で使用する OpenGL 描画パイプラインに対して Windows と同じ効率的なサポートを提供していません。バニラの描画処理をそのまま使用すると、Mac の性能を十分に引き出せない場合があります。&#xA;&#xA;より高いフレームレートを得るには、対応する Minecraft バージョン向けに VulkanMod などの Vulkan 描画 MOD を導入することを検討してください。導入前に、ゲームのバージョン、他の MOD、このランチャーとの互換性を確認してください。&#xA;&#xA;このお知らせは一度だけ表示されます。</sys:String>
+    <sys:String x:Key="Main.Menu.About">PCL-CE-macOS について</sys:String>
+    <sys:String x:Key="Main.Menu.Maximize">拡大/復元</sys:String>
+    <sys:String x:Key="Select.Folder.PclCeGameFolder">PCL-CE ゲームフォルダー</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">PCL Community Edition の macOS 配布版です。</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Title">macOS 移植</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Name">Reasonable禾李チーム</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Info">macOS への移植と調整</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Name">Linghumy</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Info">macOS 配布、データ管理、システム統合</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenWebsite">公式サイトを開く</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenGitHub">GitHub</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Assistance">macOS への移植と調整は DeepSeek V4.1 Flash の支援を受けて実施しました。</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Failed">この Java ランタイムを削除できません。使用中のゲームを終了してから再試行してください。</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Message">PCL-CE が管理する Java {0}（{1}）を削除します。&#xA;ランタイムのフォルダー全体が削除され、元に戻せません。</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Success">管理対象の Java ランタイムを削除しました</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Title">管理対象 Java を削除</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.ToolTip">PCL-CE が管理するこの Java ランタイムを削除します</sys:String>
+    <sys:String x:Key="Setup.Java.Source.AutoInstalled">PCL-CE 管理</sys:String>
+    <sys:String x:Key="Setup.Java.Source.ManualAdded">手動で追加</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Title">ランチャーデータ</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Root">データフォルダー</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.OpenRoot">フォルダーを開く</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Clear">選択したデータを消去</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.All">すべて選択（Minecraft データを含む）</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Settings">ランチャー設定とログイン状態</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cache">キャッシュ、ログ、一時ファイル</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Java">管理対象の Java ランタイム</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft">Minecraft フォルダーとインスタンス</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">選択した Minecraft フォルダー内のセーブ、MOD、リソースパックなどのデータを削除します。元に戻せません。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingSelected">削除するデータの種類を1つ以上選択してください。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">ゲームデータを消去する前に Minecraft を終了してください。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">PCL-CE-macOS のデータを消去しますか？</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Message">選択したデータは完全に削除され、ランチャーは終了します。保持する必要のある設定、アカウント、ランタイムがないことを確認してください。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">Minecraft のゲームデータを削除しますか？</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">選択した Minecraft フォルダー内のセーブ、MOD、リソースパック、インスタンスは完全に削除され、ランチャーから復元できません。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingFound">選択した種類には、安全に削除できるデータが見つかりませんでした。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cleared">削除を予約しました。ランチャーはまもなく終了します。</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">設定をインポートしました。反映するには PCL CE を手動で再起動してください。</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">PCL CE を終了</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">{0} 個のファイルを削除しました！&#xA;PCL CE を手動で再起動してください。</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">ゲームログ、エラーレポート、キャッシュなどを削除します。&#xA;通常、これらのフォルダーに重要なファイルはありませんが、続行しますか？&#xA;&#xA;削除後は PCL CE を手動で再起動してください。</sys:String>
 </ResourceDictionary>

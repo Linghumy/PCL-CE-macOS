@@ -432,4 +432,52 @@
     <sys:String x:Key="Launch.Homepage.LoadFailed.Retry">Réessayer</sys:String>
     <sys:String x:Key="Launch.Homepage.SlowWarning">Le chargement de la page d'accueil est trop lent ({0} secondes). Veuillez signaler ce problème à l'auteur de la page d'accueil, ou cesser temporairement d'utiliser cette page.</sys:String>
 
+    <!-- PCL-CE-macOS fork -->
+
+    <sys:String x:Key="Announcement.Source.OriginalPclCe">[Annonce de PCL-CE d’origine] {0}</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">Avis sur les performances de rendu macOS</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS n’offre pas au pipeline de rendu OpenGL par défaut de Minecraft le même support efficace que Windows. L’utilisation du moteur de rendu d’origine peut réduire sensiblement les performances disponibles sur votre Mac.&#xA;&#xA;Pour obtenir de meilleures fréquences d’images, envisagez d’installer un mod de rendu Vulkan tel que VulkanMod pour la version correspondante de Minecraft. Avant l’installation, vérifiez sa compatibilité avec la version du jeu, les autres mods et ce lanceur.&#xA;&#xA;Cet avis n’est affiché qu’une seule fois.</sys:String>
+    <sys:String x:Key="Main.Menu.About">À propos de PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Main.Menu.Maximize">Zoom</sys:String>
+    <sys:String x:Key="Select.Folder.PclCeGameFolder">Dossier de jeu PCL-CE</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">Distribution macOS de PCL Community Edition.</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Title">Portage macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Name">Équipe Reasonable Heli</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Reasonable.Info">Portage et adaptation macOS</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Name">Linghumy</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Linghumy.Info">Distribution macOS, gestion des données et intégration système</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenWebsite">Visiter le site</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.OpenGitHub">GitHub</sys:String>
+    <sys:String x:Key="Setup.About.MacPort.Assistance">Le portage macOS a été réalisé avec l’aide de DeepSeek V4.1 Flash.</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Failed">Impossible de supprimer ce runtime Java. Fermez tout jeu qui l’utilise, puis réessayez.</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Message">Le runtime Java {0} ({1}) géré par PCL-CE va être supprimé.&#xA;Cela supprimera tout le dossier du runtime et sera irréversible.</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Success">Runtime Java géré supprimé</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.Title">Supprimer le Java géré</sys:String>
+    <sys:String x:Key="Setup.Java.Delete.ToolTip">Supprimer ce runtime Java géré par PCL-CE</sys:String>
+    <sys:String x:Key="Setup.Java.Source.AutoInstalled">Géré par PCL-CE</sys:String>
+    <sys:String x:Key="Setup.Java.Source.ManualAdded">Ajouté manuellement</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Title">Données du lanceur</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Root">Dossier de données</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.OpenRoot">Ouvrir le dossier</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Clear">Effacer les données sélectionnées</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.All">Tout sélectionner (y compris les données Minecraft)</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Settings">Paramètres du lanceur et état de connexion</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cache">Caches, journaux et fichiers temporaires</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Java">Runtimes Java gérés</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft">Dossiers et instances Minecraft</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">Supprime les sauvegardes, mods, packs de ressources et autres contenus des dossiers Minecraft sélectionnés. Cette action est irréversible.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingSelected">Sélectionnez au moins une catégorie de données.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">Quittez Minecraft avant d’effacer les données du jeu.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">Effacer les données de PCL-CE-macOS ?</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Confirm.Message">Les données sélectionnées seront définitivement supprimées et le lanceur va se fermer. Vérifiez qu’aucun paramètre, compte ou runtime ne doit être conservé.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">Supprimer les données Minecraft ?</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">Les sauvegardes, mods, packs de ressources et instances des dossiers sélectionnés seront définitivement supprimés et ne pourront pas être restaurés par le lanceur.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.NothingFound">Aucune donnée supprimable en toute sécurité n’a été trouvée pour les catégories sélectionnées.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Cleared">Nettoyage programmé. Le lanceur va bientôt se fermer.</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Message">Paramètres importés. Redémarrez manuellement PCL CE pour les appliquer.</sys:String>
+    <sys:String x:Key="Setup.Misc.System.ImportSettings.Success.Restart">Fermer PCL CE</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ClearedMessage">{0} fichiers nettoyés !&#xA;Redémarrez manuellement PCL CE.</sys:String>
+    <sys:String x:Key="Tools.Test.Clean.ConfirmMessage">Les journaux du jeu, rapports d’erreur, caches et autres fichiers vont être nettoyés.&#xA;Ces dossiers ne devraient pas contenir de fichiers importants, mais confirmez-vous vouloir continuer ?&#xA;&#xA;Redémarrez manuellement PCL CE après le nettoyage.</sys:String>
+
 </ResourceDictionary>

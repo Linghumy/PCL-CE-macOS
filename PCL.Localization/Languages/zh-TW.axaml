@@ -61,7 +61,7 @@
 
     <!-- Main.Menu -->
 
-    <sys:String x:Key="Main.Menu.About">關於 PCL CE</sys:String>
+    <sys:String x:Key="Main.Menu.About">關於 PCL-CE-macOS</sys:String>
     <sys:String x:Key="Main.Menu.CloseWindow">關閉視窗</sys:String>
     <sys:String x:Key="Main.Menu.Help">說明</sys:String>
     <sys:String x:Key="Main.Menu.Hide">隱藏 PCL CE</sys:String>
@@ -1878,6 +1878,8 @@
     <sys:String x:Key="Main.Extra.TaskManager.ToolTip">任務管理</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTip">重啟 PCL CE 以應用軟體更新</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTipWithVersion">重啟 PCL CE 以應用軟體更新 ({0} → {1})</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">macOS 渲染效能提示</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS 對 Minecraft 預設 OpenGL 渲染管線的支援與 Windows 不同，直接使用原版渲染時可能明顯無法發揮裝置效能。&#xA;&#xA;如需獲得更好的影格率，建議為對應遊戲版本安裝 Vulkan 渲染模組，例如 VulkanMod。安裝前請確認它與遊戲版本、其他模組及目前啟動器相容。&#xA;&#xA;此提示僅顯示一次。</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Disabled">功能隱藏設定已暫時關閉！</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Enabled">功能隱藏設定已重新開啟！</sys:String>
     <sys:String x:Key="Main.ShutdownMinecraft.Success">已關閉執行中的 Minecraft！</sys:String>
@@ -2484,8 +2486,8 @@
 
     <!-- Setup.About -->
 
-    <sys:String x:Key="Setup.About.Community.Info">Plain Craft Launcher Community Edition 的開發團隊！</sys:String>
-    <sys:String x:Key="Setup.About.Community.Name">PCL Community</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">PCL Community Edition 的 macOS 發行維護版本</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
     <sys:String x:Key="Setup.About.Contributors.Title">貢獻者們</sys:String>
     <sys:String x:Key="Setup.About.Contributors.ViewMore">檢視更多</sys:String>
     <sys:String x:Key="Setup.About.Error.LoadContributorsFailed">載入貢獻者資訊失敗</sys:String>

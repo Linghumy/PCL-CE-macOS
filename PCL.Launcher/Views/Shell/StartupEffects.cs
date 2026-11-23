@@ -184,6 +184,7 @@ public sealed class StartupEffects(
             ShowSpecialVersionHint();
             await ShowEnvironmentWarningAsync();
             await ShowEulaDialogAsync();
+            await MacOsRenderingNotice.ShowIfNeededAsync();
             HardwareInfo.GetHardwareInfo();
         }
         catch (Exception ex)

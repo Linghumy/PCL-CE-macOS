@@ -127,6 +127,11 @@ public static partial class States
         /// 数据包更新警告。
         /// </summary>
         [ConfigItem<bool>("HintDatapackUpdate",false)] public partial bool FunctionDatapackUpdate { get; set; }
+
+        /// <summary>
+        /// macOS OpenGL 渲染性能的一次性提示。
+        /// </summary>
+        [ConfigItem<bool>("HintMacOsVulkanNotice", false)] public partial bool MacOsVulkanNoticeShown { get; set; }
     }
 
     /// <summary>

@@ -1933,6 +1933,8 @@
     <sys:String x:Key="Main.Extra.TaskManager.ToolTip">任务管理</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTip">重启 PCL CE 以应用软件更新</sys:String>
     <sys:String x:Key="Main.Extra.UpdateRestart.ToolTipWithVersion">重启 PCL CE 以应用软件更新 ({0} → {1})</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Title">macOS 渲染性能提示</sys:String>
+    <sys:String x:Key="Main.MacOsVulkanNotice.Message">macOS 对 Minecraft 默认 OpenGL 渲染管线的支持与 Windows 不同，直接使用原版渲染时可能明显无法发挥设备性能。&#xA;&#xA;如需获得更好的帧率，建议为对应游戏版本安装 Vulkan 渲染模组，例如 VulkanMod。安装前请确认它与游戏版本、其他模组及当前启动器兼容。&#xA;&#xA;此提示仅显示一次。</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Disabled">功能隐藏设置已暂时关闭！</sys:String>
     <sys:String x:Key="Main.HiddenFeature.Enabled">功能隐藏设置已重新开启！</sys:String>
     <sys:String x:Key="Main.HomepageReset.Content">由于启动器更新，已重置主页预设。请重新前往 设置 - 个性化 选择预设</sys:String>
