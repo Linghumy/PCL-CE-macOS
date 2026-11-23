@@ -10,6 +10,8 @@ namespace PCL;
 
 public static class GameFolders
 {
+    private const string PclCeGameFolderNameKey = "Select.Folder.PclCeGameFolder";
+
     private static string? _mcFolderSelected;
 
     /// <summary>当前的 Minecraft 文件夹列表。</summary>
@@ -158,6 +160,15 @@ public static class GameFolders
                     Location = folder.FullName + Path.DirectorySeparatorChar,
                     Type = McFolder.Types.Original
                 };
+                if (OperatingSystem.IsMacOS()
+                    && _IsSameFolder(
+                        newCurrentFolder.Location,
+                        LauncherPaths.DefaultMinecraftDirectory
+                        + Path.DirectorySeparatorChar))
+                    newCurrentFolder = McFolder.CreateBuiltin(
+                        PclCeGameFolderNameKey,
+                        newCurrentFolder.Location,
+                        McFolder.Types.Original);
                 originalMcFolderList.Add(newCurrentFolder);
                 currentMcFolderList.Add(newCurrentFolder);
             }
@@ -194,6 +205,15 @@ public static class GameFolders
                 // 旧版本保存的是译文；仅当它确实是该内置文件夹的旧译名时才迁移，
                 // 以免覆盖用户手动改过的名称。
                 if (newOriginalName.StartsWith(
+                        McFolder.BuiltinNamePrefix,
+                        StringComparison.Ordinal)
+                    && OperatingSystem.IsMacOS()
+                    && newOriginalName
+                    == McFolder.BuiltinNamePrefix + PclCeGameFolderNameKey
+                    && cacheFolder.Name
+                    == McFolder.BuiltinNamePrefix + "Select.Folder.CurrentFolder")
+                    cacheFolder.Name = newOriginalName;
+                else if (newOriginalName.StartsWith(
                         McFolder.BuiltinNamePrefix,
                         StringComparison.Ordinal)
                     && LegacyBuiltinFolderNames.TryGetValue(
@@ -285,7 +305,7 @@ public static class GameFolders
         if (defaultFolder is null)
         {
             defaultFolder = McFolder.CreateBuiltin(
-                "Select.Folder.CurrentFolder",
+                PclCeGameFolderNameKey,
                 defaultLocation,
                 McFolder.Types.Original);
             cacheMcFolderList.Insert(

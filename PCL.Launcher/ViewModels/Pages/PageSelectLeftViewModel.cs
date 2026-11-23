@@ -196,7 +196,8 @@ public partial class PageSelectLeftViewModel : ViewModelBase
 
         try
         {
-            newFolder = await SystemDialogs.SelectFolderAsync();
+            newFolder = await SystemDialogs.SelectFolderAsync(
+                initialDirectory: LauncherPaths.UserDataRoot);
             if (string.IsNullOrEmpty(newFolder))
                 return;
             if (newFolder.Contains('!') || newFolder.Contains(';'))
@@ -649,7 +650,10 @@ public partial class PageSelectLeftViewModel : ViewModelBase
         string name;
         if (location == minecraftFolder
             || location == LauncherPaths.UserDataRoot)
-            name = GameFolders.McFolder.BuiltinNamePrefix + "Select.Folder.CurrentFolder";
+            name = GameFolders.McFolder.BuiltinNamePrefix
+                   + (OperatingSystem.IsMacOS()
+                       ? "Select.Folder.PclCeGameFolder"
+                       : "Select.Folder.CurrentFolder");
         else if (location == mojangFolder)
             name = GameFolders.McFolder.BuiltinNamePrefix + "Select.Folder.OfficialLauncherFolder";
         else

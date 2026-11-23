@@ -2425,6 +2425,7 @@
     <sys:String x:Key="Select.Folder.CreateNew.ToolTip">Create a new ".minecraft" folder at the location of PCL CE.</sys:String>
     <sys:String x:Key="Select.Folder.CreateSuccess">Create a new ".minecraft" folder successfully!</sys:String>
     <sys:String x:Key="Select.Folder.CurrentFolder">Current folder</sys:String>
+    <sys:String x:Key="Select.Folder.PclCeGameFolder">PCL-CE game folder</sys:String>
     <sys:String x:Key="Select.Folder.Delete.Confirm">Delete</sys:String>
     <sys:String x:Key="Select.Folder.Delete.FinalWarning">Non-Minecraft files stored in the folder will also be deleted!&#xA;Continuing the deletion will cause all files in this folder to be permanently lost.&#xA;Please confirm carefully before continuing!&#xA;Target folder: {0}&#xA;&#xA;This is the last warning!</sys:String>
     <sys:String x:Key="Select.Folder.Delete.FirstWarning">Are you sure you want to delete this folder?&#xA;Target folder: {0}&#xA;&#xA;All saves and other files in this folder will be permanently lost and unrecoverable!</sys:String>

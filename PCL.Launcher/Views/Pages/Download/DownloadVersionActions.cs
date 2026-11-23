@@ -36,7 +36,8 @@ internal static class DownloadVersionActions
                 return;
             }
 
-            var selectedFolder = await SystemDialogs.SelectFolderAsync();
+            var selectedFolder = await SystemDialogs.SelectFolderAsync(
+                initialDirectory: LauncherPaths.UserDataRoot);
             if (string.IsNullOrEmpty(selectedFolder))
                 return;
             var versionFolder = Path.Combine(selectedFolder, id);
@@ -106,7 +107,8 @@ internal static class DownloadVersionActions
                 return;
             }
 
-            var selectedFolder = await SystemDialogs.SelectFolderAsync();
+            var selectedFolder = await SystemDialogs.SelectFolderAsync(
+                initialDirectory: LauncherPaths.UserDataRoot);
             if (string.IsNullOrEmpty(selectedFolder))
                 return;
             var versionFolder = Path.Combine(selectedFolder, id);

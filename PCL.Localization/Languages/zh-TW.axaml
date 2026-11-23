@@ -2366,6 +2366,7 @@
     <sys:String x:Key="Select.Folder.CreateNew.ToolTip">在 PCL CE 目前所在資料夾下建立新的 .minecraft 資料夾</sys:String>
     <sys:String x:Key="Select.Folder.CreateSuccess">新增 .minecraft 資料夾成功！</sys:String>
     <sys:String x:Key="Select.Folder.CurrentFolder">目前資料夾</sys:String>
+    <sys:String x:Key="Select.Folder.PclCeGameFolder">PCL-CE 遊戲資料夾</sys:String>
     <sys:String x:Key="Select.Folder.Delete.Confirm">確認刪除</sys:String>
     <sys:String x:Key="Select.Folder.Delete.FinalWarning">如果你在該資料夾中存放了除 Minecraft 以外的其他檔案，這些檔案也會被一同刪除！&#xA;繼續刪除會導致該資料夾中的所有檔案永久遺失，請在仔細確認後再繼續！&#xA;目標資料夾：{0}&#xA;&#xA;這是最後一次警告！</sys:String>
     <sys:String x:Key="Select.Folder.Delete.FirstWarning">你確認要刪除這個資料夾嗎？&#xA;目標資料夾：{0}&#xA;&#xA;這會導致該資料夾中的所有存檔與其他檔案永久遺失，且不可復原！</sys:String>
