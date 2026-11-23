@@ -28,12 +28,20 @@ public partial class MainWindow : Window
     private readonly ExtraButtonsPanel _extraButtons;
     private readonly TitleBar _titleBar;
     private bool _leftWidthUpdateQueued;
-    private bool _useSystemWindowChrome;
-    private double _titleBarLeadingInset;
 
     public MainWindow()
     {
         InitializeComponent();
+        if (OperatingSystem.IsMacOS())
+        {
+            // 完全接管 macOS 窗口标题栏，交通灯由 PCL 标题栏绘制。
+            WindowDecorations = Avalonia.Controls.WindowDecorations.None;
+            PanBack.Margin = default;
+            PanBack.CornerRadius = new CornerRadius(12d);
+            PanWindowShadow.ShadowRadius = 0d;
+            PanWindowShadow.CornerRadius = default;
+            PanWindowShadow.Color = Colors.Transparent;
+        }
         ApplyWindowIcon();
         TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
         Opacity = 0d;
@@ -204,47 +212,16 @@ public partial class MainWindow : Window
         LauncherCommon.Dpi = (int)Math.Round(RenderScaling * 96d);
     }
 
-    // macOS 改用系统标题栏，把圆角，阴影等交给系统处理，PCL因为窗口本身不支持最大化，因此绿灯保持禁用
-    public void UseSystemWindowChrome()
-    {
-        _useSystemWindowChrome = true;
-        WindowDecorations = WindowDecorations.Full;
-        CanMaximize = false;
-
-        ShadowHost.ShadowRadius = 0d;
-        ShadowHost.Color = Colors.Transparent;
-        ShadowHost.CornerRadius = default;
-        PanBack.Margin = default;
-        PanBack.CornerRadius = default;
-        PanBack.Clip = null;
-        Cursor = null;
-
-        _titleBar.UseSystemCaptionButtons();
-        PropertyChanged += (_, e) =>
-        {
-            if (e.Property == WindowDecorationMarginProperty) ApplyExtendedTitleBarLayout(_titleBarLeadingInset);
-        };
-    }
-
-    public void ApplyExtendedTitleBarLayout(double leadingInset)
-    {
-        _titleBarLeadingInset = leadingInset;
-        var extended = ExtendClientAreaToDecorationsHint;
-        _titleBar.SetSystemTitleBarLayout(
-            extended ? WindowDecorationMargin.Top : null,
-            extended ? leadingInset : 0d);
-    }
-
     private void ApplyRoundedWindowClip()
     {
+        var radius = OperatingSystem.IsMacOS() ? 12d : 6d;
         PanBack.SizeChanged += (_, e) =>
         {
-            if (_useSystemWindowChrome) return;
             PanBack.Clip = new RectangleGeometry
             {
                 Rect = new Rect(e.NewSize),
-                RadiusX = 6d,
-                RadiusY = 6d
+                RadiusX = radius,
+                RadiusY = radius
             };
         };
     }
@@ -258,8 +235,7 @@ public partial class MainWindow : Window
 
     private void OnResizePointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (_useSystemWindowChrome
-            || !CanResize
+        if (!CanResize
             || WindowState == WindowState.Maximized
             || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -271,7 +247,6 @@ public partial class MainWindow : Window
 
     private void OnResizePointerMoved(object? sender, PointerEventArgs e)
     {
-        if (_useSystemWindowChrome) return;
         Cursor = !CanResize || WindowState == WindowState.Maximized
             ? null
             : GetResizeEdge(e.GetPosition(this)) switch

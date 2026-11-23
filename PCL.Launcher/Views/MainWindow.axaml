@@ -20,7 +20,7 @@
         Title="PCL-CE-macOS">
     <Grid x:Name="PanRoot"
           Background="Transparent">
-        <ui:MyDropShadow x:Name="ShadowHost"
+        <ui:MyDropShadow x:Name="PanWindowShadow"
                          Color="#21000000"
                          ShadowRadius="10"
                          CornerRadius="6"
