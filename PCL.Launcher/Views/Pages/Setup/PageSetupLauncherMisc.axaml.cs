@@ -254,7 +254,7 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
     {
         var savePath = await SystemDialogs.SelectSaveFileAsync(
             Lang.Text("Setup.Misc.System.ExportSettings.SaveTitle"),
-            "PCL CE 全局配置.json",
+            $"PCL-CE-macOS 全局配置 {LauncherCommon.VersionBaseName}.json",
             Lang.Text("Setup.Misc.System.ExportSettings.Filter"),
             Basics.ExecutableDirectory);
         if (string.IsNullOrWhiteSpace(savePath)) return;
@@ -470,15 +470,26 @@ public partial class PageSetupLauncherMisc : MyPageRight, ISetupResetPage
 
         if (selected.HasFlag(StorageCategory.Minecraft))
         {
-            Add(LauncherPaths.DefaultMinecraftDirectory, true);
-            Add(GameFolders.mcFolderSelected, true);
-            Add(Path.Combine(home, "PCLCE", ".minecraft"), true);
-            if (!string.IsNullOrWhiteSpace(States.Game.Folders))
-                foreach (var folder in States.Game.Folders.Split('|'))
-                {
-                    var parts = folder.Split('>');
-                    if (parts.Length >= 2) Add(parts[1], true);
-                }
+            if (OperatingSystem.IsMacOS())
+            {
+                // 只删除 PCL-CE-macOS 自己创建/迁移的集中目录。
+                // 官方启动器、其他启动器及用户手动添加的外部实例不能被连带删除。
+                Add(LauncherPaths.DefaultMinecraftDirectory, true);
+                Add(Path.Combine(centralRoot, ".minecraft"), true);
+                Add(Path.Combine(home, "PCLCE", ".minecraft"), true);
+            }
+            else
+            {
+                Add(LauncherPaths.DefaultMinecraftDirectory, true);
+                Add(GameFolders.mcFolderSelected, true);
+                Add(Path.Combine(home, "PCLCE", ".minecraft"), true);
+                if (!string.IsNullOrWhiteSpace(States.Game.Folders))
+                    foreach (var folder in States.Game.Folders.Split('|'))
+                    {
+                        var parts = folder.Split('>');
+                        if (parts.Length >= 2) Add(parts[1], true);
+                    }
+            }
         }
 
         return paths;

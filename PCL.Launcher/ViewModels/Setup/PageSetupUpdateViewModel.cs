@@ -96,7 +96,7 @@ public partial class PageSetupUpdateViewModel : ViewModelBase
 
     public void Reload()
     {
-        CurrentVersionText = "PCL CE " + VersionNameFormat(LauncherCommon.VersionBaseName);
+        CurrentVersionText = "PCL-CE-macOS " + VersionNameFormat(LauncherCommon.VersionBaseName);
         UpdateModeIndex = Math.Clamp((int)Config.Update.UpdateMode, 0, 3);
         SetUpdateButtonState(InstallButtonState);
         UpdateButtonEnabled = !IsFlatpak;
@@ -112,14 +112,12 @@ public partial class PageSetupUpdateViewModel : ViewModelBase
         CheckAgainEnabled = false;
         try
         {
-            var channel = UpdateManager.IsCurrentVersionBeta
-                ? UpdateSourceChannel.Beta
-                : UpdateSourceChannel.Stable;
+            const UpdateSourceChannel channel = UpdateSourceChannel.Stable;
             var arch = SystemInfo.IsArm64System ? UpdateArch.Arm64 : UpdateArch.X64;
             var isLatest = await UpdateManager.remoteServer.IsLatestAsync(
                 channel,
                 arch,
-                SemVer.Parse(LauncherCommon.VersionBaseName),
+                SemVer.Parse(LauncherCommon.VersionComparisonBase),
                 LauncherCommon.VersionCode);
             if (isLatest)
             {
@@ -130,7 +128,7 @@ public partial class PageSetupUpdateViewModel : ViewModelBase
             var version = await Task.Run(() =>
                 UpdateManager.remoteServer.GetLatestVersion(channel, arch));
             _latestVersion = version;
-            UpdateNameText = "PCL CE " + VersionNameFormat(version.VersionName);
+            UpdateNameText = "PCL-CE-macOS " + VersionNameFormat(version.VersionName);
             _changelogSummary = ExtractSummary(version.Changelog);
             OnPropertyChanged(nameof(ChangelogText));
 
@@ -288,89 +286,12 @@ public partial class PageSetupUpdateViewModel : ViewModelBase
     }
 
     /// <summary>切换更新通道；返回 false 表示用户取消，调用方需要把下拉恢复原值。</summary>
-    public async Task<bool> ChangeChannelAsync(int index)
+    public Task<bool> ChangeChannelAsync(int index)
     {
-        ChannelEnabled = false;
-        try
-        {
-            switch (index)
-            {
-                case 1:
-                {
-                    var result = await Dialog.ShowAsync(
-                        new TextDialogRequest
-                        {
-                            Title = Lang.Text("Setup.Update.Channel.Common.Warning.Title"),
-                            Content = Lang.Text("Setup.Update.Channel.Beta.Warning.Message"),
-                            Buttons = DialogButtons.From(
-                                DialogButton.Create(
-                                    Lang.Text("Setup.Update.Channel.Common.Warning.Confirm")),
-                                DialogButton.Create(Lang.Text("Common.Action.Cancel"))),
-                            IsWarn = true
-                        });
-                    if (result.Button != 1) return false;
-                    break;
-                }
-                case 2:
-                {
-                    var warn = await Dialog.ShowAsync(
-                        new TextDialogRequest
-                        {
-                            Title = Lang.Text("Setup.Update.Channel.Common.Warning.Title"),
-                            Content = Lang.Text("Setup.Update.Channel.Dev.Warning.Message"),
-                            Buttons = DialogButtons.From(
-                                DialogButton.Create(
-                                    Lang.Text("Setup.Update.Channel.Common.Warning.Confirm")),
-                                DialogButton.Create(Lang.Text("Common.Action.Cancel"))),
-                            IsWarn = true
-                        });
-                    if (warn.Button != 1) return false;
-
-                    var confirmText = Lang.Text(
-                        "Setup.Update.Channel.Dev.FinalConfirm.ExpectedInput");
-                    var input = await Dialog.ShowAsync(
-                        new InputDialogRequest
-                        {
-                            Title = Lang.Text("Setup.Update.Channel.Dev.FinalConfirm.Title"),
-                            Content = Lang.Text(
-                                "Setup.Update.Channel.Dev.FinalConfirm.Message",
-                                confirmText),
-                            Buttons = DialogButtons.From(
-                                DialogButton.Create(
-                                    Lang.Text("Setup.Update.Channel.Dev.FinalConfirm.Submit")),
-                                DialogButton.Create(Lang.Text("Common.Action.Cancel"))),
-                            IsWarn = true,
-                            HighLight = false
-                        });
-                    if (!input.IsConfirmed || input.InputText != confirmText)
-                    {
-                        if (input.IsConfirmed)
-                            HintService.Show(
-                                Hints.Info(
-                                    Lang.Text("Setup.Update.Channel.Dev.FinalConfirm.WrongInput")));
-                        return false;
-                    }
-
-                    break;
-                }
-            }
-
-            Config.Update.UpdateChannel = (UpdateChannel)index;
-            return true;
-        }
-        catch (Exception ex)
-        {
-            LauncherCommon.Log(
-                ex,
-                "切换更新通道失败",
-                LauncherLogLevel.Feedback,
-                userSummary: Lang.Text("Setup.Error.OperationFailed"));
-            return false;
-        }
-        finally
-        {
-            ChannelEnabled = true;
-        }
+        if (index != (int)UpdateChannel.Release)
+            return Task.FromResult(false);
+        Config.Update.UpdateChannel = UpdateChannel.Release;
+        return Task.FromResult(true);
     }
 
     private void SetStatusText(string key, params object?[] args)
@@ -405,7 +326,8 @@ public partial class PageSetupUpdateViewModel : ViewModelBase
 
     public static string VersionNameFormat(string str)
     {
-        str = str.Replace("v", "");
+        if (str.StartsWith('v'))
+            str = str[1..];
         if (!str.Contains('-'))
             return str;
         var add = str.AfterLast("-");

@@ -71,10 +71,8 @@ public partial class PageSetupUpdate : MyPageRight
         try
         {
             ViewModel.Reload();
-            ComboSystemUpdateChannel.SelectedIndex = Math.Clamp(
-                (int)Config.Update.UpdateChannel,
-                0,
-                2);
+            Config.Update.UpdateChannel = UpdateChannel.Release;
+            ComboSystemUpdateChannel.SelectedIndex = 0;
             ComboSystemUpdateMode.SelectedIndex = Math.Clamp(
                 (int)Config.Update.UpdateMode,
                 0,
@@ -95,10 +93,7 @@ public partial class PageSetupUpdate : MyPageRight
             _reloading = true;
             try
             {
-                ComboSystemUpdateChannel.SelectedIndex = Math.Clamp(
-                    (int)Config.Update.UpdateChannel,
-                    0,
-                    2);
+                ComboSystemUpdateChannel.SelectedIndex = 0;
             }
             finally
             {

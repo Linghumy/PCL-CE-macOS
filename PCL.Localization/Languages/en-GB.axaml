@@ -2486,8 +2486,8 @@
 
     <!-- Setup.About -->
 
-    <sys:String x:Key="Setup.About.Community.Info">The macOS distribution of PCL Community Edition.</sys:String>
-    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">The community edition maintained by PCL Community.</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE</sys:String>
     <sys:String x:Key="Setup.About.Contributors.Title">Contributors</sys:String>
     <sys:String x:Key="Setup.About.Contributors.ViewMore">View more</sys:String>
     <sys:String x:Key="Setup.About.Error.LoadContributorsFailed">Failed to load contributor information</sys:String>
@@ -2979,14 +2979,14 @@
     <sys:String x:Key="Setup.Misc.Storage.Settings">Launcher settings and login state</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Cache">Caches, logs, and temporary files</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Java">Managed Java runtimes</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.Minecraft">Minecraft folders and instances</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">Deletes saves, mods, resource packs, and other content in the selected Minecraft folders. This cannot be undone.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft">PCL-CE game folders and instances</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">Deletes saves, mods, resource packs, and other content only from Minecraft folders created by PCL-CE. Folders used by the official launcher and other launchers are not affected. This cannot be undone.</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.NothingSelected">Select at least one data category.</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">Exit Minecraft before clearing game data.</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">Clear PCL-CE-macOS data?</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Confirm.Message">The selected data will be permanently deleted and the launcher will exit. Make sure no settings, accounts, or runtimes need to be kept.</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">Delete Minecraft game data?</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">Saves, mods, resource packs, and instances in the selected Minecraft folders will be permanently deleted and cannot be restored by the launcher.</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">Delete PCL-CE game data?</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">Saves, mods, resource packs, and instances in Minecraft folders created by PCL-CE will be permanently deleted and cannot be restored by the launcher. Folders used by the official launcher and other launchers will not be deleted.</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.NothingFound">No safely removable data was found for the selected categories.</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Cleared">Cleanup scheduled. The launcher will exit shortly.</sys:String>
 

@@ -43,47 +43,22 @@ public static class UpdateManager
 
     public static bool IsCurrentVersionBeta
     {
-        get
-        {
-            if (LauncherCommon.VersionBaseName.Contains("beta"))
-                return true;
-            return Config.Update.UpdateChannel == UpdateChannel.Beta;
-        }
+        get => LauncherCommon.VersionComparisonBase.Contains(
+            "beta",
+            StringComparison.OrdinalIgnoreCase);
     }
 
     public static UpdateEnums.VersionStatus GetVersionStatus()
     {
         try
         {
-            if (!IsCurrentVersionBeta || Config.Update.UpdateChannel == UpdateChannel.Beta)
-                return remoteServer.IsLatest(
-                    IsCurrentVersionBeta
-                        ? UpdateSourceChannel.Beta
-                        : UpdateSourceChannel.Stable,
-                    SystemInfo.IsArm64System
-                        ? UpdateArch.Arm64
-                        : UpdateArch.X64,
-                    SemVer.Parse(LauncherCommon.VersionBaseName),
-                    LauncherCommon.VersionCode)
-                    ? UpdateEnums.VersionStatus.Latest
-                    : UpdateEnums.VersionStatus.NotLatest;
-
-            var isNewerThanStable = remoteServer.IsLatest(
+            return remoteServer.IsLatest(
                 UpdateSourceChannel.Stable,
                 SystemInfo.IsArm64System
                     ? UpdateArch.Arm64
                     : UpdateArch.X64,
-                SemVer.Parse(LauncherCommon.VersionBaseName),
-                LauncherCommon.VersionCode);
-            var isBetaLatest = remoteServer.IsLatest(
-                UpdateSourceChannel.Beta,
-                SystemInfo.IsArm64System
-                    ? UpdateArch.Arm64
-                    : UpdateArch.X64,
-                SemVer.Parse(LauncherCommon.VersionBaseName),
-                LauncherCommon.VersionCode);
-
-            return isNewerThanStable && isBetaLatest
+                SemVer.Parse(LauncherCommon.VersionComparisonBase),
+                LauncherCommon.VersionCode)
                 ? UpdateEnums.VersionStatus.Latest
                 : UpdateEnums.VersionStatus.NotLatest;
         }
@@ -119,16 +94,14 @@ public static class UpdateManager
         {
             try
             {
-                var channel = IsCurrentVersionBeta
-                    ? UpdateSourceChannel.Beta
-                    : UpdateSourceChannel.Stable;
+                const UpdateSourceChannel channel = UpdateSourceChannel.Stable;
                 var arch = SystemInfo.IsArm64System
                     ? UpdateArch.Arm64
                     : UpdateArch.X64;
                 if (remoteServer.IsLatest(
                         channel,
                         arch,
-                        SemVer.Parse(LauncherCommon.VersionBaseName),
+                        SemVer.Parse(LauncherCommon.VersionComparisonBase),
                         LauncherCommon.VersionCode))
                     return;
 
@@ -138,7 +111,7 @@ public static class UpdateManager
                 LauncherCommon.Log(
                     $"[Update] 远程最新版本: {version.VersionName}, 当前版本: {LauncherCommon.VersionBaseName}");
                 if (!(SemVer.Parse(version.VersionName)
-                        > SemVer.Parse(LauncherCommon.VersionBaseName)))
+                        > SemVer.Parse(LauncherCommon.VersionComparisonBase)))
                     return;
                 if (type == UpdateEnums.UpdateType.PromptOnly)
                 {
@@ -160,9 +133,7 @@ public static class UpdateManager
                 List<Loading.LoaderBase> loaders =
                 [
                     .. remoteServer.GetDownloadLoader(
-                        IsCurrentVersionBeta
-                            ? UpdateSourceChannel.Beta
-                            : UpdateSourceChannel.Stable,
+                        UpdateSourceChannel.Stable,
                         SystemInfo.IsArm64System ? UpdateArch.Arm64 : UpdateArch.X64,
                         dlTargetPath),
 

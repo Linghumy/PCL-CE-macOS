@@ -59,6 +59,8 @@ public static class LauncherCommon
     public static string VersionStandardCode => Basics.Metadata.Version.StandardVersion;
     public static string UpstreamVersion => Basics.Metadata.Version.UpstreamVersion;
     public static string VersionBaseName => Basics.VersionName;
+    /// <summary>用于更新比较的基础版本，不包含 rev 等发行后缀。</summary>
+    public static string VersionComparisonBase => Basics.Metadata.Version.BaseVersion;
     public static int VersionCode => Basics.VersionCode;
 
 #if DEBUG

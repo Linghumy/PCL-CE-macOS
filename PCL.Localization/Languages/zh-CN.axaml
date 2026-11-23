@@ -2545,8 +2545,8 @@
 
     <!-- Setup.About -->
 
-    <sys:String x:Key="Setup.About.Community.Info">PCL-CE-macOS 的 macOS 发行维护版本</sys:String>
-    <sys:String x:Key="Setup.About.Community.Name">PCL-CE-macOS</sys:String>
+    <sys:String x:Key="Setup.About.Community.Info">由 PCL Community 维护的社区版本</sys:String>
+    <sys:String x:Key="Setup.About.Community.Name">PCL-CE</sys:String>
     <sys:String x:Key="Setup.About.Contributors.Title">贡献者们</sys:String>
     <sys:String x:Key="Setup.About.Contributors.ViewMore">查看更多</sys:String>
     <sys:String x:Key="Setup.About.Error.LoadContributorsFailed">加载贡献者信息失败</sys:String>
@@ -3047,14 +3047,14 @@
     <sys:String x:Key="Setup.Misc.Storage.Settings">启动器配置与登录状态</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Cache">缓存、日志与临时文件</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Java">托管 Java 运行环境</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.Minecraft">Minecraft 游戏文件夹与实例</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">会删除所选 Minecraft 文件夹中的存档、模组、资源包等，且无法恢复。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft">PCL-CE 游戏文件夹与实例</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.Minecraft.ToolTip">仅删除 PCL-CE 自己创建的 Minecraft 文件夹中的存档、模组、资源包等；官方启动器和其他启动器的文件夹不会受到影响。此操作无法恢复。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.NothingSelected">请至少选择一种要清除的数据。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.CloseMinecraft">请先退出正在运行的 Minecraft，再清理游戏数据。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Confirm.Title">清除 PCL-CE-macOS 数据？</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Confirm.Message">所选数据将被永久删除，启动器随后会退出。请确认没有需要保留的配置、账号或运行环境。</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">删除 Minecraft 游戏数据？</sys:String>
-    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">所选 Minecraft 文件夹中的存档、模组、资源包和实例都将被永久删除，且无法通过启动器恢复。</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Title">删除 PCL-CE 游戏数据？</sys:String>
+    <sys:String x:Key="Setup.Misc.Storage.MinecraftConfirm.Message">PCL-CE 自己创建的 Minecraft 文件夹中的存档、模组、资源包和实例将被永久删除，且无法通过启动器恢复。官方启动器及其他启动器的文件夹不会被删除。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.NothingFound">没有找到所选类别的、可安全删除的数据。</sys:String>
     <sys:String x:Key="Setup.Misc.Storage.Cleared">已安排清理，启动器即将退出。</sys:String>
 
