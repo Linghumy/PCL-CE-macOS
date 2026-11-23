@@ -29,6 +29,20 @@ PCL-CE-macOS 是基于 [PCL Community Edition](https://github.com/PCL-Community/
 
 `.app` 内置所需 .NET 运行时，用户无需预先安装 SDK 或运行时。
 
+## 主要区别
+
+- 启用了Minecraft游戏资源下载
+- 将启动器的所有文件（包括配置、Java与Minecraft游戏文件夹）存放于 /Users/用户名/PCL-CE 中，便于管理
+
+## Apple 签名与公证
+
+本项目对外发布的 DMG 及其中的 `PCL-CE-macOS.app` 使用 **Apple Developer ID Application** 证书签名，并已通过 Apple 公证服务验证、完成公证及 stapled。签名和公证票据可由 Gatekeeper 自动验证，正常安装和首次启动时无需前往“系统设置”手动允许未知来源软件。
+
+签名与公证由构建脚本中的 `CODESIGN_IDENTITY`、`APPLE_ID`、`APPLE_TEAM_ID` 和 `APPLE_APP_SPECIFIC_PASSWORD` 流程完成，相关证书和凭据不会提交到仓库。
+
+直接从源码构建但不提供发行证书的开发构建可能使用 ad-hoc 签名，不属于本项目对外发布的 Apple 公证版本。请从本项目的正式 Release 下载并使用公证成品。
+
+
 ## 发行信息
 
 | 项目 | 值 |
@@ -40,14 +54,6 @@ PCL-CE-macOS 是基于 [PCL Community Edition](https://github.com/PCL-Community/
 | 最低系统版本 | macOS 12 |
 | 最终分发成品 | `dist/PCL-CE-macOS.dmg` |
 | 签名与公证 | Apple Developer ID 签名、Apple 公证并 stapled |
-
-## Apple 签名与公证
-
-本项目对外发布的 DMG 及其中的 `PCL-CE-macOS.app` 使用 **Apple Developer ID Application** 证书签名，并已通过 Apple 公证服务验证、完成公证及 stapled。签名和公证票据可由 Gatekeeper 自动验证，正常安装和首次启动时无需前往“系统设置”手动允许未知来源软件。
-
-签名与公证由构建脚本中的 `CODESIGN_IDENTITY`、`APPLE_ID`、`APPLE_TEAM_ID` 和 `APPLE_APP_SPECIFIC_PASSWORD` 流程完成，相关证书和凭据不会提交到仓库。
-
-直接从源码构建但不提供发行证书的开发构建可能使用 ad-hoc 签名，不属于本项目对外发布的 Apple 公证版本。请从本项目的正式 Release 下载并使用公证成品。
 
 ## 集中化存储
 
