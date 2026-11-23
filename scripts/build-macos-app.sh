@@ -10,6 +10,12 @@ TOOLCHAIN_ROOT="${PCL_TOOLCHAIN_ROOT:-$ROOT/.toolchain/dotnet}"
 FINAL_OUT="$ROOT/dist"
 STAGING_OUT="$ROOT/.cache/macos-staging"
 
+if [ -f "$ROOT/.build-secrets.env" ]; then
+  set -a
+  . "$ROOT/.build-secrets.env"
+  set +a
+fi
+
 case "$RID" in
   osx-arm64|osx-x64) ;;
   *) echo "unsupported RID: $RID (expected osx-arm64 or osx-x64)" >&2; exit 2 ;;
